@@ -2,20 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Base styles */
+@layer base {
+  html {
+    @apply h-full; /* Remove 'tw-' */
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    @apply min-h-full bg-white text-secondary; /* Remove 'tw-' */
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* Component styles */
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-3 rounded-lg hover:opacity-90 transition-all; /* Remove 'tw-' */
+  }
+
+  .btn-secondary {
+    @apply bg-peach-light text-secondary px-6 py-3 rounded-lg hover:opacity-90 transition-all; /* Remove 'tw-' */
+  }
+
+  .section-padding {
+    @apply px-4 md:px-8 lg:px-16 py-12 md:py-16 lg:py-20; /* Remove 'tw-' */
+  }
+
+  .heading-primary {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold; /* Remove 'tw-' */
+  }
+
+  .heading-secondary {
+    @apply text-2xl md:text-3xl lg:text-4xl font-semibold; /* Remove 'tw-' */
+  }
 }
