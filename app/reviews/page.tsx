@@ -34,7 +34,7 @@ export default function ReviewsPage() {
       avatar: "/images/students/student1.jpg",
       score: "PTE 79",
       course: "PTE 50+",
-      content: "Tôi đã đạt được mục tiêu PTE của mình sau 3 tháng học tập tại PTE LIFE. Giảng viên nhiệt tình, tài liệu phong phú và phương pháp học hiệu quả.",
+      content: "Tôi đã đạt được mục tiêu PTE của mình sau 3 tháng học tập tại PTE INTENSIVE. Giảng viên nhiệt tình, tài liệu phong phú và phương pháp học hiệu quả.",
       date: "15/12/2023"
     },
     {
@@ -43,7 +43,7 @@ export default function ReviewsPage() {
       avatar: "/images/students/student2.jpg",
       score: "PTE 65",
       course: "PTE 30-36",
-      content: "Từ một người mất gốc tiếng Anh, tôi đã đạt được điểm số mơ ước. Cảm ơn PTE LIFE đã đồng hành cùng tôi trong hành trình này.",
+      content: "Từ một người mất gốc tiếng Anh, tôi đã đạt được điểm số mơ ước. Cảm ơn PTE INTENSIVE đã đồng hành cùng tôi trong hành trình này.",
       date: "20/12/2023"
     },
     {
@@ -52,7 +52,7 @@ export default function ReviewsPage() {
       avatar: "/images/students/student3.jpg",
       score: "PTE 82",
       course: "PTE 50+",
-      content: "Phương pháp học tập tại PTE LIFE rất hiệu quả. Tôi đã cải thiện điểm số một cách nhanh chóng và đạt được mục tiêu du học của mình.",
+      content: "Phương pháp học tập tại PTE INTENSIVE rất hiệu quả. Tôi đã cải thiện điểm số một cách nhanh chóng và đạt được mục tiêu du học của mình.",
       date: "25/12/2023"
     }
   ];
@@ -138,7 +138,7 @@ export default function ReviewsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Khám phá những chia sẻ chân thực từ các học viên đã thành công cùng PTE LIFE
+            Khám phá những chia sẻ chân thực từ các học viên đã thành công cùng PTE INTENSIVE
           </motion.p>
         </div>
       </motion.div>
@@ -163,7 +163,7 @@ export default function ReviewsPage() {
               Đánh Giá Từ Học Viên
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Những phản hồi chân thực từ các học viên về trải nghiệm học tập tại PTE LIFE
+              Những phản hồi chân thực từ các học viên về trải nghiệm học tập tại PTE INTENSIVE
             </p>
           </motion.div>
 

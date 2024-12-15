@@ -38,7 +38,7 @@ export default function StudentAchievements() {
             Thành Tích Nổi Bật
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Khám phá những thành công đáng kinh ngạc của học viên PTE LIFE
+            Khám phá những thành công đáng kinh ngạc của học viên PTE INTENSIVE
           </p>
         </motion.div>
 

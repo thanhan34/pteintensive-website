@@ -50,8 +50,8 @@ export default function CommonQuestions() {
     },
     {
       id: 8,
-      question: "Tại sao nên lựa chọn PTE HELPER?",
-      answer: "PTE HELPER cung cấp phương pháp học hiệu quả, đội ngũ giảng viên giàu kinh nghiệm, và cam kết đầu ra cho học viên."
+      question: "Tại sao nên lựa chọn PTE INTENSIVE?",
+      answer: "PTE INTENSIVE cung cấp phương pháp học hiệu quả, đội ngũ giảng viên giàu kinh nghiệm, và cam kết đầu ra cho học viên."
     },
     {
       id: 9,

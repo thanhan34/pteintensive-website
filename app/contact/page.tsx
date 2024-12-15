@@ -131,7 +131,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div className="font-medium text-gray-900">Email</div>
-                  <a href="mailto:contact@ptelife.edu.vn" className="text-gray-600 hover:text-[#fc5d01]">contact@ptelife.edu.vn</a>
+                  <a href="mailto:admin@pteintensive.com" className="text-gray-600 hover:text-[#fc5d01]">admin@pteintensive.com</a>
                 </div>
               </div>
 

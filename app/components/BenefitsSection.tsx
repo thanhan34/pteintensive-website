@@ -50,7 +50,7 @@ export default function BenefitsSection() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            LUYỆN THI PTELIFE TRỰC TUYẾN VỚI
+            LUYỆN THI PTE INTENSIVE TRỰC TUYẾN VỚI
           </motion.h2>
           <motion.div 
             className="text-3xl font-bold text-[#fc5d01]"

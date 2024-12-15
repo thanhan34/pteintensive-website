@@ -51,7 +51,7 @@ export default function VideoTestimonials() {
             Video Chia Sẻ Từ Học Viên
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Lắng nghe những chia sẻ chân thực về hành trình học tập tại PTE LIFE
+            Lắng nghe những chia sẻ chân thực về hành trình học tập tại PTE INTENSIVE
           </p>
         </motion.div>
 
