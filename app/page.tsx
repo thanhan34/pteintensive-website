@@ -6,6 +6,7 @@ import ReviewSection from './components/ReviewSection';
 import TeacherSection from './components/TeacherSection';
 import ReviewCallToAction from './components/ReviewCallToAction';
 import CommonQuestions from './components/CommonQuestions';
+import ScoreComparisonTable from './components/ScoreComparisonTable';
 
 export default function HomePage() {
   return (
@@ -15,6 +16,13 @@ export default function HomePage() {
 
       {/* Benefits Section */}
       <BenefitsSection />
+
+      {/* Score Comparison Table */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto">
+          <ScoreComparisonTable />
+        </div>
+      </section>
 
       {/* Course Section */}
       <CourseSection />

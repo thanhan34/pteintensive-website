@@ -13,6 +13,7 @@ export default function Navigation() {
     { href: '/', label: 'Trang Chủ' },
     { href: '/about', label: 'Về Chúng Tôi' },
     { href: '/courses', label: 'Khóa Học' },
+    { href: '/knowledge/scoring-system', label: 'Kiến Thức' },
     { href: '/reviews', label: 'Đánh Giá' },
     { href: '/contact', label: 'Liên Hệ' }
   ];
