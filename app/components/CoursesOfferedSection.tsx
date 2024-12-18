@@ -113,7 +113,7 @@ export default function CoursesOfferedSection() {
                   <p className="text-sm font-semibold text-gray-700">KHAI GIẢNG MỖI NGÀY</p>
                   <div className="flex items-center justify-center gap-2 text-sm">
                     <span className="text-gray-700">TỔNG ĐÀI TƯ VẤN:</span>
-                    <span className="text-[#fc5d01] font-bold">0782.116.448</span>
+                    <span className="text-[#fc5d01] font-bold">0349.213.852</span>
                   </div>
                 </div>
               </div>

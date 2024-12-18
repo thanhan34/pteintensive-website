@@ -85,7 +85,7 @@ export default function CourseTargetSection() {
                   </div>
                   <div>
                     <p className="font-medium text-sm">Học ở PTE tại Intensive</p>
-                    <p className="text-xs opacity-90">bạn sẽ có "Lộ trình trình cá nhân hóa"</p>
+                    <p className="text-xs opacity-90">bạn sẽ có &quot;Lộ trình trình cá nhân hóa&quot;</p>
                   </div>
                 </div>
               </div>

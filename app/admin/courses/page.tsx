@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { courseService, CourseDetail } from '@/lib/services/courseService';
-import { useNotification } from '@/app/components/Notification';
-import ImageGallery from '@/app/components/ImageGallery';
-import LoadingSpinner from '@/app/components/LoadingSpinner';
+import { courseService, CourseDetail } from '../../../lib/services/courseService';
+import { useNotification } from '../../components/Notification';
+import ImageGallery from '../../components/ImageGallery';
+import LoadingSpinner from '../../components/LoadingSpinner';
 import { FaPlus, FaTrash, FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 
 export default function CoursesAdmin() {
@@ -27,12 +27,7 @@ export default function CoursesAdmin() {
   const [isMounted, setIsMounted] = useState(false);
   const { showNotification } = useNotification();
 
-  useEffect(() => {
-    setIsMounted(true);
-    loadCourses();
-  }, []);
-
-  const loadCourses = async () => {
+  const loadCourses = useCallback(async () => {
     try {
       const data = await courseService.getAllCourses();
       setCourses(data);
@@ -42,7 +37,12 @@ export default function CoursesAdmin() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showNotification]);
+
+  useEffect(() => {
+    setIsMounted(true);
+    loadCourses();
+  }, [loadCourses]);
 
   const generateSlug = (title: string) => {
     return title
@@ -150,7 +150,7 @@ export default function CoursesAdmin() {
         ...editFormData,
         aboutCourse: {
           ...editFormData.aboutCourse,
-          [section]: editFormData.aboutCourse[section].map((item, i) =>
+          [section]: editFormData.aboutCourse[section].map((item: string, i: number) =>
             i === index ? value : item
           )
         }
@@ -160,7 +160,7 @@ export default function CoursesAdmin() {
         ...formData,
         aboutCourse: {
           ...formData.aboutCourse,
-          [section]: formData.aboutCourse[section].map((item, i) =>
+          [section]: formData.aboutCourse[section].map((item: string, i: number) =>
             i === index ? value : item
           )
         }
@@ -198,7 +198,7 @@ export default function CoursesAdmin() {
         ...editFormData,
         aboutCourse: {
           ...editFormData.aboutCourse,
-          [section]: editFormData.aboutCourse[section].filter((_, i) => i !== index)
+          [section]: editFormData.aboutCourse[section].filter((_: string, i: number) => i !== index)
         }
       });
     } else if (!isEdit && formData.aboutCourse[section].length > 1) {
@@ -206,7 +206,7 @@ export default function CoursesAdmin() {
         ...formData,
         aboutCourse: {
           ...formData.aboutCourse,
-          [section]: formData.aboutCourse[section].filter((_, i) => i !== index)
+          [section]: formData.aboutCourse[section].filter((_: string, i: number) => i !== index)
         }
       });
     }
@@ -281,59 +281,54 @@ export default function CoursesAdmin() {
           <h2 className="text-xl font-semibold mb-4">Add New Course</h2>
           <form onSubmit={handleSubmit}>
             <div className="space-y-6">
-              {/* Basic Information */}
-              <div className="bg-gray-50 p-4 rounded-lg space-y-4">
-                <h3 className="font-medium text-gray-900">Basic Information</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Title</label>
-                    <input
-                      type="text"
-                      value={formData.title}
-                      onChange={(e) => handleTitleChange(e)}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Category</label>
-                    <input
-                      type="text"
-                      value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
-                      required
-                    />
-                  </div>
-                </div>
-
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Slug</label>
+                  <label className="block text-sm font-medium text-gray-700">Title</label>
                   <input
                     type="text"
-                    value={formData.slug}
-                    readOnly
-                    className="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 cursor-not-allowed"
+                    value={formData.title}
+                    onChange={(e) => handleTitleChange(e)}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
+                    required
                   />
-                  <p className="mt-1 text-sm text-gray-500">
-                    Automatically generated from title
-                  </p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Course Image</label>
-                  <div className="w-96 h-64"> {/* Increased size with 16:9 ratio */}
-                    <ImageGallery
-                      images={formData.image ? [{ id: '1', url: formData.image, alt: formData.title }] : []}
-                      section="courses"
-                      onAdd={(url: string) => setFormData({ ...formData, image: url })}
-                      onRemove={() => setFormData({ ...formData, image: '' })}
-                      maxImages={1}
-                      aspectRatio="video"
-                    />
-                  </div>
+                  <label className="block text-sm font-medium text-gray-700">Category</label>
+                  <input
+                    type="text"
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Slug</label>
+                <input
+                  type="text"
+                  value={formData.slug}
+                  readOnly
+                  className="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 cursor-not-allowed"
+                />
+                <p className="mt-1 text-sm text-gray-500">
+                  Automatically generated from title
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Course Image</label>
+                <div className="w-96 h-64">
+                  <ImageGallery
+                    images={formData.image ? [{ id: '1', url: formData.image, alt: formData.title }] : []}
+                    section="courses"
+                    onAdd={(url: string) => setFormData({ ...formData, image: url })}
+                    onRemove={() => setFormData({ ...formData, image: '' })}
+                    maxImages={1}
+                    aspectRatio="video"
+                  />
                 </div>
               </div>
 
@@ -363,56 +358,51 @@ export default function CoursesAdmin() {
               <div key={course.id} className="border p-6 rounded-lg">
                 {editingId === course.id && editFormData ? (
                   <div className="space-y-6">
-                    {/* Edit Basic Information */}
-                    <div className="bg-gray-50 p-4 rounded-lg space-y-4">
-                      <h3 className="font-medium text-gray-900">Basic Information</h3>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700">Title</label>
-                          <input
-                            type="text"
-                            value={editFormData.title}
-                            onChange={(e) => handleTitleChange(e, true)}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
-                            required
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700">Category</label>
-                          <input
-                            type="text"
-                            value={editFormData.category}
-                            onChange={(e) => setEditFormData({ ...editFormData, category: e.target.value })}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
-                            required
-                          />
-                        </div>
-                      </div>
-
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700">Slug</label>
+                        <label className="block text-sm font-medium text-gray-700">Title</label>
                         <input
                           type="text"
-                          value={editFormData.slug}
-                          readOnly
-                          className="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 cursor-not-allowed"
+                          value={editFormData.title}
+                          onChange={(e) => handleTitleChange(e, true)}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
+                          required
                         />
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Course Image</label>
-                        <div className="w-96 h-64"> {/* Increased size with 16:9 ratio */}
-                          <ImageGallery
-                            images={[{ id: course.id, url: editFormData.image, alt: editFormData.title }]}
-                            section="courses"
-                            onAdd={(url: string) => setEditFormData({ ...editFormData, image: url })}
-                            onRemove={() => setEditFormData({ ...editFormData, image: '' })}
-                            maxImages={1}
-                            aspectRatio="video"
-                          />
-                        </div>
+                        <label className="block text-sm font-medium text-gray-700">Category</label>
+                        <input
+                          type="text"
+                          value={editFormData.category}
+                          onChange={(e) => setEditFormData({ ...editFormData, category: e.target.value })}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Slug</label>
+                      <input
+                        type="text"
+                        value={editFormData.slug}
+                        readOnly
+                        className="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 cursor-not-allowed"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Course Image</label>
+                      <div className="w-96 h-64">
+                        <ImageGallery
+                          images={[{ id: course.id, url: editFormData.image, alt: editFormData.title }]}
+                          section="courses"
+                          onAdd={(url: string) => setEditFormData({ ...editFormData, image: url })}
+                          onRemove={() => setEditFormData({ ...editFormData, image: '' })}
+                          maxImages={1}
+                          aspectRatio="video"
+                        />
                       </div>
                     </div>
 
@@ -443,7 +433,7 @@ export default function CoursesAdmin() {
                   <div>
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex gap-6 flex-1">
-                        <div className="relative w-96 h-64 flex-shrink-0"> {/* Increased size with 16:9 ratio */}
+                        <div className="relative w-96 h-64 flex-shrink-0">
                           <ImageGallery
                             images={[{ id: course.id, url: course.image, alt: course.title }]}
                             section="courses"

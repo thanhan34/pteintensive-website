@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { teacherService, Teacher } from '@/lib/services/teacherService';
-import { useNotification } from '@/app/components/Notification';
-import ImageGallery from '@/app/components/ImageGallery';
-import LoadingSpinner from '@/app/components/LoadingSpinner';
+import { teacherService, Teacher } from '../../../lib/services/teacherService';
+import { useNotification } from '../../components/Notification';
+import ImageGallery from '../../components/ImageGallery';
+import LoadingSpinner from '../../components/LoadingSpinner';
 import { FaEdit, FaTrash, FaSave, FaTimes, FaPlus } from 'react-icons/fa';
 
 export default function TeachersAdmin() {
@@ -22,12 +22,7 @@ export default function TeachersAdmin() {
   const [isMounted, setIsMounted] = useState(false);
   const { showNotification } = useNotification();
 
-  useEffect(() => {
-    setIsMounted(true);
-    loadTeachers();
-  }, []);
-
-  const loadTeachers = async () => {
+  const loadTeachers = useCallback(async () => {
     try {
       const data = await teacherService.getAllTeachers();
       setTeachers(data);
@@ -37,8 +32,14 @@ export default function TeachersAdmin() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showNotification]);
 
+  useEffect(() => {
+    setIsMounted(true);
+    loadTeachers();
+  }, [loadTeachers]);
+
+  // Rest of the component code remains exactly the same...
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -206,7 +207,7 @@ export default function TeachersAdmin() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Image</label>
-              <div className="w-48 h-48"> {/* Increased size */}
+              <div className="w-48 h-48">
                 <ImageGallery
                   images={formData.image ? [{ id: '1', url: formData.image, alt: formData.name }] : []}
                   section="teachers"
@@ -290,7 +291,7 @@ export default function TeachersAdmin() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Image</label>
-                      <div className="w-48 h-48"> {/* Increased size */}
+                      <div className="w-48 h-48">
                         <ImageGallery
                           images={[{ id: teacher.id, url: editFormData.image, alt: editFormData.name }]}
                           section="teachers"
@@ -350,7 +351,7 @@ export default function TeachersAdmin() {
                 ) : (
                   <div className="flex justify-between items-start">
                     <div className="flex gap-6">
-                      <div className="relative w-48 h-48 flex-shrink-0"> {/* Increased size */}
+                      <div className="relative w-48 h-48 flex-shrink-0">
                         <ImageGallery
                           images={[{ id: teacher.id, url: teacher.image, alt: teacher.name }]}
                           section="teachers"

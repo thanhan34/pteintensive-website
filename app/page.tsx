@@ -7,6 +7,7 @@ import TeacherSection from './components/TeacherSection';
 import ReviewCallToAction from './components/ReviewCallToAction';
 import CommonQuestions from './components/CommonQuestions';
 import ScoreComparisonTable from './components/ScoreComparisonTable';
+import GuaranteeSection from './components/GuaranteeSection';
 
 export default function HomePage() {
   return (
@@ -23,6 +24,9 @@ export default function HomePage() {
           <ScoreComparisonTable />
         </div>
       </section>
+
+      {/* Guarantee Section */}
+      <GuaranteeSection />
 
       {/* Course Section */}
       <CourseSection />

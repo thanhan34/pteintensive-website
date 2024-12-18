@@ -6,9 +6,7 @@ import Link from 'next/link';
 import { FaUsers, FaBook, FaComments, FaSignOutAlt, FaTachometerAlt } from 'react-icons/fa';
 import { useNotification } from '../components/Notification';
 import LoadingSpinner from '../components/LoadingSpinner';
-import ConnectionStatus, { OfflineBanner } from '@/app/components/ConnectionStatus';
-
-const ADMIN_PASSWORD = 'admin123'; // In production, use proper authentication
+import ConnectionStatus, { OfflineBanner } from '../components/ConnectionStatus';
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: FaTachometerAlt },

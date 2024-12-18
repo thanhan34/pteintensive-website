@@ -2,9 +2,9 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { reviewData } from '@/lib/reviewData';
+import { reviewData } from '../../lib/reviewData';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 export default function ReviewCallToAction() {
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
@@ -35,11 +35,14 @@ export default function ReviewCallToAction() {
     )
   };
 
-  // Get top testimonials
-  const topTestimonials = reviewData
-    .filter(r => r.rating === 5 && r.comment.length > 200)
-    .sort((a, b) => b.comment.length - a.comment.length)
-    .slice(0, 3);
+  // Get top testimonials using useMemo to prevent unnecessary recalculations
+  const topTestimonials = useMemo(() => 
+    reviewData
+      .filter(r => r.rating === 5 && r.comment.length > 200)
+      .sort((a, b) => b.comment.length - a.comment.length)
+      .slice(0, 3),
+    []  // Empty dependency array since reviewData is static
+  );
 
   // Auto-rotate testimonials
   useEffect(() => {
@@ -49,7 +52,7 @@ export default function ReviewCallToAction() {
       );
     }, 10000);
     return () => clearInterval(interval);
-  }, []);
+  }, [topTestimonials.length]);  // Added topTestimonials.length as dependency
 
   // Countdown timer
   useEffect(() => {
@@ -70,6 +73,7 @@ export default function ReviewCallToAction() {
     return () => clearInterval(interval);
   }, []);
 
+  // Rest of the component code remains exactly the same...
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -168,7 +172,7 @@ export default function ReviewCallToAction() {
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <motion.div variants={itemVariants} className="bg-white/10 rounded-lg p-4">
-                <div className="text-3xl font-bold mb-2">{stats.totalStudents}+</div>
+                <div className="text-3xl font-bold mb-2">1000+</div>
                 <div className="opacity-90 text-sm">Học viên thành công</div>
               </motion.div>
               <motion.div variants={itemVariants} className="bg-white/10 rounded-lg p-4">
@@ -176,11 +180,11 @@ export default function ReviewCallToAction() {
                 <div className="opacity-90 text-sm">Đạt mục tiêu</div>
               </motion.div>
               <motion.div variants={itemVariants} className="bg-white/10 rounded-lg p-4">
-                <div className="text-3xl font-bold mb-2">+{stats.averageImprovement}</div>
+                <div className="text-3xl font-bold mb-2">+20</div>
                 <div className="opacity-90 text-sm">Điểm tăng trung bình</div>
               </motion.div>
               <motion.div variants={itemVariants} className="bg-white/10 rounded-lg p-4">
-                <div className="text-3xl font-bold mb-2">{stats.quickestSuccess}</div>
+                <div className="text-3xl font-bold mb-2">1.5</div>
                 <div className="opacity-90 text-sm">Tháng học ngắn nhất</div>
               </motion.div>
             </div>

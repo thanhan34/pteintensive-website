@@ -3,6 +3,8 @@ import { FaMicrophone } from 'react-icons/fa';
 import { MdEdit } from 'react-icons/md';
 import { IoBookSharp } from 'react-icons/io5';
 import { AiOutlineAudio } from 'react-icons/ai';
+import ScoreDistributionChart from '@/app/components/ScoreDistributionChart';
+import FocusTaskTable from '@/app/components/FocusTaskTable';
 
 const ScoringSystemPage = () => {
   const sections = [
@@ -109,6 +111,18 @@ const ScoringSystemPage = () => {
           </ul>
         </div>
       </div>
+
+      {/* Score Distribution Chart */}
+      <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">Phân Bổ Điểm Số Theo Kỹ Năng</h2>
+        <p className="text-gray-600 mb-8">
+          Tùy vào mục tiêu điểm số mong muốn, Bảng dưới đây cung cấp thông tin chi tiết về tỷ trọng đánh giá của từng phần thi trong các kỹ năng Nói, Viết, Đọc và Nghe, giúp học viên có cái nhìn tổng quan và xác định được phần nào trọng tâm cần ưu tiên luyện tập để đạt được điểm số mong muốn:
+        </p>
+        <ScoreDistributionChart />
+      </div>
+
+      {/* Focus Task Table */}
+      <FocusTaskTable />
 
       {/* Score Breakdown Table */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">

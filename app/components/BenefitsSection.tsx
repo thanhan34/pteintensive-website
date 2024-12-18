@@ -65,7 +65,7 @@ export default function BenefitsSection() {
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={staggerContainer}
         >
-          {benefits.map((benefit, index) => (
+          {benefits.map((benefit) => (
             <motion.div 
               key={benefit.id}
               variants={fadeIn}

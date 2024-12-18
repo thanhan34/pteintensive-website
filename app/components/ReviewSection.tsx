@@ -6,6 +6,24 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { reviewData } from '@/lib/reviewData';
 
+interface Review {
+  id: string;
+  name: string;
+  course: string;
+  rating: number;
+  comment: string;
+  studentImage: string;
+  scoreImage: string;
+  score?: string;
+  date?: string;
+  platform?: string;
+  achievement?: string;
+  beforeScore?: string;
+  afterScore?: string;
+  studyDuration?: string;
+  facebookLink: string;
+}
+
 export default function ReviewSection() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -53,7 +71,7 @@ export default function ReviewSection() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {reviewData.map((review, index) => {
+          {reviewData.map((review: Review) => {
             const isSelected = selectedId === review.id;
 
             return (
@@ -86,9 +104,8 @@ export default function ReviewSection() {
                     <div className={`${isSelected ? 'max-w-3xl mx-auto w-full' : ''}`}>
                       <h3 className="text-2xl font-bold mb-2">{review.name}</h3>
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="text-[#fc5d01] font-semibold">{review.score}</div>
-                        <span className="text-white/50">•</span>
-                        <div className="text-white/90">{review.course}</div>
+                        {review.score && <div className="text-[#fc5d01] font-semibold">{review.score}</div>}
+                        <div className="text-[#fc5d01]/90">{review.course}</div>
                       </div>
 
                       {/* Rating Stars */}
@@ -105,12 +122,13 @@ export default function ReviewSection() {
                         ))}
                       </div>
 
-                      <p className={`text-white/80 ${isSelected ? 'line-clamp-3' : 'line-clamp-2'} mb-4 text-sm`}>
+                      {/* Preview Comment with line breaks */}
+                      <div className={`text-white/80 ${isSelected ? 'line-clamp-3' : 'line-clamp-2'} mb-4 text-sm whitespace-pre-line`}>
                         {review.comment}
-                      </p>
+                      </div>
 
                       <div className="flex items-center justify-between text-sm">
-                        <div className="text-white/60">{review.date}</div>
+                        {review.date && <div className="text-white/60">{review.date}</div>}
                         {review.studyDuration && (
                           <div className="text-white/60 flex items-center gap-1">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -167,8 +185,8 @@ export default function ReviewSection() {
 
                         {/* Full Comment */}
                         <div className="prose prose-lg max-w-none">
-                          {review.comment.split('\n').map((paragraph, index) => (
-                            <p key={index} className="text-gray-600 mb-4 leading-relaxed">{paragraph}</p>
+                          {review.comment.split('\n').map((paragraph: string, index: number) => (
+                            <p key={index} className="text-gray-600 mb-4 leading-relaxed whitespace-pre-line">{paragraph}</p>
                           ))}
                         </div>
 

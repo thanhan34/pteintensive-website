@@ -2,9 +2,16 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { reviewData } from '@/lib/reviewData';
+import { reviewData } from '../../lib/reviewData';
 import Image from 'next/image';
-import Link from 'next/link';
+
+interface Review {
+  score?: string;
+  comment: string;
+  studentImage?: string;
+  name: string;
+  course: string;
+}
 
 interface Video {
   id: string;
@@ -29,10 +36,10 @@ export default function VideoTestimonials() {
 
   // Get top reviews and categorize them
   const topReviews = reviewData
-    .filter(review => review.score && review.comment.length > 200 && review.studentImage)
+    .filter((review: Review) => review.score && review.comment.length > 200 && review.studentImage)
     .slice(0, 6);
 
-  const videos: Video[] = topReviews.map((review, index) => {
+  const videos: Video[] = topReviews.map((review: Review, index: number) => {
     const score = parseInt(review.score?.split(' ')[0] || '0');
     let category = 'other';
     if (score >= 79) category = 'expert';
@@ -40,7 +47,7 @@ export default function VideoTestimonials() {
     
     return {
       id: `video${index + 1}`,
-      thumbnail: review.studentImage || '/images/placeholder.jpg', // Fallback image
+      thumbnail: review.studentImage || '/images/placeholder.jpg',
       title: `Hành trình chinh phục ${review.score || 'PTE'}`,
       student: {
         name: review.name,
@@ -55,6 +62,7 @@ export default function VideoTestimonials() {
     };
   });
 
+  // Rest of the component code remains exactly the same...
   const categories = [
     { id: 'all', name: 'Tất Cả' },
     { id: 'expert', name: 'PTE 79+' },
@@ -80,7 +88,7 @@ export default function VideoTestimonials() {
   };
 
   if (videos.length === 0) {
-    return null; // Don't render the section if there are no valid videos
+    return null;
   }
 
   return (

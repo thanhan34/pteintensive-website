@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { courseData, type Course, type CourseSlug } from '../../lib/courseData';
+import { courseData } from '../../lib/courseData';
 
 export default function CoursesPage() {
   const containerVariants = {

@@ -36,7 +36,7 @@ export default function AdminLogin() {
       } else {
         showNotification('error', 'Invalid password');
       }
-    } catch (error) {
+    } catch {
       showNotification('error', 'An error occurred');
     } finally {
       setIsLoading(false);

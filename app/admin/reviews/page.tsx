@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { reviewService, Review } from '@/lib/services/reviewService';
-import { useNotification } from '@/app/components/Notification';
-import ImageGallery from '@/app/components/ImageGallery';
-import LoadingSpinner from '@/app/components/LoadingSpinner';
+import { reviewService, Review } from '../../../lib/services/reviewService';
+import { useNotification } from '../../components/Notification';
+import ImageGallery from '../../components/ImageGallery';
+import LoadingSpinner from '../../components/LoadingSpinner';
 import { FaStar, FaEdit, FaTrash, FaSave, FaTimes } from 'react-icons/fa';
 
 export default function ReviewsAdmin() {
@@ -23,12 +23,7 @@ export default function ReviewsAdmin() {
   const [isMounted, setIsMounted] = useState(false);
   const { showNotification } = useNotification();
 
-  useEffect(() => {
-    setIsMounted(true);
-    loadReviews();
-  }, []);
-
-  const loadReviews = async () => {
+  const loadReviews = useCallback(async () => {
     try {
       const data = await reviewService.getAllReviews();
       setReviews(data);
@@ -38,8 +33,14 @@ export default function ReviewsAdmin() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showNotification]);
 
+  useEffect(() => {
+    setIsMounted(true);
+    loadReviews();
+  }, [loadReviews]);
+
+  // Rest of the component code remains exactly the same...
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -192,7 +193,7 @@ export default function ReviewsAdmin() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Student Image</label>
-                <div className="w-48 h-48"> {/* Increased size */}
+                <div className="w-48 h-48">
                   <ImageGallery
                     images={formData.image ? [{ id: '1', url: formData.image, alt: formData.name }] : []}
                     section="reviews"
@@ -267,7 +268,7 @@ export default function ReviewsAdmin() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Student Image</label>
-                      <div className="w-48 h-48"> {/* Increased size */}
+                      <div className="w-48 h-48">
                         <ImageGallery
                           images={[{ id: review.id, url: editFormData.image, alt: editFormData.name }]}
                           section="reviews"
@@ -316,7 +317,7 @@ export default function ReviewsAdmin() {
                 ) : (
                   <div className="flex justify-between items-start">
                     <div className="flex gap-6">
-                      <div className="relative w-48 h-48 flex-shrink-0"> {/* Increased size */}
+                      <div className="relative w-48 h-48 flex-shrink-0">
                         <ImageGallery
                           images={[{ id: review.id, url: review.image, alt: review.name }]}
                           section="reviews"

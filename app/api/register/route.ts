@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { db } from '../../../lib/firebase';
 
 export async function POST(request: Request) {
   try {

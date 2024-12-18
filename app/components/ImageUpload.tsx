@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Image from 'next/image';
-import { useImageUpload } from '@/lib/hooks/useImageUpload';
+import { useImageUpload } from '../../lib/hooks/useImageUpload';
 
 interface ImageUploadProps {
   onUpload: (url: string) => void;
@@ -22,7 +22,7 @@ export default function ImageUpload({
   
   const { uploadImage, isUploading, progress, error } = useImageUpload({
     section,
-    onSuccess: (url) => {
+    onSuccess: (url: string) => {
       onUpload(url);
     }
   });
@@ -47,7 +47,7 @@ export default function ImageUpload({
 
       // Cleanup
       URL.revokeObjectURL(objectUrl);
-    } catch (error) {
+    } catch {
       // Reset preview if there was an error
       setPreviewUrl(currentImage || '');
     }

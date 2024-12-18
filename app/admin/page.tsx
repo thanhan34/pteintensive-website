@@ -97,7 +97,7 @@ export default function AdminDashboard() {
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900">Welcome to Admin Dashboard</h1>
             <p className="mt-1 text-sm text-gray-500">
-              Manage your content and keep track of your site's performance
+              Manage your content and keep track of your site&apos;s performance
             </p>
           </div>
 
@@ -194,7 +194,7 @@ export default function AdminDashboard() {
                       </p>
                     </div>
                     <span className="absolute top-6 right-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
-                      →
+                      &rarr;
                     </span>
                   </Link>
                 );

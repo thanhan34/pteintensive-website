@@ -48,6 +48,7 @@ export const cloudinaryService = {
     }
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async deleteImage(publicId: string): Promise<void> {
     // Note: Image deletion requires authentication and should be done through your backend
     console.warn('Image deletion through Cloudinary requires backend implementation');
