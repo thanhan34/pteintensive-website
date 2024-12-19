@@ -53,7 +53,7 @@ export const teacherData: Teacher[] = [
       'Kinh nghiệm luyện thi đa dạng',
       'Nhiệt tình và tâm huyết với nghề'
     ],
-    image: '/images/trainers/PhuongTuyet.png'
+    image: '/images/trainers/PhuongTuyet.jpg'
   },
   {
     id: '5',

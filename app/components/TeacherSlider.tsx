@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { TeacherCard } from "./TeacherSection";
+import TeacherCard from "./TeacherCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Teacher } from "../../lib/services/teacherService";
 

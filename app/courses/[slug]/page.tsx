@@ -3,14 +3,12 @@ import { notFound } from 'next/navigation';
 import { courseData, type CourseSlug } from '../../../lib/courseData';
 import CourseContent from './CourseContent';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const slug = params.slug as CourseSlug;
+// Generate metadata for SEO
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug as CourseSlug;
   const course = courseData[slug];
-  
+
   if (!course) {
     return {
       title: 'Course Not Found | PTE LIFE',
@@ -24,16 +22,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function CourseDetailPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const slug = params.slug as CourseSlug;
+// Dynamic route page component
+export default async function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug as CourseSlug;
   const course = courseData[slug];
 
   if (!course) {
-    notFound();
+    notFound(); // Show 404 page
   }
 
   return (
@@ -43,6 +39,7 @@ export default async function CourseDetailPage({
   );
 }
 
+// Generate static paths for dynamic slugs
 export async function generateStaticParams() {
   return Object.keys(courseData).map((slug) => ({
     slug,
