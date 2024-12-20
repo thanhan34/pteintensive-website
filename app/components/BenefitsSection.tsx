@@ -33,7 +33,7 @@ export default function BenefitsSection() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-[#fedac2]/10">
+    <section className="py-32 bg-gradient-to-b from-white to-[#fedac2]/10">
       <motion.div 
         className="max-w-7xl mx-auto px-4"
         variants={staggerContainer}
@@ -42,22 +42,22 @@ export default function BenefitsSection() {
         viewport={{ once: true, margin: "-100px" }}
       >
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-20 px-4 space-y-6"
           variants={fadeIn}
         >
           <motion.h2 
-            className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#fc5d01] to-[#fd7f33] inline-block mb-4"
+            className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#fc5d01] to-[#fd7f33] inline-block mb-6 mt-6 px-4 leading-relaxed"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            LUYỆN THI PTE INTENSIVE TRỰC TUYẾN VỚI
+            LỢI ÍCH VƯỢT TRỘI CỦA PTE INTENSIVE
           </motion.h2>
           <motion.div 
-            className="text-3xl font-bold text-[#fc5d01]"
+            className="text-3xl font-bold text-[#fc5d01] px-4 leading-relaxed"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            #5_LỢI ÍCH KHÔNG THỂ CHỐI TỪ
+            CAM KẾT ĐEM ĐẾN CHO HỌC VIÊN
           </motion.div>
         </motion.div>
         
@@ -84,7 +84,7 @@ export default function BenefitsSection() {
               />
               <div className="absolute inset-[1px] bg-white rounded-2xl -z-5" />
 
-              <div className="relative p-8">
+              <div className="relative p-8 pt-12">
                 {/* Number Badge */}
                 <motion.div 
                   className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-r from-[#fc5d01] to-[#fd7f33] rounded-full flex items-center justify-center text-white font-bold"
@@ -97,13 +97,13 @@ export default function BenefitsSection() {
                 {/* Content */}
                 <div>
                   <motion.h3 
-                    className="text-xl font-bold text-gray-900 mb-2"
+                  className="text-xl font-bold text-gray-900 mb-4"
                     variants={fadeIn}
                   >
                     {benefit.title}
                   </motion.h3>
                   <motion.p 
-                    className="text-gray-600"
+                    className="text-gray-600 leading-relaxed"
                     variants={fadeIn}
                   >
                     {benefit.subtitle}

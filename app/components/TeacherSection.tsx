@@ -54,7 +54,7 @@ export default function TeacherSection() {
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
             Đội Ngũ Giáo Viên
-            <span className="text-[#fc5d01]"> Tận Tâm - Tầm Huyết</span>
+            <span className="text-[#fc5d01]"> Tận Tâm - Tâm Huyết</span>
           </h2>
           <p className="text-gray-600 max-w-3xl mx-auto text-lg">
             Là những giáo viên giỏi kiến thức và giỏi truyền đạt. Rất tận tâm với học viên, 
@@ -63,7 +63,7 @@ export default function TeacherSection() {
         </motion.div>
 
         {/* Teacher Showcase */}
-        <div className="relative h-[600px] max-w-6xl mx-auto">
+        <div className="relative h-[700px] max-w-6xl mx-auto">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={activeIndex}
@@ -89,7 +89,7 @@ export default function TeacherSection() {
               }}
               className="absolute w-full"
             >
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="grid md:grid-cols-2 gap-12 items-start">
                 {/* Image */}
                 <motion.div 
                   className="relative h-[500px] rounded-3xl overflow-hidden shadow-xl"
@@ -106,7 +106,7 @@ export default function TeacherSection() {
                 </motion.div>
 
                 {/* Content */}
-                <div className="space-y-8">
+                <div className="space-y-6">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -115,9 +115,29 @@ export default function TeacherSection() {
                     <h3 className="text-4xl font-bold text-gray-900 mb-3">
                       {teacherData[activeIndex].name}
                     </h3>
-                    <p className="text-xl text-[#fc5d01] font-medium mb-6">
+                    <p className="text-xl text-[#fc5d01] font-medium mb-2">
+                      {teacherData[activeIndex].position}
+                    </p>
+                    <p className="text-lg text-gray-600 mb-2">
                       {teacherData[activeIndex].experience}
                     </p>
+                    <p className="text-lg text-gray-600 mb-4">                      
+                      {teacherData[activeIndex].location}
+                    </p>
+
+                    {/* Qualifications */}
+                    {teacherData[activeIndex].qualifications.length > 0 && (
+                      <div className="mb-6">
+                        <h4 className="text-lg font-semibold text-gray-900 mb-2">Bằng cấp</h4>
+                        <ul className="list-disc list-inside space-y-1">
+                          {teacherData[activeIndex].qualifications.map((qual, idx) => (
+                            <li key={idx} className="text-gray-700">{qual}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Achievements */}
                     <div className="space-y-4">
                       {teacherData[activeIndex].achievements.map((achievement, idx) => (
                         <motion.div
@@ -146,6 +166,18 @@ export default function TeacherSection() {
                         </motion.div>
                       ))}
                     </div>
+
+                    {/* Quotes */}
+                    {teacherData[activeIndex].quotes.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                        className="mt-8 text-gray-600 italic"
+                      >
+                        "{teacherData[activeIndex].quotes[0]}"
+                      </motion.div>
+                    )}
                   </motion.div>
                 </div>
               </div>

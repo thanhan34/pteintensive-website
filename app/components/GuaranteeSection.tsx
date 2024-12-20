@@ -37,13 +37,13 @@ export default function GuaranteeSection() {
   }
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#fedac2]/20 via-white to-white">
+    <section className="py-32 bg-gradient-to-b from-[#fedac2]/20 via-white to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#fc5d01] to-[#fd7f33] inline-block">
+        <div className="text-center space-y-6 mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#fc5d01] to-[#fd7f33] inline-block px-4">
             LUYỆN THI ĐẠT CHỨNG CHỈ TIẾNG ANH PTE
           </h2>
-          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-600 text-lg max-w-3xl mx-auto px-4">
             Chương trình đào tạo chuyên sâu với cam kết đầu ra rõ ràng
           </p>
         </div>

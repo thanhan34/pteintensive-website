@@ -22,7 +22,7 @@ export default function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-2 space-y-8">
             <div className="flex items-center space-x-4">
-              <div className="relative w-16 h-16">
+              <div className="relative w-36 h-36">
                 <Image
                   src="/images/logo/white-logo.png"
                   alt="PTE Intensive Logo"

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import TeacherCard from "./TeacherCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { Teacher } from "../../lib/services/teacherService";
+import { Teacher } from "@/lib/teacherData";
 
 interface TeacherSliderProps {
   teachers: Teacher[];

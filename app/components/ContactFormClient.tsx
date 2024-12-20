@@ -19,12 +19,34 @@ export default function ContactFormClient() {
     e.preventDefault();
     setIsLoading(true);
     setError('');
+    setSuccess(false);
 
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const formData = new FormData(e.currentTarget);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        message: formData.get('message'),
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send message');
+      }
+
       setSuccess(true);
-      e.currentTarget.reset();
+      const form = e.target as HTMLFormElement;
+      form.reset();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
     } finally {

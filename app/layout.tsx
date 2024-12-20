@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import Navigation from './components/Navigation';
+import Footer from './components/Footer';
 import Providers from './providers';
+import { Suspense } from 'react';
+import MessengerChatWrapper from './components/MessengerChatWrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -68,11 +70,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi">
+      <head />
       <body className={inter.className}>
         <Providers>
           <Navigation />
           {children}
           <Footer />
+          <Suspense>
+            <MessengerChatWrapper />
+          </Suspense>
         </Providers>
       </body>
     </html>

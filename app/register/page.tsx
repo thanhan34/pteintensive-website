@@ -1,6 +1,5 @@
 "use client";
 
-import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, useScroll, useSpring, Variants } from 'framer-motion';
 import Image from 'next/image';
@@ -13,13 +12,10 @@ import RegistrationSteps from '../components/RegistrationSteps';
 import FAQSection from '../components/FAQSection';
 import GroupPricingPolicy from '../components/GroupPricingPolicy';
 import TrainingPolicy from '../components/TrainingPolicy';
+import RegisterFormClient from '../components/RegisterFormClient';
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
-
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -43,47 +39,6 @@ export default function RegisterPage() {
       opacity: 1,
       y: 0,
       transition: { duration: 0.5 }
-    }
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError('');
-
-    try {
-      const formData = new FormData(e.currentTarget);
-      const data = {
-        name: formData.get('name'),
-        phone: formData.get('phone'),
-        email: formData.get('email'),
-        course: formData.get('course'),
-        message: formData.get('message'),
-      };
-
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Registration failed');
-      }
-
-      setSuccess(true);
-      e.currentTarget.reset();
-      
-      setTimeout(() => {
-        router.push('/');
-      }, 2000);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -186,114 +141,13 @@ export default function RegisterPage() {
               ))}
             </motion.div>
 
-            {/* Right Column - Form */}
-            <motion.div 
-              className="relative"
-              variants={itemVariants}
-            >
-              <motion.div 
-                className="bg-white rounded-2xl shadow-xl p-8"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      Họ và tên
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#fc5d01] focus:border-[#fc5d01]"
-                      placeholder="Nhập họ và tên của bạn"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                      Số điện thoại
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      id="phone"
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#fc5d01] focus:border-[#fc5d01]"
-                      placeholder="Nhập số điện thoại của bạn"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#fc5d01] focus:border-[#fc5d01]"
-                      placeholder="Nhập địa chỉ email của bạn"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="course" className="block text-sm font-medium text-gray-700 mb-1">
-                      Khóa học quan tâm
-                    </label>
-                    <select
-                      name="course"
-                      id="course"
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#fc5d01] focus:border-[#fc5d01]"
-                    >
-                      <option value="">Chọn khóa học</option>
-                      <option value="pre-pte">Khóa Học PRE-PTE</option>
-                      <option value="pte-30-36">Khóa Học PTE 30-36</option>
-                      <option value="pte-50">Khóa Học PTE 50+</option>
-                      <option value="pte-1-1">Khóa Học PTE 1 kèm 1</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                      Tin nhắn (không bắt buộc)
-                    </label>
-                    <textarea
-                      name="message"
-                      id="message"
-                      rows={3}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#fc5d01] focus:border-[#fc5d01]"
-                      placeholder="Nhập tin nhắn của bạn"
-                    />
-                  </div>
-
-                  {error && (
-                    <div className="text-red-500 text-sm">
-                      {error}
-                    </div>
-                  )}
-
-                  {success && (
-                    <div className="text-green-500 text-sm">
-                      Đăng ký thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.
-                    </div>
-                  )}
-
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className={`w-full px-6 py-3 bg-[#fc5d01] text-white rounded-lg hover:bg-[#fd7f33] transition-colors ${
-                      isLoading ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
-                  >
-                    {isLoading ? 'Đang xử lý...' : 'Đăng Ký Ngay'}
-                  </button>
-                </form>
-              </motion.div>
-            </motion.div>
+          {/* Right Column - Form */}
+          <motion.div 
+            className="relative"
+            variants={itemVariants}
+          >
+            <RegisterFormClient />
+          </motion.div>
           </motion.div>
         </div>
       </motion.div>

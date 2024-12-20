@@ -1,42 +1,59 @@
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { Teacher } from '@/lib/teacherData';
+import { db } from '@/lib/initFirebase';
+import { collection, getDocs, doc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 
-export interface Teacher {
-  id: string;
-  name: string;
-  image: string;
-  experience: string;
-  achievements: string[];
-}
-
-const COLLECTION_NAME = 'teachers';
+export type { Teacher };
 
 export const teacherService = {
-  // Get all teachers
-  async getAllTeachers(): Promise<Teacher[]> {
-    const teachersCol = collection(db, COLLECTION_NAME);
-    const teacherSnapshot = await getDocs(teachersCol);
-    return teacherSnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as Teacher));
+  getAllTeachers: async (): Promise<Teacher[]> => {
+    try {
+      const teachersRef = collection(db, 'teachers');
+      const snapshot = await getDocs(teachersRef);
+      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Teacher));
+    } catch (error) {
+      console.error('Error getting teachers:', error);
+      throw error;
+    }
   },
 
-  // Add a new teacher
-  async addTeacher(teacher: Omit<Teacher, 'id'>): Promise<string> {
-    const docRef = await addDoc(collection(db, COLLECTION_NAME), teacher);
-    return docRef.id;
+  addTeacher: async (teacherData: Omit<Teacher, 'id'>): Promise<void> => {
+    try {
+      const teachersRef = collection(db, 'teachers');
+      const newTeacherRef = doc(teachersRef);
+      await setDoc(newTeacherRef, {
+        ...teacherData,
+        qualifications: teacherData.qualifications || [],
+        position: teacherData.position || '',
+        specialization: teacherData.specialization || '',
+        currentWork: teacherData.currentWork || '',
+        location: teacherData.location || '',
+        hobbies: teacherData.hobbies || '',
+        quotes: teacherData.quotes || [],
+        achievements: teacherData.achievements || []
+      });
+    } catch (error) {
+      console.error('Error adding teacher:', error);
+      throw error;
+    }
   },
 
-  // Update a teacher
-  async updateTeacher(id: string, teacher: Partial<Teacher>): Promise<void> {
-    const teacherRef = doc(db, COLLECTION_NAME, id);
-    await updateDoc(teacherRef, teacher);
+  updateTeacher: async (id: string, teacherData: Partial<Teacher>): Promise<void> => {
+    try {
+      const teacherRef = doc(db, 'teachers', id);
+      await updateDoc(teacherRef, teacherData);
+    } catch (error) {
+      console.error('Error updating teacher:', error);
+      throw error;
+    }
   },
 
-  // Delete a teacher
-  async deleteTeacher(id: string): Promise<void> {
-    const teacherRef = doc(db, COLLECTION_NAME, id);
-    await deleteDoc(teacherRef);
+  deleteTeacher: async (id: string): Promise<void> => {
+    try {
+      const teacherRef = doc(db, 'teachers', id);
+      await deleteDoc(teacherRef);
+    } catch (error) {
+      console.error('Error deleting teacher:', error);
+      throw error;
+    }
   }
 };
