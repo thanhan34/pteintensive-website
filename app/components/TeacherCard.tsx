@@ -102,7 +102,7 @@ export default function TeacherCard({ teacher }: TeacherCardProps) {
           <div className="border-t pt-4">
             <div className="space-y-2">
               {teacher.quotes.map((quote, idx) => (
-                <p key={idx} className="text-sm italic text-gray-600">"{quote}"</p>
+                <p key={idx} className="text-sm italic text-gray-600">&quot;{quote}&quot;</p>
               ))}
             </div>
           </div>

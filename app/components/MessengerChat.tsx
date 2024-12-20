@@ -5,7 +5,9 @@ import { useEffect } from 'react';
 declare global {
   interface Window {
     fbAsyncInit?: () => void;
-    FB: any;
+    FB: {
+      init: (config: { xfbml: boolean; version: string }) => void;
+    };
   }
 }
 

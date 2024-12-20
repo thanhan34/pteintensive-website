@@ -175,7 +175,7 @@ export default function TeacherSection() {
                         transition={{ delay: 0.6 }}
                         className="mt-8 text-gray-600 italic"
                       >
-                        "{teacherData[activeIndex].quotes[0]}"
+                        &quot;{teacherData[activeIndex].quotes[0]}&quot;
                       </motion.div>
                     )}
                   </motion.div>

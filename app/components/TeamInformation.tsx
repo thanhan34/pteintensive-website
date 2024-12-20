@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { teacherData } from '@/lib/teacherData';
+import { teacherData } from '../../lib/teacherData';
 
 export default function TeamInformation() {
   const [selectedTeacher, setSelectedTeacher] = useState<number | null>(null);
@@ -114,7 +114,7 @@ export default function TeamInformation() {
                     <div className="mt-6 pt-4 border-t">
                       <div className="space-y-2">
                         {teacherData[selectedTeacher].quotes.map((quote, idx) => (
-                          <p key={idx} className="text-sm italic text-gray-600">"{quote}"</p>
+                          <p key={idx} className="text-sm italic text-gray-600">&quot;{quote}&quot;</p>
                         ))}
                       </div>
                     </div>
