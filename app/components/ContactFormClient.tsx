@@ -2,7 +2,6 @@
 
 import { FormEvent, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import Image from 'next/image';
 
 export default function ContactFormClient() {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,11 +9,11 @@ export default function ContactFormClient() {
   const [success, setSuccess] = useState(false);
 
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  // const scaleX = useSpring(scrollYProgress, {
+  //   stiffness: 100,
+  //   damping: 30,
+  //   restDelta: 0.001
+  // });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
