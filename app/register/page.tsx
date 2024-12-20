@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
+
 import { motion, useScroll, useSpring, Variants } from 'framer-motion';
 import Image from 'next/image';
 import BenefitsSection from '../components/BenefitsSection';
@@ -15,7 +15,7 @@ import TrainingPolicy from '../components/TrainingPolicy';
 import RegisterFormClient from '../components/RegisterFormClient';
 
 export default function RegisterPage() {
-  const router = useRouter();
+  
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
