@@ -84,8 +84,10 @@ export default function Footer() {
               {[
                 { href: "/", label: "Trang Chủ" },
                 { href: "/about", label: "Về Chúng Tôi" },
-                { href: "/study", label: "Du Học và Định Cư" },
-                { href: "/contact", label: "Liên Lạc" }
+                { href: "/knowledge/scoring-system", label: "Kiến Thức" },
+                { href: "/contact", label: "Liên Lạc" },
+                { href: "/register", label: "Đăng Ký" }
+
               ].map((link, index) => (
                 <li key={index}>
                   <Link 
@@ -122,8 +124,8 @@ export default function Footer() {
                     </svg>
                   </div>
                   <div className="text-gray-300">
-                    <p>Vietnam: 0349213852</p>
-                    <p>Australia: 0450669092</p>
+                    <p>Vietnam: +84349213852</p>
+                    <p>Australia: +61450669092</p>
                   </div>
                 </div>
               </li>
@@ -135,7 +137,7 @@ export default function Footer() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                     </svg>
                   </div>
-                  <span className="text-gray-300">123 Nguyễn Văn Linh, Đà Nẵng</span>
+                  <span className="text-gray-300">48 Derwent Place, Riverhills</span>
                 </div>
               </li>
             </ul>

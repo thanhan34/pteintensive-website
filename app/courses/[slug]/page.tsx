@@ -11,14 +11,37 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!course) {
     return {
-      title: 'Course Not Found | PTE LIFE',
+      title: 'Course Not Found | PTE Intensive',
       description: 'The requested course could not be found.',
     };
   }
 
   return {
-    title: `${course.title} | PTE LIFE`,
+    title: `${course.title} | PTE Intensive`,
     description: course.description,
+    alternates: {
+      canonical: `https://pteintensive.com/courses/${slug}`
+    },
+    openGraph: {
+      title: course.title,
+      description: course.description,
+      url: `https://pteintensive.com/courses/${slug}`,
+      type: 'website',
+      images: [
+        {
+          url: course.image,
+          width: 1200,
+          height: 630,
+          alt: `${course.title} - PTE Intensive`
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: course.title,
+      description: course.description,
+      images: [course.image]
+    }
   };
 }
 
@@ -32,8 +55,32 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
     notFound(); // Show 404 page
   }
 
+  const courseSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name: course.title,
+    description: course.description,
+    provider: {
+      '@type': 'Organization',
+      name: 'PTE Intensive',
+      sameAs: 'https://pteintensive.com'
+    },
+    educationalLevel: 'PTE Academic Preparation',
+    courseCode: slug,
+    hasCourseInstance: {
+      '@type': 'CourseInstance',
+      courseMode: 'mixed',
+      duration: course.duration,
+      maximumEnrollment: course.classSize
+    }
+  };
+
   return (
     <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+      />
       <CourseContent course={course} />
     </main>
   );

@@ -28,7 +28,7 @@ export default function ContactInfo() {
             </div>
             <div className="ml-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-1">Địa Chỉ</h3>
-              <p className="text-gray-600">123 Đường ABC, Quận XYZ, TP.HCM</p>
+              <p className="text-gray-600">48 Derwent Place, Riverhills, 4074, Queensland, Australia.</p>
             </div>
           </div>
   

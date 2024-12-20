@@ -51,7 +51,7 @@ export default function TeamInformation() {
       name: "Phương Tuyết",
       role: "Senior Instructor",
       expertise: "Speaking Skills Expert",
-      image: "/images/trainers/PhuongTuyet.png",
+      image: "/images/trainers/PhuongTuyet.jpg",
       achievements: [
         "Specialized in pronunciation training",
         "Speaking skills enhancement expert",

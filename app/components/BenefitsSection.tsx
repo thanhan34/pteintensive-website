@@ -18,12 +18,12 @@ export default function BenefitsSection() {
     {
       id: 3,
       title: "Hỗ Trợ 1 - 1 Sau Mỗi Buổi Học",
-      subtitle: "Giải Đáp - Học Tập - Luyện Đề, Chữa Đề"
+      subtitle: "Giải Đáp - Học Tập - Luyện Đề, Chữa Đề. Kỹ Năng Cải Thiện Nhanh Chóng"
     },
     {
       id: 4,
-      title: "Tặng APEuni - Tài Khoản Học",
-      subtitle: "Luyện Đề Có Độ Chính Xác Đến 99,5%"
+      title: "Thực hành trên APEuni",
+      subtitle: "Luyện Đề Có Độ Chính Xác Đến 99,5%. Tủ Cập Nhật Thường Xuyên"
     },
     {
       id: 5,

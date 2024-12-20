@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaUsers, FaClock, FaVideo, FaBook } from 'react-icons/fa';
 import { type Course } from '../../../lib/courseData';
 
 interface CourseDetailClientProps {
@@ -170,8 +171,118 @@ export default function CourseDetailClient({ course }: CourseDetailClientProps) 
         </div>
       </section>
 
-      {/* Rest of the component remains the same */}
-      {/* ... */}
+      {/* Course Details Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid md:grid-cols-2 gap-12"
+          >
+            {/* Target Students */}
+            <motion.div variants={itemVariants} className="bg-white p-8 rounded-xl shadow-lg">
+              <h2 className="text-2xl font-bold mb-6 text-[#fc5d01]">Đối tượng học viên</h2>
+              <ul className="space-y-4">
+                {course.targetStudents?.map((target, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-[#fc5d01] flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>{target}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Course Information */}
+            <motion.div variants={itemVariants} className="bg-white p-8 rounded-xl shadow-lg">
+              <h2 className="text-2xl font-bold mb-6 text-[#fc5d01]">Thông tin khóa học</h2>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <FaClock className="w-6 h-6 text-[#fc5d01]" />
+                  <div>
+                    <span className="font-semibold">Thời lượng:</span>
+                    <p>{course.duration}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FaVideo className="w-6 h-6 text-[#fc5d01]" />
+                  <div>
+                    <span className="font-semibold">Hình thức:</span>
+                    <p>{course.format}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FaUsers className="w-6 h-6 text-[#fc5d01]" />
+                  <div>
+                    <span className="font-semibold">Số lượng học viên:</span>
+                    <p>{course.classSize}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FaBook className="w-6 h-6 text-[#fc5d01]" />
+                  <div>
+                    <span className="font-semibold">Tài liệu học tập:</span>
+                    <p>{course.materials}</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Course Content */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="mt-12"
+          >
+            <h2 className="text-2xl font-bold mb-8 text-center text-[#fc5d01]">Nội dung khóa học</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {course.phases?.map((phase, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="bg-white p-6 rounded-xl shadow-lg"
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-full bg-[#fc5d01] text-white flex items-center justify-center font-bold">
+                      {index + 1}
+                    </div>
+                    <h3 className="font-semibold">Giai đoạn {index + 1}</h3>
+                  </div>
+                  <p className="text-gray-600">{phase}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Course Benefits */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="mt-12 bg-white p-8 rounded-xl shadow-lg"
+          >
+            <h2 className="text-2xl font-bold mb-6 text-[#fc5d01]">Ưu đãi đặc biệt của khóa học</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {course.benefits?.map((benefit, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="flex items-start gap-3"
+                >
+                  <svg className="w-6 h-6 text-[#fc5d01] flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>{benefit}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </>
   );
 }
