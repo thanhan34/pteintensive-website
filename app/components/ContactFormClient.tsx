@@ -1,14 +1,14 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 
 export default function ContactFormClient() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const { scrollYProgress } = useScroll();
+  // const { scrollYProgress } = useScroll();
   // const scaleX = useSpring(scrollYProgress, {
   //   stiffness: 100,
   //   damping: 30,
