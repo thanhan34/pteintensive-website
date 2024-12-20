@@ -1,7 +1,7 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
-import { motion, useScroll } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export default function ContactFormClient() {
   const [isLoading, setIsLoading] = useState(false);
