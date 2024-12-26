@@ -6,6 +6,7 @@ import { useScrollToTop } from '../../lib/hooks/useScrollToTop';
 import ReviewStatsSection from '../components/ReviewStatsSection';
 import StudentAchievements from '../components/StudentAchievements';
 import ReviewSection from '../components/ReviewSection';
+import ReviewImageGallery from '../components/ReviewImageGallery';
 import ReviewCallToAction from '../components/ReviewCallToAction';
 
 export default function ReviewsPage() {
@@ -110,6 +111,9 @@ export default function ReviewsPage() {
 
         {/* Reviews Grid */}
         <ReviewSection />
+
+        {/* Review Images */}
+        <ReviewImageGallery />
 
         {/* Call to Action */}
         <ReviewCallToAction />

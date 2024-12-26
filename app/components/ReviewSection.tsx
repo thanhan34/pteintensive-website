@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { reviewData } from '@/lib/reviewData';
+import { reviewData } from '../../lib/reviewData';
 
 interface Review {
   id: string;
@@ -47,7 +47,7 @@ export default function ReviewSection() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-[#fedac2]/10 to-white">
+    <section className="py-20 bg-gradient-to-b from-[#fedac2]/10 to-white relative">
       <div className="max-w-7xl mx-auto px-4">
         <motion.div 
           className="text-center mb-16"
@@ -84,7 +84,7 @@ export default function ReviewSection() {
                   layoutId={`card-container-${review.id}`}
                   className={`relative ${isSelected ? 'h-[500px]' : 'h-[400px]'} rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 ${
                     selectedId ? 'hover:transform-none' : 'hover:-translate-y-2'
-                  }`}
+                  } group`}
                   onClick={() => setSelectedId(selectedId === review.id ? null : review.id)}
                 >
                   {/* Background Image */}
@@ -96,20 +96,27 @@ export default function ReviewSection() {
                       className={`object-cover transition-transform duration-500 ${isSelected ? 'object-center' : 'object-top'}`}
                       priority={true}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent group-hover:via-black/60 transition-all duration-300" />
                   </motion.div>
 
                   {/* Content */}
-                  <motion.div layoutId={`card-content-${review.id}`} className="absolute inset-0 p-6 flex flex-col justify-end text-white">
+                  <motion.div 
+                    layoutId={`card-content-${review.id}`} 
+                    className="absolute inset-0 p-6 flex flex-col justify-end text-white transform group-hover:scale-[1.02] transition-transform duration-300"
+                  >
                     <div className={`${isSelected ? 'max-w-3xl mx-auto w-full' : ''}`}>
-                      <h3 className="text-2xl font-bold mb-2">{review.name}</h3>
-                      <div className="flex items-center gap-2 mb-3">
+                      <motion.h3 
+                        className="text-2xl font-bold mb-2 transform group-hover:translate-y-[-4px] transition-transform duration-300"
+                      >
+                        {review.name}
+                      </motion.h3>
+                      <div className="flex items-center gap-2 mb-3 transform group-hover:translate-y-[-2px] transition-transform duration-300">
                         {review.score && <div className="text-[#fc5d01] font-semibold">{review.score}</div>}
                         <div className="text-[#fc5d01]/90">{review.course}</div>
                       </div>
 
                       {/* Rating Stars */}
-                      <div className="flex mb-3">
+                      <div className="flex mb-3 transform group-hover:scale-110 transition-transform duration-300 origin-left">
                         {[...Array(5)].map((_, i) => (
                           <svg
                             key={i}
@@ -123,14 +130,21 @@ export default function ReviewSection() {
                       </div>
 
                       {/* Preview Comment with line breaks */}
-                      <div className={`text-white/80 ${isSelected ? 'line-clamp-3' : 'line-clamp-2'} mb-4 text-sm whitespace-pre-line`}>
+                      <div className={`text-white/90 ${isSelected ? 'line-clamp-3' : 'line-clamp-2'} mb-4 text-sm whitespace-pre-line leading-relaxed transform group-hover:translate-y-[-1px] transition-all duration-300`}>
                         {review.comment}
                       </div>
 
-                      <div className="flex items-center justify-between text-sm">
-                        {review.date && <div className="text-white/60">{review.date}</div>}
+                      <div className="flex items-center justify-between text-sm transform group-hover:translate-y-[-1px] transition-transform duration-300">
+                        {review.date && (
+                          <div className="text-white/80 flex items-center gap-1">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            {review.date}
+                          </div>
+                        )}
                         {review.studyDuration && (
-                          <div className="text-white/60 flex items-center gap-1">
+                          <div className="text-white/80 flex items-center gap-1">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
