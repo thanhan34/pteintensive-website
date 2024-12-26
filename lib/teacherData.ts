@@ -189,5 +189,27 @@ export const teacherData: Teacher[] = [
       'Kinh nghiệm đào tạo chuyên sâu',
       'Tận tâm hướng dẫn học viên'
     ]
+  },
+  {
+    id: '9',
+    name: 'Nguyễn Vũ Hoàng Dung',
+    image: '/images/trainers/DungNguyen.jpg',
+    qualifications: [
+      "Bachelor of Marketing (ĐH Swinburne, Úc)",
+      "Master of Accounting (ĐH Kaplan, Úc)"
+    ],
+    position: "Trainer",
+    experience: "Từ 2024",
+    specialization: "1-1 Coaching (Speaking and Listening)",
+    currentWork: "PTE Trainer, Accountant",
+    location: "TP. Hồ Chí Minh",
+    hobbies: "Watching TV Shows",
+    quotes: ["Chúng ta phải thay đổi bản thân trước thì mới có thể thay đổi cuộc sống của mình."],
+    achievements: [
+      'Chuyên gia về kỹ năng Speaking và Listening PTE',
+      'Phương pháp giảng dạy hiệu quả',
+      'Kinh nghiệm đào tạo chuyên sâu',
+      'Tận tâm hướng dẫn học viên'
+    ]
   }
 ];
