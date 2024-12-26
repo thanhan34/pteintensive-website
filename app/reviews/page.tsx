@@ -53,7 +53,7 @@ export default function ReviewsPage() {
         <div className="absolute top-1/4 -left-20 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
 
-        <div className="max-w-7xl mx-auto px-4 text-center relative">
+        <div className="max-w-7xl mx-auto px-4 text-center relative py-10">
           <motion.div
             className="flex justify-center mb-12"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -62,7 +62,7 @@ export default function ReviewsPage() {
           >
             <div className="relative w-48 h-36">
               <Image
-                src="/images/logo/white-logo.png"
+                src="/images/logo/orange-logo.png"
                 alt="PTE Intensive Logo"
                 fill
                 className="object-contain drop-shadow-lg"

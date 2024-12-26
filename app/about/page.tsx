@@ -93,7 +93,7 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
           >
             <FounderMessage />
-            <CoFounderMessage />
+            {/* <CoFounderMessage /> */}
           </motion.div>
         </div>
       </div>

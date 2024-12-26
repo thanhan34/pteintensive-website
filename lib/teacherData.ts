@@ -36,31 +36,31 @@ export const teacherData: Teacher[] = [
       'Tận tâm với từng học viên'
     ]
   },
-  {
-    id: '2',
-    name: 'Trần Thị Bạch Yến',
-    image: '/images/trainers/bach yen.jpg',
-    qualifications: [
-      "Thạc sỹ Kinh doanh quốc tế (ĐH Monash, Úc)",
-      "Tiến sỹ ngành Marketing (Đại học Charles Darwin)"
-    ],
-    position: "Trainer",
-    experience: "Từ 2019",
-    specialization: "1-1 Coaching",
-    currentWork: "Giảng viên Đại học Cần Thơ (từ 2009 - nay), Student advisor tại Charles Darwin University",
-    location: "Darwin, Northern Territory",
-    hobbies: "Tư vấn du học miễn phí",
-    quotes: [
-      "Không một hành động tử tế nào, dù nhỏ đến đâu, lại bị lãng phí – Aesop",
-      "Đừng sợ kết thúc, hãy sợ việc không bắt đầu. – Buddha"
-    ],
-    achievements: [
-      'Giảng viên cao cấp với hơn 4 năm kinh nghiệm',
-      'Chuyên gia về Speaking và Writing',
-      'Phương pháp giảng dạy sinh động và dễ hiểu',
-      'Luôn đồng hành cùng học viên đến thành công'
-    ]
-  },
+  // {
+  //   id: '2',
+  //   name: 'Trần Thị Bạch Yến',
+  //   image: '/images/trainers/bach yen.jpg',
+  //   qualifications: [
+  //     "Thạc sỹ Kinh doanh quốc tế (ĐH Monash, Úc)",
+  //     "Tiến sỹ ngành Marketing (Đại học Charles Darwin)"
+  //   ],
+  //   position: "Trainer",
+  //   experience: "Từ 2019",
+  //   specialization: "1-1 Coaching",
+  //   currentWork: "Giảng viên Đại học Cần Thơ (từ 2009 - nay), Student advisor tại Charles Darwin University",
+  //   location: "Darwin, Northern Territory",
+  //   hobbies: "Tư vấn du học miễn phí",
+  //   quotes: [
+  //     "Không một hành động tử tế nào, dù nhỏ đến đâu, lại bị lãng phí – Aesop",
+  //     "Đừng sợ kết thúc, hãy sợ việc không bắt đầu. – Buddha"
+  //   ],
+  //   achievements: [
+  //     'Giảng viên cao cấp với hơn 4 năm kinh nghiệm',
+  //     'Chuyên gia về Speaking và Writing',
+  //     'Phương pháp giảng dạy sinh động và dễ hiểu',
+  //     'Luôn đồng hành cùng học viên đến thành công'
+  //   ]
+  // },
   {
     id: '3',
     name: 'Phạm Bích Diệp',
