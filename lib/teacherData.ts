@@ -64,7 +64,7 @@ export const teacherData: Teacher[] = [
   {
     id: '3',
     name: 'Phạm Bích Diệp',
-    image: '/images/trainers/BichDiep.png',
+    image: '/images/trainers/BichDiep.jpg',
     qualifications: ["English language studies in Banking Academy of Vietnam"],
     position: "Trainer - Tutor",
     experience: "Từ tháng 8/2022",

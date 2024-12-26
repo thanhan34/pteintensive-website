@@ -44,16 +44,23 @@ function NotificationContent({ type, message, onClose }: NotificationProps) {
 
 export function Notification({ type, message, duration = 5000, onClose }: NotificationProps) {
   const [isMounted, setIsMounted] = useState(false);
+  const [portalRoot, setPortalRoot] = useState<Element | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
+    // Only set portal root when on client side
+    if (typeof window !== 'undefined') {
+      setPortalRoot(document.body);
+    }
+
     if (duration > 0) {
       const timer = setTimeout(onClose, duration);
       return () => clearTimeout(timer);
     }
   }, [duration, onClose]);
 
-  if (!isMounted) {
+  // Don't render anything on server or before mount
+  if (!isMounted || !portalRoot) {
     return null;
   }
 
@@ -63,7 +70,7 @@ export function Notification({ type, message, duration = 5000, onClose }: Notifi
       message={message}
       onClose={onClose}
     />,
-    document.body
+    portalRoot
   );
 }
 

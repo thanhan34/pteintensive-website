@@ -2,12 +2,14 @@
 
 import { motion, useScroll, useSpring } from 'framer-motion';
 import Image from 'next/image';
+import { useScrollToTop } from '../../lib/hooks/useScrollToTop';
 import ReviewStatsSection from '../components/ReviewStatsSection';
 import StudentAchievements from '../components/StudentAchievements';
 import ReviewSection from '../components/ReviewSection';
 import ReviewCallToAction from '../components/ReviewCallToAction';
 
 export default function ReviewsPage() {
+  const scrollToTop = useScrollToTop();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -120,7 +122,7 @@ export default function ReviewsPage() {
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onClick={scrollToTop}
       >
         <div className="absolute inset-0 rounded-full bg-black opacity-0 group-hover:opacity-10 transition-opacity" />
         <svg 

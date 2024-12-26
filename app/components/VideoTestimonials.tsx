@@ -210,7 +210,12 @@ export default function VideoTestimonials() {
                     className="text-[#fc5d01] hover:text-[#fd7f33] transition-colors"
                     onClick={(e) => {
                       e.stopPropagation();
-                      navigator.clipboard.writeText(window.location.href);
+                      if (typeof window !== 'undefined' && navigator.clipboard) {
+                        navigator.clipboard.writeText(window.location.href)
+                          .catch(err => {
+                            console.error('Failed to copy URL:', err);
+                          });
+                      }
                     }}
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

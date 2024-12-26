@@ -3,6 +3,7 @@
 
 import { motion, useScroll, useSpring, Variants } from 'framer-motion';
 import Image from 'next/image';
+import { useScrollToTop } from '../../lib/hooks/useScrollToTop';
 import BenefitsSection from '../components/BenefitsSection';
 import GuaranteeSection from '../components/GuaranteeSection';
 import CoursesOfferedSection from '../components/CoursesOfferedSection';
@@ -15,7 +16,7 @@ import TrainingPolicy from '../components/TrainingPolicy';
 import RegisterFormClient from '../components/RegisterFormClient';
 
 export default function RegisterPage() {
-  
+  const scrollToTop = useScrollToTop();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -202,7 +203,7 @@ export default function RegisterPage() {
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onClick={scrollToTop}
       >
         <svg 
           className="w-6 h-6" 

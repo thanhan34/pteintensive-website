@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export default function CourseSchedule() {
-  const [activeWeek, setActiveWeek] = useState(3); // Default to week 3 as shown in image
+  const [activeWeek, setActiveWeek] = useState(1);
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.toLocaleString('vi-VN', { month: 'long' });
@@ -26,6 +26,12 @@ export default function CourseSchedule() {
   };
 
   const tuesdays = getTuesdays();
+
+  useEffect(() => {
+    // Get current week of the month (1-4)
+    const currentWeek = Math.ceil(currentDate.getDate() / 7);
+    setActiveWeek(Math.min(currentWeek, 4)); // Ensure week doesn't exceed 4
+  }, []);
 
   const getStartDate = (weekIndex: number) => {
     if (weekIndex < tuesdays.length) {
@@ -81,46 +87,46 @@ export default function CourseSchedule() {
           </p>
         </motion.div>
 
-        {/* Week Tabs */}
-        <div className="flex mb-8">
-          {[1, 2, 3, 4].map((week) => (
-            <button
-              key={week}
-              onClick={() => setActiveWeek(week)}
-              className={`flex-1 py-3 text-lg font-medium transition-colors
-                ${activeWeek === week 
-                  ? 'bg-[#fc5d01] text-white' 
-                  : 'bg-[#F3F4F6] text-gray-600 hover:bg-gray-200'}`}
-            >
-              Tuần {week}
-            </button>
-          ))}
-        </div>
+        <div className="overflow-hidden rounded">
+          {/* Week Tabs */}
+          <div className="grid grid-cols-4 bg-gray-100">
+            {[1, 2, 3, 4].map((week) => (
+              <button
+                key={week}
+                onClick={() => setActiveWeek(week)}
+                className={`py-4 text-lg font-medium transition-colors border-r last:border-r-0 border-gray-200
+                  ${activeWeek === week 
+                    ? 'bg-[#fc5d01] text-white border-b-0' 
+                    : 'bg-gray-100 text-gray-500 border-b border-gray-200'}`}
+              >
+                Tuần {week}
+              </button>
+            ))}
+          </div>
 
-        {/* Course Details Table */}
-        <div className="overflow-x-auto">
+          {/* Course Details Table */}
           <table className="w-full border-collapse">
             <thead>
               <tr>
-                <th className="border border-[#fc5d01] bg-[#fc5d01] text-white p-4 text-left">KHÓA HỌC</th>
-                <th className="border border-[#fc5d01] bg-[#fc5d01] text-white p-4 text-left">Mục tiêu đầu ra</th>
-                <th className="border border-[#fc5d01] bg-[#fc5d01] text-white p-4 text-left">Lịch học</th>
-                <th className="border border-[#fc5d01] bg-[#fc5d01] text-white p-4 text-left">Ngày khai giảng</th>
+                <th className="bg-[#fc5d01] text-white p-6 text-left font-medium border-r border-white/20 last:border-r-0">Khóa học</th>
+                <th className="bg-[#fc5d01] text-white p-6 text-left font-medium border-r border-white/20 last:border-r-0">Mục tiêu đầu ra</th>
+                <th className="bg-[#fc5d01] text-white p-6 text-left font-medium border-r border-white/20 last:border-r-0">Lịch học</th>
+                <th className="bg-[#fc5d01] text-white p-6 text-left font-medium border-r border-white/20 last:border-r-0">Ngày khai giảng</th>
               </tr>
             </thead>
             <tbody>
               {courses.map((course, index) => (
-                <tr key={index} className="hover:bg-orange-50">
-                  <td className="border border-[#FFE5D9] p-4 font-medium text-[#fc5d01]">
+                <tr key={index}>
+                  <td className="p-6 border-b border-gray-200 text-[#fc5d01] font-medium bg-white">
                     {course.name}
                   </td>
-                  <td className="border border-[#FFE5D9] p-4">
+                  <td className="p-6 border-b border-gray-200 bg-white">
                     {course.target}
                   </td>
-                  <td className="border border-[#FFE5D9] p-4">
+                  <td className="p-6 border-b border-gray-200 bg-white">
                     {course.schedule}
                   </td>
-                  <td className="border border-[#FFE5D9] p-4">
+                  <td className="p-6 border-b border-gray-200 bg-white">
                     {course.startDate}
                   </td>
                 </tr>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Component, ErrorInfo, ReactNode } from 'react';
+import { reloadPage } from '../../lib/utils/browserUtils';
 
 interface Props {
   children: ReactNode;
@@ -47,7 +48,7 @@ export default class ErrorBoundary extends Component<Props, State> {
                 </div>
               </div>
               <button
-                onClick={() => window.location.reload()}
+                onClick={reloadPage}
                 className="tw-bg-red-600 tw-text-white tw-px-4 tw-py-2 tw-rounded hover:tw-bg-red-700 tw-transition-colors"
               >
                 Reload Page
