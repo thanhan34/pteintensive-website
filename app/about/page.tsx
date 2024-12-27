@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import CompanyIntro from '../components/CompanyIntro';
 import FounderMessage from '../components/FounderMessage';
-import CoFounderMessage from '../components/CoFounderMessage';
+// import CoFounderMessage from '../components/CoFounderMessage';
 import MissionValues from '../components/MissionValues';
 import TeachingMethodology from '../components/TeachingMethodology';
 import TeamInformation from '../components/TeamInformation';
