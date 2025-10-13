@@ -31,7 +31,7 @@ export interface Post {
     canonical?: string;
     robots?: "index,follow" | "noindex,nofollow";
   };
-  schemaOrg?: any; // JSON-LD object
+  schemaOrg?: Record<string, unknown>; // JSON-LD object
   readingMinutes?: number;
   views?: number;
   revision?: number;
@@ -65,7 +65,7 @@ export interface Page {
     canonical?: string;
     robots?: "index,follow" | "noindex,nofollow";
   };
-  schemaOrg?: any;
+  schemaOrg?: Record<string, unknown>;
   readingMinutes?: number;
   views?: number;
   revision?: number;
@@ -135,7 +135,7 @@ export interface User {
 
 export interface Settings {
   id: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface GeneralSettings extends Settings {
@@ -291,7 +291,7 @@ export interface PaginatedResponse<T> {
   };
 }
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: string;

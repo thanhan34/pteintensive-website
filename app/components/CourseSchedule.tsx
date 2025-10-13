@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 export default function CourseSchedule() {
   const [activeWeek, setActiveWeek] = useState(1);
-  const currentDate = new Date();
+  const currentDate = useMemo(() => new Date(), []);
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.toLocaleString('vi-VN', { month: 'long' });
 
@@ -31,7 +31,7 @@ export default function CourseSchedule() {
     // Get current week of the month (1-4)
     const currentWeek = Math.ceil(currentDate.getDate() / 7);
     setActiveWeek(Math.min(currentWeek, 4)); // Ensure week doesn't exceed 4
-  }, []);
+  }, [currentDate]);
 
   const getStartDate = (weekIndex: number) => {
     if (weekIndex < tuesdays.length) {

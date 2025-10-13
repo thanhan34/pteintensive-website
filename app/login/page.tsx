@@ -33,8 +33,8 @@ export default function LoginPage() {
     try {
       await signIn(email, password);
       router.push('/admin');
-    } catch (error: any) {
-      setError(error.message || 'Đăng nhập thất bại');
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'Đăng nhập thất bại');
     } finally {
       setIsLoading(false);
     }
@@ -47,8 +47,8 @@ export default function LoginPage() {
     try {
       await signInWithGoogle();
       router.push('/admin');
-    } catch (error: any) {
-      setError(error.message || 'Đăng nhập với Google thất bại');
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'Đăng nhập với Google thất bại');
     } finally {
       setIsLoading(false);
     }

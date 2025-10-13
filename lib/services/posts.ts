@@ -3,7 +3,6 @@ import {
   doc,
   getDoc,
   getDocs,
-  addDoc,
   updateDoc,
   deleteDoc,
   setDoc,
@@ -21,9 +20,31 @@ import {
 import { db } from '@/lib/initFirebase';
 import { Post, PostFormData, PostQuery, PaginatedResponse, PostStatus } from '@/lib/types/blog';
 import { slugify, generateUniqueSlug } from '@/lib/utils/slugify';
-import { calculateReadingTime, generateExcerpt } from '@/lib/mdx/config';
 
 const POSTS_COLLECTION = 'posts';
+
+// Helper function to calculate reading time
+function calculateReadingTime(content: string): number {
+  const wordsPerMinute = 200;
+  const words = content.trim().split(/\s+/).length;
+  return Math.ceil(words / wordsPerMinute);
+}
+
+// Helper function to generate excerpt from content
+function generateExcerpt(content: string, maxLength: number = 160): string {
+  const plainText = content
+    .replace(/#{1,6}\s/g, '') // Remove markdown headers
+    .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1') // Remove markdown links
+    .replace(/[*_~`]/g, '') // Remove markdown formatting
+    .replace(/\n+/g, ' ') // Replace newlines with spaces
+    .trim();
+  
+  if (plainText.length <= maxLength) {
+    return plainText;
+  }
+  
+  return plainText.substring(0, maxLength).trim() + '...';
+}
 
 export class PostsService {
   // Get all posts with pagination and filtering
@@ -99,7 +120,6 @@ export class PostsService {
     }
 
     const hasNext = snapshot.docs.length > limitCount;
-    const newLastDoc = snapshot.docs[limitCount - 1];
 
     return {
       data: filteredPosts,
@@ -164,7 +184,7 @@ export class PostsService {
     // Generate excerpt if not provided
     const excerpt = postData.excerpt || generateExcerpt(postData.content);
 
-    const post: any = {
+    const post: Record<string, unknown> = {
       title: postData.title,
       slug,
       excerpt,
@@ -208,7 +228,7 @@ export class PostsService {
     }
     
     if (authorPhotoURL) {
-      post.author.photoURL = authorPhotoURL;
+      (post.author as { uid: string; displayName: string; photoURL?: string }).photoURL = authorPhotoURL;
     }
     
     if (postData.seo) {
@@ -217,7 +237,7 @@ export class PostsService {
 
     // Use slug as document ID
     const docRef = doc(db, POSTS_COLLECTION, slug);
-    await setDoc(docRef, post as any);
+    await setDoc(docRef, post);
 
     return slug;
   }
@@ -225,8 +245,7 @@ export class PostsService {
   // Update existing post
   static async updatePost(
     slug: string,
-    postData: Partial<PostFormData>,
-    authorUid: string
+    postData: Partial<PostFormData>
   ): Promise<void> {
     const docRef = doc(db, POSTS_COLLECTION, slug);
     const currentPost = await this.getPostBySlug(slug);
@@ -235,8 +254,8 @@ export class PostsService {
       throw new Error('Post not found');
     }
 
-    const updates: Partial<Post> = {
-      updatedAt: serverTimestamp() as Timestamp,
+    const updates: Record<string, unknown> = {
+      updatedAt: serverTimestamp(),
       revision: (currentPost.revision || 0) + 1,
     };
 
@@ -277,7 +296,7 @@ export class PostsService {
       if (postData.status === 'published' && currentPost.status !== 'published') {
         updates.publishedAt = postData.publishedAt 
           ? Timestamp.fromDate(postData.publishedAt)
-          : serverTimestamp() as Timestamp;
+          : serverTimestamp();
       }
     }
 
@@ -311,7 +330,7 @@ export class PostsService {
           prevSlugs: [...(currentPost.prevSlugs || []), slug],
         };
         
-        await setDoc(newDocRef, newPost as any);
+        await setDoc(newDocRef, newPost);
         
         // Delete old document
         await deleteDoc(docRef);
@@ -320,7 +339,7 @@ export class PostsService {
       }
     }
 
-    await updateDoc(docRef, updates as any);
+    await updateDoc(docRef, updates);
   }
 
   // Delete post

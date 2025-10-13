@@ -2,8 +2,6 @@
 
 import { useState } from 'react';
 import { useAuth } from '@/lib/auth/context';
-import { doc, updateDoc, setDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '@/lib/initFirebase';
 import { Button } from '../../components/ui/button';
 
 export default function SetupAdminPage() {
@@ -113,7 +111,7 @@ export default function SetupAdminPage() {
               <h3 className="font-semibold">Hướng dẫn:</h3>
               <ol className="list-decimal list-inside space-y-1 mt-2">
                 <li>Đăng nhập bằng tài khoản {TARGET_EMAIL}</li>
-                <li>Click "Set Admin Role"</li>
+                <li>Click &quot;Set Admin Role&quot;</li>
                 <li>Sau khi thành công, truy cập <a href="/admin" className="text-blue-600 underline">/admin</a></li>
               </ol>
             </div>

@@ -57,18 +57,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return userDoc.data() as User;
       } else {
         // Create default user profile if doesn't exist
-        const defaultProfile: User = {
+        const defaultProfile = {
           uid: firebaseUser.uid,
           email: firebaseUser.email!,
           displayName: firebaseUser.displayName || '',
           photoURL: firebaseUser.photoURL || undefined,
-          roles: ['subscriber'], // Default role
-          createdAt: serverTimestamp() as any,
-          updatedAt: serverTimestamp() as any,
+          roles: ['subscriber'] as UserRole[], // Default role
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
         };
         
         await setDoc(doc(db, 'users', firebaseUser.uid), defaultProfile);
-        return defaultProfile;
+        // Re-fetch to get the actual timestamp
+        const updatedDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+        return updatedDoc.data() as User;
       }
     } catch (error) {
       console.error('Error fetching user profile:', error);
@@ -127,14 +129,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
       await updateProfile(newUser, { displayName });
       
       // Create user profile in Firestore
-      const userProfile: User = {
+      const userProfile = {
         uid: newUser.uid,
         email: newUser.email!,
         displayName,
         photoURL: newUser.photoURL || undefined,
-        roles: ['subscriber'],
-        createdAt: serverTimestamp() as any,
-        updatedAt: serverTimestamp() as any,
+        roles: ['subscriber'] as UserRole[],
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
       };
       
       await setDoc(doc(db, 'users', newUser.uid), userProfile);

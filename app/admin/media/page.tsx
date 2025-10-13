@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { AuthGuard } from '@/lib/auth/guards';
 import { Button } from '../../../components/ui/button';
 import Link from 'next/link';
@@ -167,11 +168,12 @@ export default function MediaLibraryPage() {
                       {/* File Preview */}
                       <div className="flex flex-col items-center">
                         {file.type === 'image' ? (
-                          <div className="w-full aspect-square bg-gray-100 rounded-lg mb-2 overflow-hidden">
-                            <img
+                          <div className="w-full aspect-square bg-gray-100 rounded-lg mb-2 overflow-hidden relative">
+                            <Image
                               src={file.url}
                               alt={file.name}
-                              className="w-full h-full object-cover"
+                              fill
+                              className="object-cover"
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
                                 target.style.display = 'none';

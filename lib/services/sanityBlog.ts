@@ -13,50 +13,6 @@ import {
 import { groq } from 'next-sanity'
 
 // GROQ queries
-const postQuery = groq`
-  *[_type == "post"] {
-    _id,
-    _type,
-    _createdAt,
-    _updatedAt,
-    title,
-    slug,
-    excerpt,
-    content,
-    coverImage {
-      asset,
-      alt
-    },
-    tags,
-    category-> {
-      _id,
-      _type,
-      name,
-      slug,
-      description,
-      color
-    },
-    author-> {
-      _id,
-      _type,
-      name,
-      slug,
-      image {
-        asset,
-        alt
-      },
-      bio,
-      email,
-      social
-    },
-    publishedAt,
-    status,
-    featured,
-    readingTime,
-    seo
-  }
-`
-
 const categoryQuery = groq`
   *[_type == "category"] {
     _id,

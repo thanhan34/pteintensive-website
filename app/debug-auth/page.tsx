@@ -39,8 +39,8 @@ export default function DebugAuthPage() {
             <li>Nếu chưa đăng nhập, hãy đi tới <a href="/login" className="text-blue-600 underline">/login</a></li>
             <li>Sau khi đăng nhập, copy UID từ trên</li>
             <li>Vào Firebase Console → Firestore Database</li>
-            <li>Tìm collection "users" → document với UID của bạn</li>
-            <li>Thêm field "roles" với value: ["admin"]</li>
+            <li>Tìm collection &quot;users&quot; → document với UID của bạn</li>
+            <li>Thêm field &quot;roles&quot; với value: [&quot;admin&quot;]</li>
             <li>Sau đó refresh trang này và thử vào <a href="/admin" className="text-blue-600 underline">/admin</a></li>
           </ol>
         </div>

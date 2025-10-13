@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AuthGuard } from '@/lib/auth/guards';
 import { Button } from '../../../components/ui/button';
 import Link from 'next/link';
