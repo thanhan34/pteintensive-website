@@ -14,6 +14,7 @@ export default function Navigation() {
     { href: '/about', label: 'Về Chúng Tôi' },
     { href: '/courses', label: 'Khóa Học' },
     { href: '/knowledge/scoring-system', label: 'Kiến Thức' },
+    { href: '/blog', label: 'Blog' },
     { href: '/reviews', label: 'Đánh Giá' },
     { href: '/contact', label: 'Liên Hệ' }
   ];

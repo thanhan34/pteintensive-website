@@ -1,0 +1,78 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper function to check user roles
+    function hasRole(role) {
+      return request.auth != null && 
+             role in firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.roles;
+    }
+    
+    function isAdmin() {
+      return hasRole("admin");
+    }
+    
+    function isEditor() {
+      return hasRole("editor") || isAdmin();
+    }
+    
+    function isAuthor() {
+      return hasRole("author") || isEditor();
+    }
+
+    // Public assets (logos, favicons, etc.)
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Blog post cover images
+    match /covers/{postSlug}/{fileName} {
+      allow read: if true;
+      allow write: if isAuthor() && 
+                   resource == null && // Only allow creation, not overwrite
+                   request.resource.size < 5 * 1024 * 1024 && // Max 5MB
+                   request.resource.contentType.matches('image/.*');
+      allow delete: if isEditor();
+    }
+
+    // Media library uploads
+    match /media/{year}/{month}/{fileName} {
+      allow read: if true;
+      allow write: if isAuthor() && 
+                   request.resource.size < 10 * 1024 * 1024 && // Max 10MB
+                   (request.resource.contentType.matches('image/.*') ||
+                    request.resource.contentType.matches('video/.*') ||
+                    request.resource.contentType.matches('audio/.*') ||
+                    request.resource.contentType == 'application/pdf');
+      allow delete: if isEditor();
+    }
+
+    // User avatars
+    match /avatars/{userId}/{fileName} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                   request.auth.uid == userId &&
+                   request.resource.size < 2 * 1024 * 1024 && // Max 2MB
+                   request.resource.contentType.matches('image/.*');
+      allow delete: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Temporary uploads (for processing)
+    match /temp/{userId}/{fileName} {
+      allow read, write: if request.auth != null && 
+                         request.auth.uid == userId &&
+                         request.resource.size < 20 * 1024 * 1024; // Max 20MB
+      // Auto-delete after 24 hours (handled by Cloud Function)
+    }
+
+    // Backup files (admin only)
+    match /backups/{fileName} {
+      allow read, write: if isAdmin();
+    }
+
+    // Deny all other paths
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

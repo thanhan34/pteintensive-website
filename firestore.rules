@@ -1,0 +1,163 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function getUserData(uid) {
+      return get(/databases/$(database)/documents/users/$(uid)).data;
+    }
+    
+    function hasRole(role) {
+      return isSignedIn() && role in getUserData(request.auth.uid).roles;
+    }
+    
+    function isAdmin() {
+      return hasRole("admin");
+    }
+    
+    function isEditor() {
+      return hasRole("editor") || isAdmin();
+    }
+    
+    function isAuthor() {
+      return hasRole("author") || isEditor();
+    }
+    
+    function isContributor() {
+      return hasRole("contributor") || isAuthor();
+    }
+    
+    function isOwner(authorUid) {
+      return isSignedIn() && request.auth.uid == authorUid;
+    }
+
+    // Posts collection
+    match /posts/{slug} {
+      // Public can read published posts
+      allow read: if resource.data.status == "published" 
+                  || (isSignedIn() && (
+                    isEditor() 
+                    || isOwner(resource.data.author.uid)
+                  ));
+      
+      // Authors can create posts
+      allow create: if isAuthor() 
+                    && request.auth.uid == request.resource.data.author.uid
+                    && request.resource.data.status in ["draft", "pending", "published", "private"];
+      
+      // Authors can update their own posts, editors can update any
+      allow update: if isEditor() 
+                    || (isAuthor() && isOwner(resource.data.author.uid));
+      
+      // Only editors and admins can delete posts
+      allow delete: if isEditor();
+    }
+
+    // Pages collection
+    match /pages/{slug} {
+      // Anyone can read pages
+      allow read: if true;
+      
+      // Only editors and admins can manage pages
+      allow write: if isEditor();
+    }
+
+    // Revisions collection
+    match /revisions/{id} {
+      // Authors and above can read revisions
+      allow read: if isAuthor();
+      
+      // Authors and above can create revisions
+      allow create: if isAuthor() && request.auth.uid == request.resource.data.authorUid;
+      
+      // Only editors can update/delete revisions
+      allow update, delete: if isEditor();
+    }
+
+    // Taxonomies collection (categories, tags, series)
+    match /taxonomies/{id} {
+      // Anyone can read taxonomies
+      allow read: if true;
+      
+      // Only editors and admins can manage taxonomies
+      allow write: if isEditor();
+    }
+
+    // Users collection
+    match /users/{uid} {
+      // Users can read their own profile, admins can read all
+      allow read: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      
+      // Users can create/update their own profile (except roles)
+      allow create: if isSignedIn() 
+                    && request.auth.uid == uid
+                    && request.resource.data.uid == uid
+                    && request.resource.data.email == request.auth.token.email;
+      
+      allow update: if isSignedIn() 
+                    && request.auth.uid == uid
+                    && request.resource.data.uid == uid
+                    && (
+                      // Users can update their own data except roles
+                      (!("roles" in request.resource.data.diff(resource.data).affectedKeys()))
+                      // Only admins can update roles
+                      || isAdmin()
+                    );
+      
+      // Users cannot delete their profiles
+      allow delete: if false;
+    }
+
+    // Comments collection
+    match /comments/{id} {
+      // Anyone can read approved comments
+      allow read: if resource.data.status == "approved" || isEditor();
+      
+      // Anyone can create comments (with moderation)
+      allow create: if true && request.resource.data.status == "pending";
+      
+      // Only editors can moderate comments
+      allow update, delete: if isEditor();
+    }
+
+    // Settings collection
+    match /settings/{id} {
+      // Anyone can read settings
+      allow read: if true;
+      
+      // Only admins can update settings
+      allow write: if isAdmin();
+    }
+
+    // Media metadata collection (optional)
+    match /media/{id} {
+      // Anyone can read media metadata
+      allow read: if true;
+      
+      // Authors and above can create media metadata
+      allow create: if isAuthor();
+      
+      // Editors can manage all media, authors can manage their own
+      allow update, delete: if isEditor() 
+                            || (isAuthor() && isOwner(resource.data.authorUid));
+    }
+
+    // Analytics/logs collection (optional)
+    match /logs/{id} {
+      // Only admins can read logs
+      allow read: if isAdmin();
+      
+      // System can write logs (server-side only)
+      allow write: if false;
+    }
+
+    // Locks collection (for concurrent editing)
+    match /locks/{id} {
+      // Authors can read/write locks
+      allow read, write: if isAuthor();
+    }
+  }
+}
