@@ -254,7 +254,7 @@ export class PostsService {
       throw new Error('Post not found');
     }
 
-    const updates: Record<string, unknown> = {
+    const updates: Record<string, string | number | boolean | object | undefined> = {
       updatedAt: serverTimestamp(),
       revision: (currentPost.revision || 0) + 1,
     };
