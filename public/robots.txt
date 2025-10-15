@@ -1,0 +1,46 @@
+# robots.txt for PTE Intensive
+# https://pteintensive.com
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /studio/
+Disallow: /setup-admin/
+Disallow: /debug-auth/
+Disallow: /_next/
+Disallow: /private/
+
+# Allow crawling of blog posts
+Allow: /blog/
+Allow: /blog/*
+
+# Allow crawling of courses
+Allow: /courses/
+Allow: /courses/*
+
+# Allow crawling of knowledge pages
+Allow: /knowledge/
+Allow: /knowledge/*
+
+# Allow crawling of main pages
+Allow: /about
+Allow: /contact
+Allow: /reviews
+
+# Sitemap
+Sitemap: https://pteintensive.com/sitemap.xml
+Sitemap: https://pteintensive.com/rss.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Special rules for specific bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /

@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 // Enhanced Table Component
 export const Table = ({ children, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
@@ -219,6 +218,7 @@ export const HR = (props: React.HTMLAttributes<HTMLHRElement>) => (
 // Enhanced Image
 export const Img = ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
   <div className="my-8 rounded-xl overflow-hidden shadow-2xl">
+    {/* eslint-disable-next-line @next/next/no-img-element */}
     <img
       src={src}
       alt={alt || ''}
