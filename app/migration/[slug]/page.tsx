@@ -18,7 +18,7 @@ interface MigrationPost {
   tags: string[];
   cover: string;
   content: string;
-  readingTime?: string;
+  readingTime?: number;
 }
 
 function getMigrationPostBySlug(slug: string): MigrationPost | null {
@@ -54,7 +54,7 @@ function getMigrationPostBySlug(slug: string): MigrationPost | null {
         tags: data.tags || [],
         cover: data.cover,
         content,
-        readingTime: `${readingTime} phút đọc`,
+        readingTime: readingTime,
       };
     }
   }
@@ -167,7 +167,7 @@ export default async function MigrationPostPage({ params }: MigrationPageProps) 
           description={post.description}
           author={post.author}
           date={post.date}
-          readingTime={post.readingTime}
+          readingTime={post.readingTime || 5}
           coverImage={post.cover}
           tags={post.tags}
         />
