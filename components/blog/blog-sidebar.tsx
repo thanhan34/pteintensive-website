@@ -36,7 +36,7 @@ export function BlogSidebar({ featuredPosts, categories }: BlogSidebarProps) {
                 href={`/blog/${post.slug}`}
                 className="group flex gap-3 hover:bg-gray-50 p-2 rounded-lg transition-all duration-200"
               >
-                <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden">
+                <div className="relative w-24 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
                   <Image
                     src={post.cover}
                     alt={post.title}
