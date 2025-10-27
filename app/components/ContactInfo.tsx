@@ -50,7 +50,7 @@ export default function ContactInfo() {
             </div>
             <div className="ml-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-1">Email</h3>
-              <p className="text-gray-600">info@pteintensive.com</p>
+              <p className="text-gray-600">admin@pteintensive.com</p>
             </div>
           </div>
   
