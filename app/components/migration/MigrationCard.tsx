@@ -11,7 +11,7 @@ interface MigrationCardProps {
   tags?: string[];
   cover?: string;
   index: number;
-  category: 'visa' | 'jobs' | 'pathways';
+  category: 'visa' | 'jobs' | 'pathway';
 }
 
 const categoryConfig = {
