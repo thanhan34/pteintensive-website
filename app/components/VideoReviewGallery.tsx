@@ -238,30 +238,6 @@ export default function VideoReviewGallery() {
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                   />
 
-                  {/* Play Button Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <motion.div
-                      className="relative"
-                      initial={{ scale: 0.8 }}
-                      animate={{ scale: 1 }}
-                      whileHover={{ scale: 1.15 }}
-                    >
-                      {/* Pulsing Ring */}
-                      <motion.div
-                        className="absolute inset-0 w-24 h-24 bg-[#fc5d01]/30 rounded-full"
-                        animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      />
-                      
-                      {/* Play Button */}
-                      <div className="relative w-24 h-24 bg-gradient-to-br from-[#fc5d01] to-[#fd7f33] rounded-full flex items-center justify-center shadow-2xl">
-                        <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse" />
-                        <svg className="w-12 h-12 text-white ml-1.5 relative z-10" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      </div>
-                    </motion.div>
-                  </div>
 
                   {/* Video Duration & Views Indicator */}
                   <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between z-15 pointer-events-none">
@@ -313,17 +289,6 @@ export default function VideoReviewGallery() {
                         <span className="text-xs text-gray-500 font-medium">5.0</span>
                       </div>
                     </div>
-                    
-                    {/* Play Icon */}
-                    <motion.div 
-                      className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#fc5d01] to-[#fd7f33] rounded-full flex items-center justify-center shadow-lg"
-                      whileHover={{ scale: 1.1, rotate: 90 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <svg className="w-6 h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </motion.div>
                   </div>
                 </div>
               </div>
