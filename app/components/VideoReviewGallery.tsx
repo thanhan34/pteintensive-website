@@ -1,30 +1,30 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 const videoReviews = [
   {
     id: 1,
     name: "Du Nguyễn",
-    video: "/images/videostudentfeedback/DuNguyen.mp4",
-    thumbnail: "/images/videostudentfeedback/DuNguyen.mp4",
+    videoUrl: "https://www.facebook.com/reel/1544208246479839",
+    embedUrl: "https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1544208246479839&show_text=false&width=267&t=0",
     achievement: "PTE24 - Visa 407",
     course: "Lớp 30-36"
   },
   {
     id: 2,
     name: "Hà Thị Mỹ Linh",
-    video: "/images/videostudentfeedback/HaLinh.mp4",
-    thumbnail: "/images/videostudentfeedback/HaLinh.mp4",
+    videoUrl: "https://www.facebook.com/reel/1846982872581132",
+    embedUrl: "https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1846982872581132&show_text=false&width=267&t=0",
     achievement: "PTE50 - Visa 500",
     course: "Lớp Nhóm Online 50+"
   },
   {
     id: 3,
     name: "Hương Quỳnh",
-    video: "/images/videostudentfeedback/HuongQuynh.mp4",
-    thumbnail: "/images/videostudentfeedback/HuongQuynh.mp4",
+    videoUrl: "https://www.facebook.com/reel/1697383781219962",
+    embedUrl: "https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1697383781219962&show_text=false&width=267&t=0",
     achievement: "PTE36 - Visa 482",
     course: "Lớp 30-36"
   }
@@ -32,40 +32,13 @@ const videoReviews = [
 
 export default function VideoReviewGallery() {
   const [selectedVideo, setSelectedVideo] = useState<number | null>(null);
-  const [playingVideos, setPlayingVideos] = useState<Set<number>>(new Set());
-  const videoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
-
-  const togglePlay = (id: number) => {
-    const video = videoRefs.current[id];
-    if (video) {
-      if (playingVideos.has(id)) {
-        video.pause();
-        setPlayingVideos(prev => {
-          const newSet = new Set(prev);
-          newSet.delete(id);
-          return newSet;
-        });
-      } else {
-        video.play();
-        setPlayingVideos(prev => new Set(prev).add(id));
-      }
-    }
-  };
 
   const openModal = (id: number) => {
     setSelectedVideo(id);
-    // Pause all other videos
-    Object.values(videoRefs.current).forEach(video => {
-      if (video) video.pause();
-    });
-    setPlayingVideos(new Set());
   };
 
   const closeModal = () => {
     setSelectedVideo(null);
-    // Pause modal video when closing
-    const modalVideo = document.getElementById('modal-video') as HTMLVideoElement;
-    if (modalVideo) modalVideo.pause();
   };
 
   return (
@@ -238,7 +211,10 @@ export default function VideoReviewGallery() {
               <div className="absolute -top-2 -left-2 w-8 h-8 border-l-4 border-t-4 border-[#fc5d01] rounded-tl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="absolute -bottom-2 -right-2 w-8 h-8 border-r-4 border-b-4 border-[#fd7f33] rounded-br-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
-              <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 border-gray-100 group-hover:border-[#fc5d01]/30">
+              <div 
+                className="relative bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 border-gray-100 group-hover:border-[#fc5d01]/30 cursor-pointer"
+                onClick={() => openModal(review.id)}
+              >
                 {/* Achievement Badge */}
                 <div className="absolute top-4 left-4 z-20">
                   <div className="bg-gradient-to-r from-[#fc5d01] to-[#fd7f33] text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg backdrop-blur-sm flex items-center gap-1.5">
@@ -251,66 +227,44 @@ export default function VideoReviewGallery() {
 
                 {/* Video Container - Portrait Format 9:16 */}
                 <div className="relative aspect-[9/16] bg-gradient-to-br from-gray-900 to-black overflow-hidden">
-                  <video
-                    ref={(el) => { videoRefs.current[review.id] = el; }}
-                    className="w-full h-full object-cover"
-                    onClick={() => togglePlay(review.id)}
-                  >
-                    <source src={review.video} type="video/mp4" />
-                    Trình duyệt của bạn không hỗ trợ video.
-                  </video>
+                  {/* Facebook Embedded Video */}
+                  <iframe
+                    src={review.embedUrl}
+                    className="w-full h-full"
+                    style={{ border: 'none', overflow: 'hidden' }}
+                    scrolling="no"
+                    frameBorder="0"
+                    allowFullScreen={true}
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  />
 
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-
-                  {/* Play/Pause Overlay */}
-                  <div 
-                    className="absolute inset-0 flex items-center justify-center cursor-pointer z-10"
-                    onClick={() => togglePlay(review.id)}
-                  >
-                    {!playingVideos.has(review.id) && (
+                  {/* Play Button Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <motion.div
+                      className="relative"
+                      initial={{ scale: 0.8 }}
+                      animate={{ scale: 1 }}
+                      whileHover={{ scale: 1.15 }}
+                    >
+                      {/* Pulsing Ring */}
                       <motion.div
-                        className="relative"
-                        initial={{ scale: 0.8 }}
-                        animate={{ scale: 1 }}
-                        whileHover={{ scale: 1.15 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        {/* Pulsing Ring */}
-                        <motion.div
-                          className="absolute inset-0 w-24 h-24 bg-[#fc5d01]/30 rounded-full"
-                          animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        />
-                        
-                        {/* Play Button */}
-                        <div className="relative w-24 h-24 bg-gradient-to-br from-[#fc5d01] to-[#fd7f33] rounded-full flex items-center justify-center shadow-2xl">
-                          <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse" />
-                          <svg className="w-12 h-12 text-white ml-1.5 relative z-10" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                        </div>
-                      </motion.div>
-                    )}
+                        className="absolute inset-0 w-24 h-24 bg-[#fc5d01]/30 rounded-full"
+                        animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
+                      
+                      {/* Play Button */}
+                      <div className="relative w-24 h-24 bg-gradient-to-br from-[#fc5d01] to-[#fd7f33] rounded-full flex items-center justify-center shadow-2xl">
+                        <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse" />
+                        <svg className="w-12 h-12 text-white ml-1.5 relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                    </motion.div>
                   </div>
 
-                  {/* Expand Button */}
-                  <motion.button
-                    className="absolute top-4 right-4 w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-black/60 transition-all z-20 border border-white/20"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openModal(review.id);
-                    }}
-                  >
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                    </svg>
-                  </motion.button>
-
                   {/* Video Duration & Views Indicator */}
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between z-15">
+                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between z-15 pointer-events-none">
                     <div className="bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1.5">
                       <motion.div 
                         className="w-2 h-2 bg-red-500 rounded-full"
@@ -362,10 +316,9 @@ export default function VideoReviewGallery() {
                     
                     {/* Play Icon */}
                     <motion.div 
-                      className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#fc5d01] to-[#fd7f33] rounded-full flex items-center justify-center shadow-lg cursor-pointer"
+                      className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#fc5d01] to-[#fd7f33] rounded-full flex items-center justify-center shadow-lg"
                       whileHover={{ scale: 1.1, rotate: 90 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => openModal(review.id)}
                     >
                       <svg className="w-6 h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z" />
@@ -388,7 +341,7 @@ export default function VideoReviewGallery() {
             onClick={closeModal}
           >
             <motion.div
-              className="relative max-w-5xl w-full"
+              className="relative max-w-2xl w-full"
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
@@ -405,19 +358,16 @@ export default function VideoReviewGallery() {
               </button>
 
               {/* Video Player */}
-              <div className="bg-black rounded-2xl overflow-hidden">
-                <video
-                  id="modal-video"
-                  className="w-full"
-                  controls
-                  autoPlay
-                >
-                  <source 
-                    src={videoReviews.find(v => v.id === selectedVideo)?.video} 
-                    type="video/mp4" 
-                  />
-                  Trình duyệt của bạn không hỗ trợ video.
-                </video>
+              <div className="bg-black rounded-2xl overflow-hidden aspect-[9/16]">
+                <iframe
+                  src={videoReviews.find(v => v.id === selectedVideo)?.embedUrl}
+                  className="w-full h-full"
+                  style={{ border: 'none', overflow: 'hidden' }}
+                  scrolling="no"
+                  frameBorder="0"
+                  allowFullScreen={true}
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                />
               </div>
 
               {/* Student Name */}
