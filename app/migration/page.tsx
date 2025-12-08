@@ -3,6 +3,7 @@ import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import MigrationClient from '../components/migration/MigrationClient';
 
 export const metadata: Metadata = {
   title: 'Định Cư & Visa Úc - Hướng dẫn chi tiết từ A-Z | PTE Intensive',
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-interface MigrationPost {
+interface MigrationPostData {
   slug: string;
   title: string;
   description: string;
@@ -25,7 +26,7 @@ interface MigrationPost {
   cover?: string;
 }
 
-function getMigrationPosts(category: string): MigrationPost[] {
+function getMigrationPosts(category: string): MigrationPostData[] {
   const contentDir = path.join(process.cwd(), 'content', 'migration', category);
   
   if (!fs.existsSync(contentDir)) {
@@ -168,290 +169,12 @@ export default function MigrationPage() {
           </div>
         </div>
 
-        {/* Visa Section */}
-        <section className="mb-16">
-          <div className="flex items-center mb-8">
-            <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-[#fc5d01] to-[#fd7f33] rounded-lg flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 ml-4">
-              📋 Các Loại Visa Úc
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {visaPosts.map((post, index) => (
-              <article
-                key={post.slug}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#fc5d01]/30 hover:-translate-y-2"
-                style={{
-                  animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
-                }}
-              >
-                <Link href={`/migration/${post.slug}`} className="block">
-                  <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-[#fc5d01] via-[#fd7f33] to-[#ffac7b]">
-                    {post.cover ? (
-                      <>
-                        <img 
-                          src={post.cover} 
-                          alt={post.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </>
-                    ) : (
-                      <>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <svg className="w-20 h-20 text-white opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                          </svg>
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </>
-                    )}
-                  </div>
-
-                  <div className="p-6">
-                    {/* Tags */}
-                    {post.tags && post.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {post.tags.slice(0, 2).map((tag) => (
-                          <span
-                            key={tag}
-                            className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-[#fedac2] to-[#fdbc94] text-gray-800 border border-[#fdbc94]"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Title */}
-                    <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-[#fc5d01] transition-colors duration-200">
-                      {post.title}
-                    </h2>
-
-                    {/* Description */}
-                    <p className="text-gray-600 mb-4 line-clamp-3 text-sm leading-relaxed">
-                      {post.description}
-                    </p>
-
-                    {/* Meta */}
-                    <div className="flex items-center justify-between text-sm pt-4 border-t border-gray-100">
-                      <div className="flex items-center space-x-4 text-gray-500">
-                        <div className="flex items-center">
-                          <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          <span>{new Date(post.date).toLocaleDateString('vi-VN')}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center text-[#fc5d01] font-medium group-hover:translate-x-1 transition-transform duration-200">
-                        Đọc thêm
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* Jobs Section */}
-        <section className="mb-16">
-          <div className="flex items-center mb-8">
-            <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-[#fc5d01] to-[#fd7f33] rounded-lg flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 ml-4">
-              💼 Ngành Nghề Định Cư
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {jobsPosts.map((post, index) => (
-              <article
-                key={post.slug}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#fc5d01]/30 hover:-translate-y-2"
-                style={{
-                  animation: `fadeInUp 0.6s ease-out ${(index + visaPosts.length) * 0.1}s both`
-                }}
-              >
-                <Link href={`/migration/${post.slug}`} className="block">
-                  <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-[#fdbc94] via-[#ffac7b] to-[#fc5d01]">
-                    {post.cover ? (
-                      <>
-                        <img 
-                          src={post.cover} 
-                          alt={post.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </>
-                    ) : (
-                      <>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <svg className="w-16 h-16 text-white opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                          </svg>
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </>
-                    )}
-                  </div>
-
-                  <div className="p-6">
-                    {/* Tags */}
-                    {post.tags && post.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {post.tags.slice(0, 2).map((tag) => (
-                          <span
-                            key={tag}
-                            className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-[#fedac2] to-[#fdbc94] text-gray-800 border border-[#fdbc94]"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Title */}
-                    <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-[#fc5d01] transition-colors duration-200">
-                      {post.title}
-                    </h2>
-
-                    {/* Description */}
-                    <p className="text-gray-600 mb-4 line-clamp-3 text-sm leading-relaxed">
-                      {post.description}
-                    </p>
-
-                    {/* Meta */}
-                    <div className="flex items-center justify-between text-sm pt-4 border-t border-gray-100">
-                      <div className="flex items-center space-x-4 text-gray-500">
-                        <div className="flex items-center">
-                          <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          <span>{new Date(post.date).toLocaleDateString('vi-VN')}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center text-[#fc5d01] font-medium group-hover:translate-x-1 transition-transform duration-200">
-                        Đọc thêm
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* Pathway Section */}
-        <section>
-          <div className="flex items-center mb-8">
-            <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-[#fc5d01] to-[#fd7f33] rounded-lg flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-              </svg>
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 ml-4">
-              🛤️ Lộ Trình Định Cư
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {pathwayPosts.map((post, index) => (
-              <article
-                key={post.slug}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#fc5d01]/30 hover:-translate-y-2"
-                style={{
-                  animation: `fadeInUp 0.6s ease-out ${(index + visaPosts.length + jobsPosts.length) * 0.1}s both`
-                }}
-              >
-                <Link href={`/migration/${post.slug}`} className="block">
-                  <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-[#ffac7b] via-[#fd7f33] to-[#fdbc94]">
-                    {post.cover ? (
-                      <>
-                        <img 
-                          src={post.cover} 
-                          alt={post.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </>
-                    ) : (
-                      <>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <svg className="w-16 h-16 text-white opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                          </svg>
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </>
-                    )}
-                  </div>
-
-                  <div className="p-6">
-                    {/* Tags */}
-                    {post.tags && post.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {post.tags.slice(0, 2).map((tag) => (
-                          <span
-                            key={tag}
-                            className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-[#fedac2] to-[#fdbc94] text-gray-800 border border-[#fdbc94]"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Title */}
-                    <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-[#fc5d01] transition-colors duration-200">
-                      {post.title}
-                    </h2>
-
-                    {/* Description */}
-                    <p className="text-gray-600 mb-4 line-clamp-3 text-sm leading-relaxed">
-                      {post.description}
-                    </p>
-
-                    {/* Meta */}
-                    <div className="flex items-center justify-between text-sm pt-4 border-t border-gray-100">
-                      <div className="flex items-center space-x-4 text-gray-500">
-                        <div className="flex items-center">
-                          <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          <span>{new Date(post.date).toLocaleDateString('vi-VN')}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center text-[#fc5d01] font-medium group-hover:translate-x-1 transition-transform duration-200">
-                        Đọc thêm
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </article>
-            ))}
-          </div>
-        </section>
+        {/* Main Content with Filter, Search and Cards */}
+        <MigrationClient
+          visaPosts={visaPosts.map(post => ({ ...post, category: 'visa' as const }))}
+          jobsPosts={jobsPosts.map(post => ({ ...post, category: 'jobs' as const }))}
+          pathwayPosts={pathwayPosts.map(post => ({ ...post, category: 'pathway' as const }))}
+        />
 
         {/* CTA Section */}
         <div className="mt-20 relative bg-gradient-to-br from-[#fc5d01] via-[#fd7f33] to-[#ffac7b] rounded-3xl p-12 md:p-16 text-center text-white overflow-hidden shadow-2xl">
