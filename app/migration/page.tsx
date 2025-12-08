@@ -62,11 +62,19 @@ export default function MigrationPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-[#fc5d01] via-[#fd7f33] to-[#ffac7b] text-white py-24 md:py-32 overflow-hidden">
-        {/* Decorative Elements */}
+      <div className="relative bg-gradient-to-br from-[#fc5d01] via-[#fd7f33] to-[#ffac7b] text-white py-20 md:py-28 lg:py-32 overflow-hidden">
+        {/* Animated Background Pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full filter blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full filter blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full filter blur-3xl transform -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full filter blur-3xl transform translate-x-1/2 translate-y-1/2 animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-white rounded-full filter blur-3xl transform -translate-x-1/2 -translate-y-1/2 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+        </div>
+        
+        {/* Decorative Circles */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 right-10 w-32 h-32 border-4 border-white/20 rounded-full"></div>
+          <div className="absolute bottom-20 left-10 w-24 h-24 border-4 border-white/20 rounded-full"></div>
+          <div className="absolute top-1/3 left-1/4 w-16 h-16 border-4 border-white/10 rounded-full"></div>
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -105,8 +113,61 @@ export default function MigrationPage() {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Info Cards Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          {/* Card 1 */}
+          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#fc5d01]/30">
+            <div className="flex items-start mb-4">
+              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#fc5d01] to-[#fd7f33] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#fc5d01] transition-colors">
+              Thông Tin Chi Tiết
+            </h3>
+            <p className="text-gray-600 leading-relaxed">
+              Cập nhật đầy đủ các loại visa Úc mới nhất 2025 với điều kiện, thủ tục và lộ trình chi tiết.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#fc5d01]/30">
+            <div className="flex items-start mb-4">
+              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#fd7f33] to-[#ffac7b] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#fc5d01] transition-colors">
+              Dễ Hiểu & Thực Tế
+            </h3>
+            <p className="text-gray-600 leading-relaxed">
+              Hướng dẫn rõ ràng, dễ theo dõi với kinh nghiệm thực tế từ những người đã thành công.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#fc5d01]/30">
+            <div className="flex items-start mb-4">
+              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#ffac7b] to-[#fdbc94] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#fc5d01] transition-colors">
+              Cập Nhật Liên Tục
+            </h3>
+            <p className="text-gray-600 leading-relaxed">
+              Thông tin được cập nhật thường xuyên theo chính sách mới nhất của Chính phủ Úc.
+            </p>
+          </div>
+        </div>
+
         {/* Visa Section */}
         <section className="mb-16">
           <div className="flex items-center mb-8">
@@ -124,7 +185,7 @@ export default function MigrationPage() {
             {visaPosts.map((post, index) => (
               <article
                 key={post.slug}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#fc5d01]/30 hover:-translate-y-2"
                 style={{
                   animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
                 }}
@@ -219,7 +280,7 @@ export default function MigrationPage() {
             {jobsPosts.map((post, index) => (
               <article
                 key={post.slug}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#fc5d01]/30 hover:-translate-y-2"
                 style={{
                   animation: `fadeInUp 0.6s ease-out ${(index + visaPosts.length) * 0.1}s both`
                 }}
@@ -314,7 +375,7 @@ export default function MigrationPage() {
             {pathwayPosts.map((post, index) => (
               <article
                 key={post.slug}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#fc5d01]/30 hover:-translate-y-2"
                 style={{
                   animation: `fadeInUp 0.6s ease-out ${(index + visaPosts.length + jobsPosts.length) * 0.1}s both`
                 }}
