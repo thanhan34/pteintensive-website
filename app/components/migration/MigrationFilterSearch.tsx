@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 
 interface FilterSearchProps {
   onFilterChange: (category: string) => void;
@@ -104,7 +104,7 @@ export default function MigrationFilterSearch({
       {searchQuery && (
         <div className="text-center">
           <p className="text-sm text-gray-600">
-            Đang tìm kiếm: <span className="font-semibold text-[#fc5d01]">"{searchQuery}"</span>
+            Đang tìm kiếm: <span className="font-semibold text-[#fc5d01]">&ldquo;{searchQuery}&rdquo;</span>
           </p>
         </div>
       )}

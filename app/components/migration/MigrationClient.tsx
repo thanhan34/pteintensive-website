@@ -115,7 +115,7 @@ export default function MigrationClient({
             Không tìm thấy bài viết
           </h3>
           <p className="text-gray-600 mb-6 max-w-md mx-auto">
-            Không có bài viết nào phù hợp với từ khóa "<span className="font-semibold text-[#fc5d01]">{searchQuery}</span>". 
+            Không có bài viết nào phù hợp với từ khóa &ldquo;<span className="font-semibold text-[#fc5d01]">{searchQuery}</span>&rdquo;. 
             Hãy thử tìm kiếm với từ khóa khác.
           </p>
           <button

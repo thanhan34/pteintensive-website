@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface MigrationCardProps {
   slug: string;
@@ -64,10 +65,11 @@ export default function MigrationCard({
         <div className={`relative aspect-video overflow-hidden bg-gradient-to-br ${config.gradient}`}>
           {cover ? (
             <>
-              <img 
+              <Image 
                 src={cover} 
                 alt={title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </>
