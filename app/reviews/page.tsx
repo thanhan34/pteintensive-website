@@ -7,6 +7,7 @@ import ReviewStatsSection from '../components/ReviewStatsSection';
 import StudentAchievements from '../components/StudentAchievements';
 import ReviewSection from '../components/ReviewSection';
 import ReviewImageGallery from '../components/ReviewImageGallery';
+import StudentReviewsGallery from '../components/StudentReviewsGallery';
 import CertificateGallery from '../components/CertificateGallery';
 import VideoReviewGallery from '../components/VideoReviewGallery';
 import ReviewCallToAction from '../components/ReviewCallToAction';
@@ -115,7 +116,10 @@ export default function ReviewsPage() {
         <ReviewSection />
 
         {/* Review Images */}
-        <ReviewImageGallery />
+        {/* <ReviewImageGallery /> */}
+
+        {/* Student Reviews */}
+        <StudentReviewsGallery />
 
         {/* Certificate Gallery */}
         <CertificateGallery />

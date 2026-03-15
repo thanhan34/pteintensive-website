@@ -14,19 +14,19 @@ const videoReviews = [
   },
   {
     id: 2,
-    name: "Hà Thị Mỹ Linh",
+    name: "Nguyễn Hương Quỳnh",
     videoUrl: "https://www.facebook.com/reel/1846982872581132",
     embedUrl: "https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1846982872581132&show_text=false&width=267&t=0",
     achievement: "PTE50 - Visa 500",
-    course: "Lớp Nhóm Online 50+"
+    course: "Lớp 30-36"
   },
   {
     id: 3,
-    name: "Hương Quỳnh",
+    name: "Hà Thị Mỹ Linh",
     videoUrl: "https://www.facebook.com/reel/1697383781219962",
     embedUrl: "https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1697383781219962&show_text=false&width=267&t=0",
     achievement: "PTE36 - Visa 482",
-    course: "Lớp 30-36"
+    course: "Lớp Nhóm Online 50+"
   }
 ];
 

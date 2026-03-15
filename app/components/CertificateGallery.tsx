@@ -11,7 +11,7 @@ const certificates = [
     image: "/images/certificate/Professional Trainer.jpg",
     description: "Chứng nhận giảng viên chuyên nghiệp",
     organization: "Pearson PTE",
-    year: "2024"
+    year: "2026"
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const certificates = [
     image: "/images/certificate/PTE Elite Partner Program.jpg",
     description: "Đối tác Elite của Pearson PTE",
     organization: "Pearson PTE",
-    year: "2024"
+    year: "2026"
   }
 ];
 
@@ -149,7 +149,7 @@ export default function CertificateGallery() {
             </div>
             <div>
               <p className="text-sm font-bold text-gray-900">Đối Tác Elite</p>
-              <p className="text-xs text-gray-500">Elite Partner 2024</p>
+              <p className="text-xs text-gray-500">Elite Partner 2026</p>
             </div>
           </div>
           
