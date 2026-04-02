@@ -1,13 +1,33 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/blog/posts';
+import { courseData } from '@/lib/courseData';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pteintensive.com';
   const posts = getAllPosts();
+  const migrationPosts = getAllMigrationSlugs();
+  const courseSlugs = Object.keys(courseData);
 
   const blogPosts: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}`,
     lastModified: new Date(post.date),
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }));
+
+  const migrationUrls: MetadataRoute.Sitemap = migrationPosts.map((slug) => ({
+    url: `${siteUrl}/migration/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }));
+
+  const courseUrls: MetadataRoute.Sitemap = courseSlugs.map((slug) => ({
+    url: `${siteUrl}/courses/${slug}`,
+    lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.8,
   }));
@@ -62,16 +82,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${siteUrl}/trialclass`,
+      url: `${siteUrl}/register`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/mocktest`,
+      url: `${siteUrl}/study`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.6,
     },
     // Knowledge base pages
     {
@@ -210,6 +230,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    ...courseUrls,
+    ...migrationUrls,
     ...blogPosts,
   ];
+}
+
+function getAllMigrationSlugs(): string[] {
+  const categories = ['visa', 'jobs', 'pathway'];
+  const slugs: string[] = [];
+
+  for (const category of categories) {
+    const contentDir = path.join(process.cwd(), 'content', 'migration', category);
+    if (!fs.existsSync(contentDir)) continue;
+
+    const files = fs.readdirSync(contentDir).filter((file) => file.endsWith('.mdx'));
+    for (const file of files) {
+      const fileContent = fs.readFileSync(path.join(contentDir, file), 'utf8');
+      const { data } = matter(fileContent);
+      if (data.slug) slugs.push(data.slug);
+    }
+  }
+
+  return slugs;
 }

@@ -9,11 +9,15 @@ export const metadata: Metadata = {
   title: 'Blog PTE Intensive - Chia sẻ kinh nghiệm & mẹo thi PTE',
   description: 'Khám phá những bài viết hữu ích về PTE Academic, chiến lược học tập, và kinh nghiệm từ học viên đã đạt điểm cao.',
   keywords: ['PTE', 'PTE Academic', 'Học PTE', 'Luyện thi PTE', 'Mẹo thi PTE', 'PTE Intensive'],
+  alternates: {
+    canonical: 'https://pteintensive.com/blog',
+  },
   openGraph: {
     title: 'Blog PTE Intensive - Chia sẻ kinh nghiệm & mẹo thi PTE',
     description: 'Khám phá những bài viết hữu ích về PTE Academic, chiến lược học tập, và kinh nghiệm từ học viên đã đạt điểm cao.',
     images: ['/og/pteintensive-blog.png'],
     type: 'website',
+    url: 'https://pteintensive.com/blog',
   },
 };
 

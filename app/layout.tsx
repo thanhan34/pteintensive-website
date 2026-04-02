@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Providers from './providers';
 import { Suspense } from 'react';
 import MessengerChatWrapper from './components/MessengerChatWrapper';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -68,10 +69,30 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const siteUrl = 'https://pteintensive.com';
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'PTE Intensive',
+    url: siteUrl,
+    logo: `${siteUrl}/images/logo/pte-intensive-logo.png`,
+    sameAs: ['https://facebook.com/pteintensive', 'https://youtube.com/pteintensive'],
+  };
+
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'PTE Intensive',
+    url: siteUrl,
+    inLanguage: 'vi-VN',
+  };
+
   return (
     <html lang="vi">
       <head />
       <body className={inter.className}>
+        <Script id="organization-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+        <Script id="website-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
         <Providers>
           <Navigation />
           {children}
