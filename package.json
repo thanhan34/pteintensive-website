@@ -45,7 +45,7 @@
     "gray-matter": "^4.0.3",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.539.0",
-    "next": "^16.0.7",
+    "next": "16.0.10",
     "next-mdx-remote": "^6.0.0",
     "next-sitemap": "^4.2.3",
     "nodemailer": "^6.9.16",
