@@ -47,17 +47,52 @@ const contactSchema = {
     areaServed: ['VN', 'AU'],
     availableLanguage: ['Vietnamese', 'English']
   },
-  location: {
-    '@type': 'Place',
-    name: 'PTE Intensive',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: '48 Derwent PlacePlace',
-      addressLocality: 'Riverhills',
-      addressRegion: 'TP.HCM',
-      addressCountry: 'VN'
+  location: [
+    {
+      '@type': 'Place',
+      name: 'PTE Intensive - Cơ sở 1',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '48 Derwent Place',
+        addressLocality: 'Riverhills',
+        addressRegion: 'QLD',
+        postalCode: '4074',
+        addressCountry: 'AU'
+      }
+    },
+    {
+      '@type': 'Place',
+      name: 'PTE Intensive - TRỤ SỞ',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '2C6 Nguyễn Khuyến',
+        addressLocality: 'Phường Bình Đức',
+        addressRegion: 'An Giang',
+        addressCountry: 'VN'
+      }
+    },
+    {
+      '@type': 'Place',
+      name: 'PTE Intensive - Cơ sở 3',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Số 12 đường 25 KDC Thới Nhựt 1',
+        addressLocality: 'Tân An, Cần Thơ',
+        addressCountry: 'VN'
+      }
+    },
+    {
+      '@type': 'Place',
+      name: 'PTE Intensive - Cơ sở 4',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'T4 0605A Tầng 6 Khu A, Chung cư Golden',
+        addressLocality: 'Long Xuyên',
+        addressRegion: 'An Giang',
+        addressCountry: 'VN'
+      }
     }
-  }
+  ]
 };
 
 export default function ContactPage() {

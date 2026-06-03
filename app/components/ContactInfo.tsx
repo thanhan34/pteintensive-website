@@ -1,4 +1,11 @@
 export default function ContactInfo() {
+    const locations = [
+      'Cơ sở 1: 48 Derwent Place, Riverhills 4074, QLD, Australia',
+      'Cơ sở 2: TRỤ SỞ – 2C6 Nguyễn Khuyến, Phường Bình Đức, An Giang',
+      'Cơ sở 3: Số 12 đường 25 KDC Thới Nhựt 1, Tân An, Cần Thơ',
+      'Cơ sở 4: T4 0605A Tầng 6 Khu A, Chung cư Golden, Long Xuyên, An Giang'
+    ];
+
     return (
       <div className="bg-white p-6 rounded-lg shadow-sm">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Thông Tin Liên Hệ</h2>
@@ -27,8 +34,12 @@ export default function ContactInfo() {
               </svg>
             </div>
             <div className="ml-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">Địa Chỉ</h3>
-              <p className="text-gray-600">48 Derwent Place, Riverhills, 4074, Queensland, Australia.</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Hệ Thống Cơ Sở</h3>
+              <ul className="space-y-2 text-gray-600">
+                {locations.map((location) => (
+                  <li key={location}>{location}</li>
+                ))}
+              </ul>
             </div>
           </div>
   

@@ -25,11 +25,36 @@ const structuredData = {
   name: 'PTE Intensive',
   description: 'Trung tâm luyện thi PTE Academic hàng đầu tại Việt Nam',
   url: 'https://pteintensive.com',
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'VN',
-    addressLocality: 'Ho Chi Minh City'
-  },
+  address: [
+    {
+      '@type': 'PostalAddress',
+      streetAddress: '48 Derwent Place',
+      addressLocality: 'Riverhills',
+      addressRegion: 'QLD',
+      postalCode: '4074',
+      addressCountry: 'AU'
+    },
+    {
+      '@type': 'PostalAddress',
+      streetAddress: '2C6 Nguyễn Khuyến',
+      addressLocality: 'Phường Bình Đức',
+      addressRegion: 'An Giang',
+      addressCountry: 'VN'
+    },
+    {
+      '@type': 'PostalAddress',
+      streetAddress: 'Số 12 đường 25 KDC Thới Nhựt 1',
+      addressLocality: 'Tân An, Cần Thơ',
+      addressCountry: 'VN'
+    },
+    {
+      '@type': 'PostalAddress',
+      streetAddress: 'T4 0605A Tầng 6 Khu A, Chung cư Golden',
+      addressLocality: 'Long Xuyên',
+      addressRegion: 'An Giang',
+      addressCountry: 'VN'
+    }
+  ],
   sameAs: [
     'https://facebook.com/pteintensive',
     'https://youtube.com/pteintensive'
