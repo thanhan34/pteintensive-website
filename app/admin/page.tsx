@@ -18,6 +18,8 @@ interface DashboardStats {
 
 export default function AdminDashboard() {
   const { userProfile, signOut } = useAuth();
+  const adminPrimaryButtonClasses = 'bg-[#FC5D01] text-white hover:bg-[#e65300]';
+  const adminSecondaryButtonClasses = 'bg-white text-gray-900 border border-gray-200 hover:bg-gray-50';
   const [stats, setStats] = useState<DashboardStats>({
     totalPosts: 0,
     publishedPosts: 0,
@@ -89,7 +91,7 @@ export default function AdminDashboard() {
 
   return (
     <AuthGuard requiredRoles={['admin', 'editor', 'author']}>
-      <div className="min-h-screen bg-gray-50">
+      <div className="admin-dashboard min-h-screen bg-gray-50 text-gray-900">
         {/* Header */}
         <header className="bg-white shadow">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,9 +102,9 @@ export default function AdminDashboard() {
               </div>
               <div className="flex items-center space-x-4">
                 <Link href="/blog">
-                  <Button variant="outline">Xem Blog</Button>
+                  <Button variant="outline" className={adminSecondaryButtonClasses}>Xem Blog</Button>
                 </Link>
-                <Button onClick={handleSignOut} variant="outline">
+                <Button onClick={handleSignOut} variant="outline" className={adminSecondaryButtonClasses}>
                   Đăng xuất
                 </Button>
               </div>
@@ -206,22 +208,22 @@ export default function AdminDashboard() {
                   <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Thao tác nhanh</h3>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     <Link href="/admin/posts/new">
-                      <Button className="w-full">Tạo bài viết mới</Button>
+                      <Button className={`w-full ${adminPrimaryButtonClasses}`}>Tạo bài viết mới</Button>
                     </Link>
                     <Link href="/admin/posts">
-                      <Button variant="outline" className="w-full">Quản lý bài viết</Button>
+                      <Button variant="outline" className={`w-full ${adminSecondaryButtonClasses}`}>Quản lý bài viết</Button>
                     </Link>
                     <Link href="/admin/pages">
-                      <Button variant="outline" className="w-full">Quản lý trang</Button>
+                      <Button variant="outline" className={`w-full ${adminSecondaryButtonClasses}`}>Quản lý trang</Button>
                     </Link>
                     <Link href="/admin/media">
-                      <Button variant="outline" className="w-full">Thư viện media</Button>
+                      <Button variant="outline" className={`w-full ${adminSecondaryButtonClasses}`}>Thư viện media</Button>
                     </Link>
                     <Link href="/admin/facebook-reviews">
-                      <Button variant="outline" className="w-full">Facebook Reviews</Button>
+                      <Button variant="outline" className={`w-full ${adminSecondaryButtonClasses}`}>Facebook Reviews</Button>
                     </Link>
                     <Link href="/admin/video-reviews">
-                      <Button variant="outline" className="w-full">Video Reviews</Button>
+                      <Button variant="outline" className={`w-full ${adminSecondaryButtonClasses}`}>Video Reviews</Button>
                     </Link>
                   </div>
                 </div>
@@ -248,7 +250,7 @@ export default function AdminDashboard() {
                               <div className="flex items-center space-x-2">
                                 {getStatusBadge(post.status)}
                                 <Link href={`/admin/posts/${post.slug}`}>
-                                  <Button variant="outline" size="sm">Chỉnh sửa</Button>
+                                  <Button variant="outline" size="sm" className={adminSecondaryButtonClasses}>Chỉnh sửa</Button>
                                 </Link>
                               </div>
                             </div>
