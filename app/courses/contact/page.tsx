@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import Image from 'next/image';
-import ContactFormClient from '../components/ContactFormClient';
-import ContactInfo from '../components/ContactInfo';
-import CommunityLinks from '../components/CommunityLinks';
-import Map from '../components/Map';
+import ContactFormClient from '../../components/ContactFormClient';
+import ContactInfo from '../../components/ContactInfo';
+import CommunityLinks from '../../components/CommunityLinks';
+import Map from '../../components/Map';
 
 export const metadata: Metadata = {
   title: 'Liên Hệ | PTE Intensive',
