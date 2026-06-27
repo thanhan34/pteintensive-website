@@ -217,6 +217,12 @@ export default function AdminDashboard() {
                     <Link href="/admin/media">
                       <Button variant="outline" className="w-full">Thư viện media</Button>
                     </Link>
+                    <Link href="/admin/facebook-reviews">
+                      <Button variant="outline" className="w-full">Facebook Reviews</Button>
+                    </Link>
+                    <Link href="/admin/video-reviews">
+                      <Button variant="outline" className="w-full">Video Reviews</Button>
+                    </Link>
                   </div>
                 </div>
               </div>

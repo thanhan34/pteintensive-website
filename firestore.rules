@@ -132,6 +132,24 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Facebook text reviews collection
+    match /facebookReviews/{id} {
+      // Public website can read reviews
+      allow read: if true;
+
+      // Admins and editors can manage reviews from admin dashboard
+      allow write: if isEditor();
+    }
+
+    // Facebook video reviews / reels collection
+    match /videoReviews/{id} {
+      // Public website can read active video data
+      allow read: if true;
+
+      // Admins and editors can manage videos from admin dashboard
+      allow write: if isEditor();
+    }
+
     // Media metadata collection (optional)
     match /media/{id} {
       // Anyone can read media metadata

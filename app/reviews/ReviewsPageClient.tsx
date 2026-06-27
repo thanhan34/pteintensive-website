@@ -10,6 +10,8 @@ import StudentReviewsGallery from '../components/StudentReviewsGallery';
 import CertificateGallery from '../components/CertificateGallery';
 import VideoReviewGallery from '../components/VideoReviewGallery';
 import ReviewCallToAction from '../components/ReviewCallToAction';
+import FacebookReviewCarouselSection from '../../components/reviews/FacebookReviewCarouselSection';
+import NextStudentCTASection from '../../components/reviews/NextStudentCTASection';
 
 export default function ReviewsPageClient() {
   const scrollToTop = useScrollToTop();
@@ -45,6 +47,8 @@ export default function ReviewsPageClient() {
         <StudentAchievements />
         <ReviewSection />
         <StudentReviewsGallery />
+        <FacebookReviewCarouselSection />
+        <NextStudentCTASection />
         <CertificateGallery />
         <VideoReviewGallery />
         <ReviewCallToAction />
