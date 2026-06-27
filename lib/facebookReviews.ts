@@ -4,6 +4,12 @@ import type { FacebookReview } from '@/types/facebookReview';
 
 const COLLECTION_NAME = 'facebookReviews';
 
+function removeUndefinedFields<T extends Record<string, unknown>>(data: T): Partial<T> {
+  return Object.fromEntries(
+    Object.entries(data).filter(([, value]) => value !== undefined)
+  ) as Partial<T>;
+}
+
 export function shuffleArray<T>(array: T[]): T[] {
   const result = [...array];
 
@@ -44,7 +50,7 @@ export async function getAllFacebookReviews(): Promise<FacebookReview[]> {
 
 export async function createFacebookReview(review: Omit<FacebookReview, 'id' | 'createdAt' | 'updatedAt'>) {
   const docRef = await addDoc(collection(db, COLLECTION_NAME), {
-    ...review,
+    ...removeUndefinedFields(review),
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
@@ -54,7 +60,7 @@ export async function createFacebookReview(review: Omit<FacebookReview, 'id' | '
 
 export async function updateFacebookReview(id: string, review: Partial<Omit<FacebookReview, 'id' | 'createdAt'>>) {
   await updateDoc(doc(db, COLLECTION_NAME, id), {
-    ...review,
+    ...removeUndefinedFields(review),
     updatedAt: serverTimestamp(),
   });
 }
