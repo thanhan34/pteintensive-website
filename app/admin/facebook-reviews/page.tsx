@@ -63,6 +63,8 @@ function cleanOptional(value: string) {
 }
 
 export default function AdminFacebookReviewsPage() {
+  const adminPrimaryButtonClasses = 'bg-[#FC5D01] text-white hover:bg-[#e65300]';
+  const adminSecondaryButtonClasses = 'bg-white text-gray-900 border border-gray-200 hover:bg-gray-50';
   const [reviews, setReviews] = useState<FacebookReview[]>([]);
   const [form, setForm] = useState<FacebookReviewFormState>(initialFormState);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -176,7 +178,7 @@ export default function AdminFacebookReviewsPage() {
 
   return (
     <AuthGuard requiredRoles={['admin', 'editor']}>
-      <div className="min-h-screen bg-gray-50">
+      <div className="admin-dashboard min-h-screen bg-gray-50 text-gray-900">
         <header className="bg-white shadow">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
             <div>
@@ -184,8 +186,8 @@ export default function AdminFacebookReviewsPage() {
               <p className="mt-1 text-gray-600">Quản lý collection facebookReviews cho section Review Từ Cộng Đồng Facebook.</p>
             </div>
             <div className="flex gap-3">
-              <Link href="/reviews"><Button variant="outline">Xem trang Reviews</Button></Link>
-              <Link href="/admin"><Button variant="outline">Về Dashboard</Button></Link>
+              <Link href="/reviews"><Button variant="outline" className={adminSecondaryButtonClasses}>Xem trang Reviews</Button></Link>
+              <Link href="/admin"><Button variant="outline" className={adminSecondaryButtonClasses}>Về Dashboard</Button></Link>
             </div>
           </div>
         </header>
@@ -216,7 +218,7 @@ export default function AdminFacebookReviewsPage() {
             <form onSubmit={handleSubmit} className="rounded-lg bg-white p-6 shadow">
               <div className="mb-5 flex items-center justify-between gap-3">
                 <h2 className="text-xl font-bold text-gray-900">{editingId ? 'Chỉnh sửa review' : 'Thêm review mới'}</h2>
-                {editingId && <Button type="button" variant="outline" onClick={resetForm}>Huỷ sửa</Button>}
+                {editingId && <Button type="button" variant="outline" className={adminSecondaryButtonClasses} onClick={resetForm}>Huỷ sửa</Button>}
               </div>
 
               <div className="space-y-4">
@@ -288,7 +290,7 @@ export default function AdminFacebookReviewsPage() {
                   <span className="text-sm font-semibold text-gray-700">Trạng thái hiển thị / Active</span>
                 </label>
 
-                <Button type="submit" disabled={saving} className="w-full bg-[#fc5d01] hover:bg-[#e65300]">
+                <Button type="submit" disabled={saving} className={`w-full ${adminPrimaryButtonClasses}`}>
                   {saving ? 'Đang lưu...' : editingId ? 'Cập nhật review' : 'Thêm review'}
                 </Button>
               </div>
@@ -320,13 +322,13 @@ export default function AdminFacebookReviewsPage() {
                           )}
                         </div>
                         <div className="flex shrink-0 flex-wrap gap-2">
-                          <Button type="button" variant="outline" size="sm" onClick={() => toggleActive(review)}>
+                          <Button type="button" variant="outline" size="sm" className={adminSecondaryButtonClasses} onClick={() => toggleActive(review)}>
                             {review.isActive ? 'Ẩn' : 'Hiện'}
                           </Button>
-                          <Button type="button" variant="outline" size="sm" onClick={() => { setEditingId(review.id || null); setForm(toFormState(review)); }}>
+                          <Button type="button" variant="outline" size="sm" className={adminSecondaryButtonClasses} onClick={() => { setEditingId(review.id || null); setForm(toFormState(review)); }}>
                             Sửa
                           </Button>
-                          <Button type="button" variant="outline" size="sm" onClick={() => handleDelete(review.id)}>
+                          <Button type="button" variant="outline" size="sm" className={adminSecondaryButtonClasses} onClick={() => handleDelete(review.id)}>
                             Xoá
                           </Button>
                         </div>
