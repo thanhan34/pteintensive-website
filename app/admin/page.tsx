@@ -219,6 +219,11 @@ export default function AdminDashboard() {
                     <Link href="/admin/media">
                       <Button variant="outline" className={`w-full ${adminSecondaryButtonClasses}`}>Thư viện media</Button>
                     </Link>
+                    {userProfile?.roles.includes('admin') && (
+                      <Link href="/admin/users">
+                        <Button variant="outline" className={`w-full ${adminSecondaryButtonClasses}`}>Quản lý user</Button>
+                      </Link>
+                    )}
                     <Link href="/admin/facebook-reviews">
                       <Button variant="outline" className={`w-full ${adminSecondaryButtonClasses}`}>Facebook Reviews</Button>
                     </Link>

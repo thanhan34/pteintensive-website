@@ -10,12 +10,13 @@ import ReviewCallToAction from './components/ReviewCallToAction';
 import CommonQuestions from './components/CommonQuestions';
 import ScoreComparisonTable from './components/ScoreComparisonTable';
 import GuaranteeSection from './components/GuaranteeSection';
+import ScrollReveal from './components/ScrollReveal';
 
 export const metadata: Metadata = {
   title: 'PTE Intensive - Trung Tâm Luyện Thi PTE Academic Hàng Đầu',
   description: 'Khóa học PTE Academic chất lượng cao với cam kết đầu ra, giảng viên chuyên nghiệp, và phương pháp học hiệu quả. Đạt điểm PTE mục tiêu nhanh chóng.',
   alternates: {
-    canonical: 'https://pteintensive.com'
+    canonical: 'https://www.pteintensive.com'
   }
 };
 
@@ -24,7 +25,7 @@ const structuredData = {
   '@type': 'EducationalOrganization',
   name: 'PTE Intensive',
   description: 'Trung tâm luyện thi PTE Academic hàng đầu tại Việt Nam',
-  url: 'https://pteintensive.com',
+  url: 'https://www.pteintensive.com',
   address: [
     {
       '@type': 'PostalAddress',
@@ -77,35 +78,53 @@ export default function HomePage() {
       <HeroSection />
 
       {/* Benefits Section */}
-      <BenefitsSection />
+      <ScrollReveal direction="up">
+        <BenefitsSection />
+      </ScrollReveal>
 
       {/* Score Comparison Table */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto">
-          <ScoreComparisonTable />
-        </div>
-      </section>
+      <ScrollReveal direction="scale">
+        <section className="py-16 bg-white">
+          <div className="container mx-auto">
+            <ScoreComparisonTable />
+          </div>
+        </section>
+      </ScrollReveal>
 
       {/* Guarantee Section */}
-      <GuaranteeSection />
+      <ScrollReveal direction="right">
+        <GuaranteeSection />
+      </ScrollReveal>
 
       {/* Course Section */}
-      <CourseSection />
+      <ScrollReveal direction="up">
+        <CourseSection />
+      </ScrollReveal>
 
       {/* Course Schedule */}
-      <CourseSchedule />
+      <ScrollReveal direction="left">
+        <CourseSchedule />
+      </ScrollReveal>
 
       {/* Review Section */}
-      <ReviewSection />
+      <ScrollReveal direction="up">
+        <ReviewSection />
+      </ScrollReveal>
 
       {/* Teacher Section */}
-      <TeacherSection />
+      <ScrollReveal direction="scale">
+        <TeacherSection />
+      </ScrollReveal>
 
       {/* Common Questions */}
-      <CommonQuestions />
+      <ScrollReveal direction="up">
+        <CommonQuestions />
+      </ScrollReveal>
 
       {/* Call to Action */}
-      <ReviewCallToAction />
+      <ScrollReveal direction="fade" duration={1.2}>
+        <ReviewCallToAction />
+      </ScrollReveal>
     </main>
   );
 }

@@ -110,7 +110,7 @@ export async function generateMetadata({ params }: MigrationPageProps): Promise<
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pteintensive.com';
+  const siteUrl = 'https://www.pteintensive.com';
 
   return {
     title: post.title,
@@ -153,7 +153,7 @@ export default async function MigrationPostPage({ params }: MigrationPageProps) 
     notFound();
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pteintensive.com';
+  const siteUrl = 'https://www.pteintensive.com';
 
   return (
     <>

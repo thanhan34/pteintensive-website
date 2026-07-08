@@ -6,14 +6,14 @@ export const metadata: Metadata = {
   description:
     'Chính sách bảo mật của PTE Intensive giải thích cách chúng tôi thu thập, sử dụng, lưu trữ và bảo vệ dữ liệu cá nhân của bạn.',
   alternates: {
-    canonical: 'https://pteintensive.com/privacy',
+    canonical: 'https://www.pteintensive.com/privacy',
   },
   openGraph: {
     title: 'Chính sách bảo mật | PTE Intensive',
     description:
       'Tìm hiểu cách PTE Intensive thu thập, sử dụng và bảo vệ thông tin cá nhân khi bạn sử dụng website và dịch vụ.',
     type: 'website',
-    url: 'https://pteintensive.com/privacy',
+    url: 'https://www.pteintensive.com/privacy',
   },
 };
 

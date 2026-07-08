@@ -10,14 +10,14 @@ export const metadata: Metadata = {
   description: 'Tìm hiểu về các loại visa Úc, ngành nghề dễ định cư, và lộ trình từ PTE đến định cư vĩnh viễn tại Úc.',
   keywords: ['Visa Úc', 'Định cư Úc', 'Visa 485', 'Visa 189', 'Visa 190', 'Visa 491', 'PTE', 'Du học Úc'],
   alternates: {
-    canonical: 'https://pteintensive.com/migration',
+    canonical: 'https://www.pteintensive.com/migration',
   },
   openGraph: {
     title: 'Định Cư & Visa Úc - Hướng dẫn chi tiết từ A-Z | PTE Intensive',
     description: 'Tìm hiểu về các loại visa Úc, ngành nghề dễ định cư, và lộ trình từ PTE đến định cư vĩnh viễn tại Úc.',
     images: ['/og/pteintensive-blog.png'],
     type: 'website',
-    url: 'https://pteintensive.com/migration',
+    url: 'https://www.pteintensive.com/migration',
   },
 };
 

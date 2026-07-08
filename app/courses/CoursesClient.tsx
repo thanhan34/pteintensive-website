@@ -17,14 +17,14 @@ const courseListSchema = {
   '@type': 'ItemList',
   itemListElement: courses.map((course, index) => ({
     '@type': 'Course',
-    '@id': `https://pteintensive.com/courses/${course.slug}`,
+    '@id': `https://www.pteintensive.com/courses/${course.slug}`,
     position: index + 1,
     name: course.title,
     description: course.description,
     provider: {
       '@type': 'Organization',
       name: 'PTE Intensive',
-      sameAs: 'https://pteintensive.com'
+      sameAs: 'https://www.pteintensive.com'
     },
     educationalLevel: 'PTE Academic Preparation',
     courseCode: course.slug

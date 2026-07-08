@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pteintensive.com';
+  const siteUrl = 'https://www.pteintensive.com';
 
   return {
     title: post.title,
@@ -76,7 +76,7 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   const relatedPosts = getRelatedByTags(post, 3);
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pteintensive.com';
+  const siteUrl = 'https://www.pteintensive.com';
 
   return (
     <>

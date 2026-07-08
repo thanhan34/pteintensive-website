@@ -6,7 +6,7 @@ import path from 'path';
 import matter from 'gray-matter';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pteintensive.com';
+  const siteUrl = 'https://www.pteintensive.com';
   const posts = getAllPosts();
   const migrationPosts = getAllMigrationSlugs();
   const courseSlugs = Object.keys(courseData);

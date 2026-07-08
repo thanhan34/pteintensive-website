@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'Kiến Thức PTE | PTE Intensive',
   description: 'Thư viện kiến thức PTE gồm scoring system, speaking, writing, reading và listening guides giúp bot và người dùng dễ tra cứu.',
   alternates: {
-    canonical: 'https://pteintensive.com/knowledge',
+    canonical: 'https://www.pteintensive.com/knowledge',
   },
 };
 

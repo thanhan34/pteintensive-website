@@ -1,7 +1,7 @@
 import { getAllPosts } from '@/lib/blog/posts';
 
 export async function GET() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pteintensive.com';
+  const siteUrl = 'https://www.pteintensive.com';
   const posts = getAllPosts();
 
   const rss = `<?xml version="1.0" encoding="UTF-8"?>

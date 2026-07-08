@@ -6,14 +6,14 @@ export const metadata: Metadata = {
   description:
     'Điều khoản sử dụng website và dịch vụ của PTE Intensive, bao gồm quyền, trách nhiệm và các nguyên tắc sử dụng nội dung.',
   alternates: {
-    canonical: 'https://pteintensive.com/terms',
+    canonical: 'https://www.pteintensive.com/terms',
   },
   openGraph: {
     title: 'Điều khoản sử dụng | PTE Intensive',
     description:
       'Tìm hiểu các điều khoản sử dụng áp dụng khi truy cập website và sử dụng dịch vụ của PTE Intensive.',
     type: 'website',
-    url: 'https://pteintensive.com/terms',
+    url: 'https://www.pteintensive.com/terms',
   },
 };
 

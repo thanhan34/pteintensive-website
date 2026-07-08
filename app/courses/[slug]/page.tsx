@@ -20,12 +20,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${course.title} | PTE Intensive`,
     description: course.description,
     alternates: {
-      canonical: `https://pteintensive.com/courses/${slug}`
+      canonical: `https://www.pteintensive.com/courses/${slug}`
     },
     openGraph: {
       title: course.title,
       description: course.description,
-      url: `https://pteintensive.com/courses/${slug}`,
+      url: `https://www.pteintensive.com/courses/${slug}`,
       type: 'website',
       images: [
         {
@@ -63,7 +63,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
     provider: {
       '@type': 'Organization',
       name: 'PTE Intensive',
-      sameAs: 'https://pteintensive.com'
+      sameAs: 'https://www.pteintensive.com'
     },
     educationalLevel: 'PTE Academic Preparation',
     courseCode: slug,

@@ -10,13 +10,13 @@ export const metadata: Metadata = {
   title: 'Liên Hệ | PTE Intensive',
   description: 'Liên hệ với PTE Intensive để được tư vấn về khóa học PTE Academic. Đội ngũ tư vấn chuyên nghiệp luôn sẵn sàng hỗ trợ bạn.',
   alternates: {
-    canonical: 'https://pteintensive.com/contact'
+    canonical: 'https://www.pteintensive.com/contact'
   },
   openGraph: {
     title: 'Liên Hệ | PTE Intensive',
     description: 'Liên hệ với PTE Intensive để được tư vấn về khóa học PTE Academic. Đội ngũ tư vấn chuyên nghiệp luôn sẵn sàng hỗ trợ bạn.',
     type: 'website',
-    url: 'https://pteintensive.com/contact',
+    url: 'https://www.pteintensive.com/contact',
     images: [
       {
         url: '/images/logo/pte-intensive-logo.png',
@@ -39,7 +39,7 @@ const contactSchema = {
   '@type': 'ContactPage',
   name: 'Liên Hệ PTE Intensive',
   description: 'Liên hệ với PTE Intensive để được tư vấn về khóa học PTE Academic',
-  url: 'https://pteintensive.com/contact',
+  url: 'https://www.pteintensive.com/contact',
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: '+84-349-213-852',

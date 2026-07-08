@@ -11,7 +11,7 @@ import Script from 'next/script';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://pteintensive.com'),
+  metadataBase: new URL('https://www.pteintensive.com'),
   title: {
     default: 'PTE Intensive - Luyện Thi PTE Academic',
     template: '%s | PTE Intensive'
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'vi_VN',
-    url: 'https://pteintensive.com',
+    url: 'https://www.pteintensive.com',
     siteName: 'PTE Intensive',
     title: 'PTE Intensive - Luyện Thi PTE Academic',
     description: 'Trung tâm luyện thi PTE Academic hàng đầu tại Việt Nam với đội ngũ giảng viên chuyên nghiệp, khóa học chất lượng và cam kết đầu ra',
@@ -59,9 +59,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-site-verification',
-  },
 };
 
 export default function RootLayout({
@@ -69,7 +66,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const siteUrl = 'https://pteintensive.com';
+  const siteUrl = 'https://www.pteintensive.com';
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',

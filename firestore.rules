@@ -97,14 +97,16 @@ service cloud.firestore {
                     && request.resource.data.uid == uid
                     && request.resource.data.email == request.auth.token.email;
       
-      allow update: if isSignedIn() 
-                    && request.auth.uid == uid
+      allow update: if isSignedIn()
                     && request.resource.data.uid == uid
                     && (
+                      // Admins can update any user profile, including roles
+                      isAdmin()
                       // Users can update their own data except roles
-                      (!("roles" in request.resource.data.diff(resource.data).affectedKeys()))
-                      // Only admins can update roles
-                      || isAdmin()
+                      || (
+                        request.auth.uid == uid
+                        && !("roles" in request.resource.data.diff(resource.data).affectedKeys())
+                      )
                     );
       
       // Users cannot delete their profiles

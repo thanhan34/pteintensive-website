@@ -1,5 +1,5 @@
 # robots.txt for PTE Intensive
-# https://pteintensive.com
+# https://www.pteintensive.com
 
 User-agent: *
 Allow: /
@@ -29,8 +29,8 @@ Allow: /contact
 Allow: /reviews
 
 # Sitemap
-Sitemap: https://pteintensive.com/sitemap.xml
-Sitemap: https://pteintensive.com/rss.xml
+Sitemap: https://www.pteintensive.com/sitemap.xml
+Sitemap: https://www.pteintensive.com/rss.xml
 
 # Crawl-delay
 Crawl-delay: 1
