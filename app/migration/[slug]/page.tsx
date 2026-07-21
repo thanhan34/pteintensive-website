@@ -8,6 +8,7 @@ import { MDXRenderer } from '@/lib/blog/mdx-renderer';
 import { CTABlock } from '../../../components/blog/cta-block';
 import { ReadingProgress } from '../../../components/blog/reading-progress';
 import { ArticleHeader } from '../../../components/blog/article-header';
+import { getCanonicalUrl, SITE_URL } from '@/lib/site';
 
 interface MigrationPost {
   slug: string;
@@ -41,6 +42,10 @@ function getMigrationPostBySlug(slug: string): MigrationPost | null {
       const filePath = path.join(contentDir, file);
       const fileContent = fs.readFileSync(filePath, 'utf-8');
       const { data, content } = matter(fileContent);
+
+      if (data.published === false || !data.title || !data.description || !content.trim()) {
+        return null;
+      }
       
       const wordCount = content.split(/\s+/).length;
       const readingTime = Math.ceil(wordCount / 200);
@@ -76,8 +81,8 @@ function getAllMigrationSlugs(): string[] {
       if (file.endsWith('.mdx')) {
         const filePath = path.join(contentDir, file);
         const fileContent = fs.readFileSync(filePath, 'utf-8');
-        const { data } = matter(fileContent);
-        if (data.slug) {
+        const { data, content } = matter(fileContent);
+        if (data.published !== false && data.slug && data.title && data.description && content.trim()) {
           slugs.push(data.slug);
         }
       }
@@ -93,6 +98,8 @@ interface MigrationPageProps {
   }>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const slugs = getAllMigrationSlugs();
   return slugs.map((slug) => ({
@@ -105,12 +112,10 @@ export async function generateMetadata({ params }: MigrationPageProps): Promise<
   const post = getMigrationPostBySlug(slug);
 
   if (!post) {
-    return {
-      title: 'Bài viết không tìm thấy',
-    };
+    return { title: 'Bài viết không tìm thấy', robots: { index: false, follow: false } };
   }
 
-  const siteUrl = 'https://www.pteintensive.com';
+  const canonicalUrl = getCanonicalUrl(`/migration/${post.slug}`);
 
   return {
     title: post.title,
@@ -132,6 +137,7 @@ export async function generateMetadata({ params }: MigrationPageProps): Promise<
       publishedTime: new Date(post.date).toISOString(),
       authors: [post.author],
       tags: post.tags,
+      url: canonicalUrl,
     },
     twitter: {
       card: 'summary_large_image',
@@ -140,7 +146,7 @@ export async function generateMetadata({ params }: MigrationPageProps): Promise<
       images: [post.cover],
     },
     alternates: {
-      canonical: `${siteUrl}/migration/${post.slug}`,
+      canonical: canonicalUrl,
     },
   };
 }
@@ -152,8 +158,6 @@ export default async function MigrationPostPage({ params }: MigrationPageProps) 
   if (!post) {
     notFound();
   }
-
-  const siteUrl = 'https://www.pteintensive.com';
 
   return (
     <>
@@ -271,14 +275,14 @@ export default async function MigrationPostPage({ params }: MigrationPageProps) 
                 name: 'PTE Intensive',
                 logo: {
                   '@type': 'ImageObject',
-                  url: `${siteUrl}/og/pteintensive-blog.png`,
+                  url: `${SITE_URL}/og/pteintensive-blog.png`,
                 },
               },
               datePublished: new Date(post.date).toISOString(),
               dateModified: new Date(post.date).toISOString(),
               mainEntityOfPage: {
                 '@type': 'WebPage',
-                '@id': `${siteUrl}/migration/${post.slug}`,
+                '@id': getCanonicalUrl(`/migration/${post.slug}`),
               },
               keywords: post.tags.join(', '),
             }),

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import readingTime from 'reading-time';
+export { formatPostDate } from './format';
 
 const postsDirectory = path.join(process.cwd(), 'content/posts');
 
@@ -10,6 +11,7 @@ export interface PostFrontmatter {
   slug: string;
   description: string;
   date: string;
+  updated?: string;
   author: string;
   tags: string[];
   cover: string;
@@ -19,6 +21,13 @@ export interface PostFrontmatter {
 export interface Post extends PostFrontmatter {
   content: string;
   readingTime: number;
+}
+
+export interface BlogCategory {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
 }
 
 // Get all post files
@@ -38,7 +47,7 @@ function parsePost(filename: string): Post | null {
   const frontmatter = data as PostFrontmatter;
   
   // Skip unpublished posts
-  if (!frontmatter.published) {
+  if (!frontmatter.published || !frontmatter.title || !frontmatter.description || !content.trim()) {
     return null;
   }
   
@@ -48,9 +57,61 @@ function parsePost(filename: string): Post | null {
   
   return {
     ...frontmatter,
+    slug: frontmatter.slug || filename.replace(/\.mdx$/, ''),
+    tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
     content,
     readingTime: readTime,
   };
+}
+
+export function slugifyTag(tag: string): string {
+  return tag
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/đ/g, 'd')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+}
+
+export function getPostCategory(post: Post): BlogCategory | null {
+  const primaryTag = post.tags?.[0];
+  if (!primaryTag) return null;
+
+  return {
+    id: slugifyTag(primaryTag),
+    name: primaryTag,
+    slug: slugifyTag(primaryTag),
+    description: `Các bài viết mới nhất trong chủ đề ${primaryTag}.`,
+  };
+}
+
+export function getAllCategories(): BlogCategory[] {
+  const categories = new Map<string, BlogCategory>();
+
+  getAllPosts().forEach((post) => {
+    post.tags.forEach((tag) => {
+      const slug = slugifyTag(tag);
+      if (!categories.has(slug)) {
+        categories.set(slug, {
+          id: slug,
+          name: tag,
+          slug,
+          description: `Các bài viết mới nhất trong chủ đề ${tag}.`,
+        });
+      }
+    });
+  });
+
+  return Array.from(categories.values()).sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+}
+
+export function getCategoryBySlug(slug: string): BlogCategory | null {
+  return getAllCategories().find((category) => category.slug === slug) || null;
+}
+
+export function getPostsByCategorySlug(categorySlug: string): Post[] {
+  return getAllPosts().filter((post) => post.tags.some((tag) => slugifyTag(tag) === categorySlug));
 }
 
 // Get all published posts
@@ -66,14 +127,9 @@ export function getAllPosts(): Post[] {
 
 // Get a single post by slug
 export function getPostBySlug(slug: string): Post | null {
-  const files = getPostFiles();
-  const file = files.find(f => f.replace('.mdx', '') === slug);
-  
-  if (!file) {
-    return null;
-  }
-  
-  return parsePost(file);
+  return getPostFiles()
+    .map(parsePost)
+    .find((post): post is Post => post?.slug === slug) ?? null;
 }
 
 // Get all post slugs for static generation

@@ -1,5 +1,10 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  alternates: { canonical: './' },
+};
 
 export default function KnowledgeLayout({
   children,

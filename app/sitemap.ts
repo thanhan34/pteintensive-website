@@ -1,32 +1,40 @@
 import { MetadataRoute } from 'next';
-import { getAllPosts } from '@/lib/blog/posts';
+import { getAllCategories, getAllPosts } from '@/lib/blog/posts';
 import { courseData } from '@/lib/courseData';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { getCanonicalUrl } from '@/lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = 'https://www.pteintensive.com';
-  const posts = getAllPosts();
+  const blogPosts = getAllPosts();
+  const blogCategories = getAllCategories();
   const migrationPosts = getAllMigrationSlugs();
   const courseSlugs = Object.keys(courseData);
 
-  const blogPosts: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${siteUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
+  const blogPostUrls: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: getCanonicalUrl(`/blog/${post.slug}`),
+    lastModified: new Date(post.updated || post.date),
     changeFrequency: 'weekly',
     priority: 0.8,
   }));
 
+  const blogCategoryUrls: MetadataRoute.Sitemap = blogCategories.map((category) => ({
+    url: getCanonicalUrl(`/blog/category/${category.slug}`),
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.7,
+  }));
+
   const migrationUrls: MetadataRoute.Sitemap = migrationPosts.map((slug) => ({
-    url: `${siteUrl}/migration/${slug}`,
+    url: getCanonicalUrl(`/migration/${slug}`),
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.8,
   }));
 
   const courseUrls: MetadataRoute.Sitemap = courseSlugs.map((slug) => ({
-    url: `${siteUrl}/courses/${slug}`,
+    url: getCanonicalUrl(`/courses/${slug}`),
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.8,
@@ -34,205 +42,206 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: siteUrl,
+      url: getCanonicalUrl('/'),
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1,
     },
     {
-      url: `${siteUrl}/blog`,
+      url: getCanonicalUrl('/blog'),
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: `${siteUrl}/about`,
+      url: getCanonicalUrl('/about'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
-      url: `${siteUrl}/courses`,
+      url: getCanonicalUrl('/courses'),
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${siteUrl}/contact`,
+      url: getCanonicalUrl('/contact'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
-      url: `${siteUrl}/terms`,
+      url: getCanonicalUrl('/terms'),
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
-      url: `${siteUrl}/privacy`,
+      url: getCanonicalUrl('/privacy'),
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
-      url: `${siteUrl}/reviews`,
+      url: getCanonicalUrl('/reviews'),
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
-      url: `${siteUrl}/register`,
+      url: getCanonicalUrl('/register'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/study`,
+      url: getCanonicalUrl('/study'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     // Knowledge base pages
     {
-      url: `${siteUrl}/knowledge`,
+      url: getCanonicalUrl('/knowledge'),
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${siteUrl}/knowledge/scoring-system`,
+      url: getCanonicalUrl('/knowledge/scoring-system'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     // Speaking section
     {
-      url: `${siteUrl}/knowledge/speaking/read-aloud`,
+      url: getCanonicalUrl('/knowledge/speaking/read-aloud'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/speaking/repeat-sentence`,
+      url: getCanonicalUrl('/knowledge/speaking/repeat-sentence'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/speaking/describe-image`,
+      url: getCanonicalUrl('/knowledge/speaking/describe-image'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/speaking/retell-lecture`,
+      url: getCanonicalUrl('/knowledge/speaking/retell-lecture'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/speaking/answer-short-question`,
+      url: getCanonicalUrl('/knowledge/speaking/answer-short-question'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     // Writing section
     {
-      url: `${siteUrl}/knowledge/writing/summarize-text`,
+      url: getCanonicalUrl('/knowledge/writing/summarize-text'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/writing/essay`,
+      url: getCanonicalUrl('/knowledge/writing/essay'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     // Reading section
     {
-      url: `${siteUrl}/knowledge/reading/mcsa`,
+      url: getCanonicalUrl('/knowledge/reading/mcsa'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/reading/mcma`,
+      url: getCanonicalUrl('/knowledge/reading/mcma'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/reading/rop`,
+      url: getCanonicalUrl('/knowledge/reading/rop'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/reading/rfib`,
+      url: getCanonicalUrl('/knowledge/reading/rfib'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/reading/rwfib`,
+      url: getCanonicalUrl('/knowledge/reading/rwfib'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     // Listening section
     {
-      url: `${siteUrl}/knowledge/listening/summarize-spoken`,
+      url: getCanonicalUrl('/knowledge/listening/summarize-spoken'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/listening/mcma`,
+      url: getCanonicalUrl('/knowledge/listening/mcma'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/listening/fill-blanks`,
+      url: getCanonicalUrl('/knowledge/listening/fill-blanks'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/listening/highlight-summary`,
+      url: getCanonicalUrl('/knowledge/listening/highlight-summary'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/listening/mcsa`,
+      url: getCanonicalUrl('/knowledge/listening/mcsa'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/listening/select-missing`,
+      url: getCanonicalUrl('/knowledge/listening/select-missing'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/listening/highlight-incorrect`,
+      url: getCanonicalUrl('/knowledge/listening/highlight-incorrect'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/knowledge/listening/write-dictation`,
+      url: getCanonicalUrl('/knowledge/listening/write-dictation'),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     ...courseUrls,
     ...migrationUrls,
-    ...blogPosts,
+    ...blogPostUrls,
+    ...blogCategoryUrls,
   ];
 }
 
@@ -247,8 +256,10 @@ function getAllMigrationSlugs(): string[] {
     const files = fs.readdirSync(contentDir).filter((file) => file.endsWith('.mdx'));
     for (const file of files) {
       const fileContent = fs.readFileSync(path.join(contentDir, file), 'utf8');
-      const { data } = matter(fileContent);
-      if (data.slug) slugs.push(data.slug);
+      const { data, content } = matter(fileContent);
+      if (data.published !== false && data.slug && data.title && data.description && content.trim()) {
+        slugs.push(data.slug);
+      }
     }
   }
 

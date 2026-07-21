@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Be_Vietnam_Pro, Noto_Serif } from 'next/font/google';
 import './globals.css';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -7,11 +7,22 @@ import Providers from './providers';
 import { Suspense } from 'react';
 import MessengerChatWrapper from './components/MessengerChatWrapper';
 import Script from 'next/script';
+import { SITE_URL } from '@/lib/site';
 
-const inter = Inter({ subsets: ['latin'] });
+const beVietnamPro = Be_Vietnam_Pro({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-be-vietnam-pro',
+});
+
+const notoSerif = Noto_Serif({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['500', '600', '700'],
+  variable: '--font-noto-serif',
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.pteintensive.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'PTE Intensive - Luyện Thi PTE Academic',
     template: '%s | PTE Intensive'
@@ -29,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'vi_VN',
-    url: 'https://www.pteintensive.com',
+    url: SITE_URL,
     siteName: 'PTE Intensive',
     title: 'PTE Intensive - Luyện Thi PTE Academic',
     description: 'Trung tâm luyện thi PTE Academic hàng đầu tại Việt Nam với đội ngũ giảng viên chuyên nghiệp, khóa học chất lượng và cam kết đầu ra',
@@ -66,7 +77,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const siteUrl = 'https://www.pteintensive.com';
+  const siteUrl = SITE_URL;
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -87,7 +98,7 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <head />
-      <body className={inter.className}>
+      <body className={`${beVietnamPro.className} ${beVietnamPro.variable} ${notoSerif.variable}`}>
         <Script id="organization-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <Script id="website-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
         <Providers>

@@ -13,14 +13,14 @@ export function CTABlock() {
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link
-            href="/trialclass"
+                href="/register"
             className="inline-flex items-center px-8 py-3 bg-white text-[#fc5d01] rounded-md font-semibold hover:bg-gray-100 transition-colors shadow-lg"
           >
             👉 Đăng ký học thử ngay
           </Link>
           
           <Link
-            href="/mocktest"
+                href="https://study.pteintensive.com"
             className="inline-flex items-center px-8 py-3 bg-[#ffffff20] text-white rounded-md font-semibold hover:bg-[#ffffff30] transition-colors border-2 border-white"
           >
             🎧 Làm Mock Test miễn phí

@@ -4,6 +4,30 @@ import { getStorage, FirebaseStorage } from 'firebase/storage';
 import { getDatabase, Database } from 'firebase/database';
 import { getAuth, Auth } from 'firebase/auth';
 
+const fallbackFirebaseConfig = {
+  apiKey: 'AIzaSyCBbrlKP1BOO3LRkNXiOEqAE2cmIqLt6nk',
+  authDomain: 'pteintensive-91dc2.firebaseapp.com',
+  projectId: 'pteintensive-91dc2',
+  storageBucket: 'pteintensive-91dc2.firebasestorage.app',
+  messagingSenderId: '299717389530',
+  appId: '1:299717389530:web:a352258282218e9c4d09e3',
+  measurementId: 'G-DLG1RYCVR8',
+};
+
+function envOrFallback(envVar: keyof typeof envToFallbackKey) {
+  return process.env[envVar] || fallbackFirebaseConfig[envToFallbackKey[envVar]];
+}
+
+const envToFallbackKey = {
+  NEXT_PUBLIC_FIREBASE_API_KEY: 'apiKey',
+  NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: 'authDomain',
+  NEXT_PUBLIC_FIREBASE_PROJECT_ID: 'projectId',
+  NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: 'storageBucket',
+  NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: 'messagingSenderId',
+  NEXT_PUBLIC_FIREBASE_APP_ID: 'appId',
+  NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: 'measurementId',
+} as const;
+
 // Validate required environment variables
 const requiredEnvVars = [
   'NEXT_PUBLIC_FIREBASE_API_KEY',
@@ -17,33 +41,25 @@ const requiredEnvVars = [
 // Check environment variables with better error handling
 const missingVars: string[] = [];
 for (const envVar of requiredEnvVars) {
-  if (!process.env[envVar]) {
+  if (!envOrFallback(envVar)) {
     missingVars.push(envVar);
   }
 }
 
 if (missingVars.length > 0) {
   console.warn('Missing environment variables:', missingVars);
-  console.warn('Current environment variables:', {
-    NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY ? 'SET' : 'NOT SET',
-    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ? 'SET' : 'NOT SET',
-    NEXT_PUBLIC_FIREBASE_PROJECT_ID: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ? 'SET' : 'NOT SET',
-    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ? 'SET' : 'NOT SET',
-    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ? 'SET' : 'NOT SET',
-    NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID ? 'SET' : 'NOT SET'
-  });
-  console.warn('Using fallback configuration from next.config.ts');
 }
 
+const projectId = envOrFallback('NEXT_PUBLIC_FIREBASE_PROJECT_ID');
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-  databaseURL: `https://${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}.firebaseio.com`
+  apiKey: envOrFallback('NEXT_PUBLIC_FIREBASE_API_KEY'),
+  authDomain: envOrFallback('NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN'),
+  projectId,
+  storageBucket: envOrFallback('NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET'),
+  messagingSenderId: envOrFallback('NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID'),
+  appId: envOrFallback('NEXT_PUBLIC_FIREBASE_APP_ID'),
+  measurementId: envOrFallback('NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID'),
+  databaseURL: `https://${projectId}.firebaseio.com`
 };
 
 // Initialize Firebase

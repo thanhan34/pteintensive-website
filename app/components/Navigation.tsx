@@ -36,6 +36,7 @@ export default function Navigation() {
                 src="/images/logo/white-logo.png"
                 alt="PTE Intensive Logo"
                 fill
+                sizes="160px"
                 className="object-contain"
                 priority
               />

@@ -19,7 +19,4 @@ export const taskData: TasksData = {
   ...listeningTasks
 };
 
-// Add debugging
-console.log('Available tasks:', Object.keys(taskData));
-
 export default taskData;

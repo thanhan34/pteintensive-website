@@ -3,21 +3,29 @@
 import { useEffect, useState } from 'react';
 import { AuthGuard } from '@/lib/auth/guards';
 import { useAuth } from '@/lib/auth/context';
-import { PostsService } from '@/lib/services/posts';
-import { Post } from '@/lib/types/blog';
 import { Button } from '../../components/ui/button';
 import Link from 'next/link';
+
+type DashboardPostStatus = 'draft' | 'published';
+
+interface DashboardPost {
+  id: string;
+  title: string;
+  slug: string;
+  status: DashboardPostStatus;
+  updatedAt: string | null;
+}
 
 interface DashboardStats {
   totalPosts: number;
   publishedPosts: number;
   draftPosts: number;
   pendingPosts: number;
-  recentPosts: Post[];
+  recentPosts: DashboardPost[];
 }
 
 export default function AdminDashboard() {
-  const { userProfile, signOut } = useAuth();
+  const { user, userProfile, signOut } = useAuth();
   const adminPrimaryButtonClasses = 'bg-[#FC5D01] text-white hover:bg-[#e65300]';
   const adminSecondaryButtonClasses = 'bg-white text-gray-900 border border-gray-200 hover:bg-gray-50';
   const [stats, setStats] = useState<DashboardStats>({
@@ -30,34 +38,30 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadDashboardStats();
-  }, []);
+    if (user) loadDashboardStats();
+  }, [user]);
 
   const loadDashboardStats = async () => {
+    if (!user) return;
+
     try {
       setLoading(true);
-      
-      // Get posts by different statuses
-      const [published, drafts, pending] = await Promise.all([
-        PostsService.getPostsByStatus(['published']),
-        PostsService.getPostsByStatus(['draft']),
-        PostsService.getPostsByStatus(['pending']),
-      ]);
+      const response = await fetch('/api/blog/posts');
 
-      // Get recent posts (all statuses for admin)
-      const recentResult = await PostsService.getPosts({
-        status: ['published', 'draft', 'pending', 'private'],
-        limit: 5,
-        orderBy: 'updatedAt',
-        orderDirection: 'desc',
-      });
+      if (!response.ok) {
+        throw new Error('Failed to load admin blog posts');
+      }
+
+      const { posts = [] } = await response.json() as { posts?: DashboardPost[] };
+      const publishedPosts = posts.filter((post) => post.status === 'published').length;
+      const draftPosts = posts.filter((post) => post.status === 'draft').length;
 
       setStats({
-        totalPosts: published.length + drafts.length + pending.length,
-        publishedPosts: published.length,
-        draftPosts: drafts.length,
-        pendingPosts: pending.length,
-        recentPosts: recentResult.data,
+        totalPosts: posts.length,
+        publishedPosts,
+        draftPosts,
+        pendingPosts: 0,
+        recentPosts: posts.slice(0, 5),
       });
     } catch (error) {
       console.error('Error loading dashboard stats:', error);
@@ -74,12 +78,16 @@ export default function AdminDashboard() {
     }
   };
 
+  const formatUpdatedDate = (updatedAt: string | null) => {
+    if (!updatedAt) return 'Không rõ';
+    const date = new Date(updatedAt);
+    return Number.isNaN(date.getTime()) ? 'Không rõ' : date.toLocaleDateString('vi-VN');
+  };
+
   const getStatusBadge = (status: string) => {
     const styles = {
       published: 'bg-green-100 text-green-800',
       draft: 'bg-gray-100 text-gray-800',
-      pending: 'bg-yellow-100 text-yellow-800',
-      private: 'bg-blue-100 text-blue-800',
     };
 
     return (
@@ -181,25 +189,25 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-white overflow-hidden shadow rounded-lg">
+                <Link href="/admin/blog" className="bg-white overflow-hidden shadow rounded-lg hover:bg-gray-50">
                   <div className="p-5">
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
-                        <div className="w-8 h-8 bg-yellow-500 rounded-md flex items-center justify-center">
+                        <div className="w-8 h-8 bg-[#FC5D01] rounded-md flex items-center justify-center">
                           <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                           </svg>
                         </div>
                       </div>
                       <div className="ml-5 w-0 flex-1">
                         <dl>
-                          <dt className="text-sm font-medium text-gray-500 truncate">Chờ duyệt</dt>
-                          <dd className="text-lg font-medium text-gray-900">{stats.pendingPosts}</dd>
+                          <dt className="text-sm font-medium text-gray-500 truncate">Tạo nhanh</dt>
+                          <dd className="text-lg font-medium text-gray-900">MDX Blog</dd>
                         </dl>
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
 
               {/* Quick Actions */}
@@ -207,10 +215,10 @@ export default function AdminDashboard() {
                 <div className="px-4 py-5 sm:p-6">
                   <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Thao tác nhanh</h3>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <Link href="/admin/posts/new">
-                      <Button className={`w-full ${adminPrimaryButtonClasses}`}>Tạo bài viết mới</Button>
+                    <Link href="/admin/blog">
+                      <Button className={`w-full ${adminPrimaryButtonClasses}`}>Xem bài viết MDX</Button>
                     </Link>
-                    <Link href="/admin/posts">
+                    <Link href="/admin/blog">
                       <Button variant="outline" className={`w-full ${adminSecondaryButtonClasses}`}>Quản lý bài viết</Button>
                     </Link>
                     <Link href="/admin/pages">
@@ -249,13 +257,13 @@ export default function AdminDashboard() {
                                   {post.title}
                                 </p>
                                 <p className="text-sm text-gray-500">
-                                  Cập nhật: {new Date(post.updatedAt.seconds * 1000).toLocaleDateString('vi-VN')}
+                                  Cập nhật: {formatUpdatedDate(post.updatedAt)}
                                 </p>
                               </div>
                               <div className="flex items-center space-x-2">
                                 {getStatusBadge(post.status)}
-                                <Link href={`/admin/posts/${post.slug}`}>
-                                  <Button variant="outline" size="sm" className={adminSecondaryButtonClasses}>Chỉnh sửa</Button>
+                                <Link href={`/blog/${post.slug}`}>
+                                  <Button variant="outline" size="sm" className={adminSecondaryButtonClasses}>Xem bài</Button>
                                 </Link>
                               </div>
                             </div>

@@ -1,8 +1,7 @@
 import type { MetadataRoute } from 'next';
+import { getCanonicalUrl, SITE_URL } from '@/lib/site';
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = 'https://www.pteintensive.com';
-
   return {
     rules: [
       {
@@ -29,7 +28,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: [`${siteUrl}/sitemap.xml`, `${siteUrl}/rss.xml`],
-    host: siteUrl,
+    sitemap: getCanonicalUrl('/sitemap.xml'),
+    host: SITE_URL,
   };
 }

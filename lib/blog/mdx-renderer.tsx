@@ -11,37 +11,28 @@ interface MDXRendererProps {
 }
 
 export async function MDXRenderer({ content }: MDXRendererProps) {
-  try {
-    const compiled = await compile(content, {
-      outputFormat: 'function-body',
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [
-        rehypeSlug,
-        [
-          rehypeAutolinkHeadings,
-          {
-            behavior: 'wrap',
-            properties: {
-              className: ['anchor'],
-            },
+  const compiled = await compile(content, {
+    outputFormat: 'function-body',
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'wrap',
+          properties: {
+            className: ['anchor'],
           },
-        ],
-        [rehypePrismPlus, { ignoreMissing: true }],
+        },
       ],
-    });
+      [rehypePrismPlus, { ignoreMissing: true }],
+    ],
+  });
 
-    const { default: MDXContent } = await run(compiled, {
-      ...runtime,
-      baseUrl: import.meta.url,
-    });
+  const { default: MDXContent } = await run(compiled, {
+    ...runtime,
+    baseUrl: import.meta.url,
+  });
 
-    return <MDXContent components={MDXComponents} />;
-  } catch (error) {
-    console.error('MDX rendering error:', error);
-    return (
-      <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-        <p className="text-red-800">Error rendering MDX content</p>
-      </div>
-    );
-  }
+  return <MDXContent components={MDXComponents} />;
 }

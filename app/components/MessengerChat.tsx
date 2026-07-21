@@ -30,7 +30,6 @@ export default function MessengerChat() {
       script.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
       script.async = true;
       script.defer = true;
-      script.crossOrigin = 'anonymous';
       
       script.onload = () => {
         window.fbAsyncInit = function() {

@@ -129,6 +129,7 @@ export default function Footer() {
                   src="/images/logo/white-logo.png"
                   alt="PTE Intensive Logo"
                   fill
+                  sizes="56px"
                   className="object-contain"
                 />
               </div>

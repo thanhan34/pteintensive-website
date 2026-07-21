@@ -11,12 +11,13 @@ import CommonQuestions from './components/CommonQuestions';
 import ScoreComparisonTable from './components/ScoreComparisonTable';
 import GuaranteeSection from './components/GuaranteeSection';
 import ScrollReveal from './components/ScrollReveal';
+import { getCanonicalUrl, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'PTE Intensive - Trung Tâm Luyện Thi PTE Academic Hàng Đầu',
   description: 'Khóa học PTE Academic chất lượng cao với cam kết đầu ra, giảng viên chuyên nghiệp, và phương pháp học hiệu quả. Đạt điểm PTE mục tiêu nhanh chóng.',
   alternates: {
-    canonical: 'https://www.pteintensive.com'
+    canonical: getCanonicalUrl('/')
   }
 };
 
@@ -25,7 +26,7 @@ const structuredData = {
   '@type': 'EducationalOrganization',
   name: 'PTE Intensive',
   description: 'Trung tâm luyện thi PTE Academic hàng đầu tại Việt Nam',
-  url: 'https://www.pteintensive.com',
+  url: SITE_URL,
   address: [
     {
       '@type': 'PostalAddress',

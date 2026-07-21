@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { courseData, type CourseSlug } from '../../../lib/courseData';
 import CourseContent from './CourseContent';
+import { getCanonicalUrl, SITE_URL } from '@/lib/site';
+
+export const dynamicParams = false;
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -13,6 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {
       title: 'Course Not Found | PTE Intensive',
       description: 'The requested course could not be found.',
+      robots: { index: false, follow: false },
     };
   }
 
@@ -20,12 +24,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${course.title} | PTE Intensive`,
     description: course.description,
     alternates: {
-      canonical: `https://www.pteintensive.com/courses/${slug}`
+      canonical: getCanonicalUrl(`/courses/${slug}`)
     },
     openGraph: {
       title: course.title,
       description: course.description,
-      url: `https://www.pteintensive.com/courses/${slug}`,
+      url: getCanonicalUrl(`/courses/${slug}`),
       type: 'website',
       images: [
         {
@@ -63,7 +67,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
     provider: {
       '@type': 'Organization',
       name: 'PTE Intensive',
-      sameAs: 'https://www.pteintensive.com'
+      sameAs: SITE_URL
     },
     educationalLevel: 'PTE Academic Preparation',
     courseCode: slug,

@@ -36,7 +36,7 @@ export default function AboutPageClient() {
             transition={{ duration: 0.8 }}
           >
             <div className="relative w-48 h-16">
-              <Image src="/images/logo/white-logo.png" alt="PTE Intensive Logo" fill className="object-contain" />
+              <Image src="/images/logo/white-logo.png" alt="PTE Intensive Logo" fill sizes="64px" className="object-contain" />
             </div>
           </motion.div>
 
