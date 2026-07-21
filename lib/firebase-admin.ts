@@ -12,7 +12,7 @@ function normalizePrivateKey(value?: string) {
     .replace(/\\n/g, '\n');
 }
 
-function getAdminApp(): App {
+export function getAdminApp(): App {
   if (getApps().length) return getApps()[0];
 
   const projectId =
@@ -42,7 +42,14 @@ function getAdminApp(): App {
   });
 }
 
-export const adminApp = getAdminApp();
-export const adminAuth = getAuth(adminApp);
-export const adminDb = getFirestore(adminApp);
-export const adminStorage = getStorage(adminApp);
+export function getAdminAuth() {
+  return getAuth(getAdminApp());
+}
+
+export function getAdminDb() {
+  return getFirestore(getAdminApp());
+}
+
+export function getAdminStorage() {
+  return getStorage(getAdminApp());
+}

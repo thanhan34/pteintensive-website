@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { adminAuth } from '@/lib/firebase-admin';
+import { getAdminAuth } from '@/lib/firebase-admin';
 
 export function getAdminEmails(): string[] {
   return (process.env.ADMIN_EMAILS || '')
@@ -21,7 +21,7 @@ export async function requireAdminFromRequest(request: NextRequest) {
     throw new Error('Missing Firebase ID token');
   }
 
-  const decoded = await adminAuth.verifyIdToken(token);
+  const decoded = await getAdminAuth().verifyIdToken(token);
   if (!isAdminEmail(decoded.email)) {
     throw new Error('Admin access denied');
   }

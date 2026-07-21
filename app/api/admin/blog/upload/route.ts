@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdminFromRequest } from '@/lib/admin-auth';
-import { adminStorage } from '@/lib/firebase-admin';
+import { getAdminStorage } from '@/lib/firebase-admin';
 import { generateSlug } from '@/lib/blog-cms/utils';
 
 export async function POST(request: NextRequest) {
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Image must be smaller than 5MB' }, { status: 400 });
     }
 
-    const bucket = adminStorage.bucket();
+    const bucket = getAdminStorage().bucket();
     const extension = file.name.split('.').pop() || 'jpg';
     const storagePath = `covers/${slug}/${Date.now()}.${extension}`;
     const buffer = Buffer.from(await file.arrayBuffer());
