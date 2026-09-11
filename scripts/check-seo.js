@@ -5,6 +5,7 @@ const matter = require('gray-matter');
 const SITE_URL = 'https://www.pteintensive.com';
 const errors = [];
 const warnings = [];
+const mojibakePattern = /\uFFFD|\u00C3[\u0080-\u00BF]|\u00C2[\u0080-\u00BF]|\u00C4[\u0080-\u00BF\u2018\u2019]|\u00C6[\u0080-\u00BF\u01A1\u01B0]|\u00E1[\u00BA\u00BB].|\u00E2[\u0080\u201A\u201E\u2020\u2021\u2026\u20AC\u2122]|\u00F0\u0178/u;
 
 function walk(dir, extensions) {
   if (!fs.existsSync(dir)) return [];
@@ -24,7 +25,12 @@ const publishedMigrationSlugs = new Set();
 const seenSlugs = new Map();
 
 for (const file of walk('content/posts', ['.mdx'])) {
-  const { data, content } = matter(fs.readFileSync(file, 'utf8'));
+  const source = fs.readFileSync(file, 'utf8');
+  if (source.startsWith('\uFEFF')) report('error', `${file}: contains a UTF-8 BOM`);
+  if (mojibakePattern.test(source)) report('error', `${file}: contains likely mojibake (incorrectly decoded UTF-8 text)`);
+  if (source !== source.normalize('NFC')) report('error', `${file}: text is not normalized as Unicode NFC`);
+
+  const { data, content } = matter(source);
   if (!data.published) continue;
   for (const field of ['slug', 'title', 'description']) {
     if (!String(data[field] || '').trim()) report('error', `${file}: published post is missing ${field}`);
