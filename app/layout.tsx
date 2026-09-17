@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Be_Vietnam_Pro, Noto_Serif } from 'next/font/google';
+import { Manrope, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -9,16 +9,18 @@ import MessengerChatWrapper from './components/MessengerChatWrapper';
 import Script from 'next/script';
 import { SITE_URL } from '@/lib/site';
 
-const beVietnamPro = Be_Vietnam_Pro({
+const manrope = Manrope({
   subsets: ['latin', 'vietnamese'],
   weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-be-vietnam-pro',
+  variable: '--font-body',
+  display: 'swap',
 });
 
-const notoSerif = Noto_Serif({
+const playfairDisplay = Playfair_Display({
   subsets: ['latin', 'vietnamese'],
   weight: ['500', '600', '700'],
-  variable: '--font-noto-serif',
+  variable: '--font-display',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -98,7 +100,7 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <head />
-      <body className={`${beVietnamPro.className} ${beVietnamPro.variable} ${notoSerif.variable}`}>
+      <body className={`${manrope.className} ${manrope.variable} ${playfairDisplay.variable}`}>
         <Script id="organization-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <Script id="website-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
         <Providers>

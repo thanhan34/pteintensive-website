@@ -124,7 +124,7 @@ export default function Footer() {
               <span className="h-px w-7 bg-[#fc5d01]" />
               Bắt đầu cùng PTE Intensive
             </span>
-            <h2 className="max-w-xl font-[family-name:var(--font-noto-serif)] text-3xl font-semibold leading-tight tracking-[-0.025em] text-[#211a16] sm:text-4xl">Sẵn sàng chinh phục điểm PTE mục tiêu?</h2>
+            <h2 className="max-w-xl font-[family-name:var(--font-display)] text-3xl font-semibold leading-tight tracking-[-0.025em] text-[#211a16] sm:text-4xl">Sẵn sàng chinh phục điểm PTE mục tiêu?</h2>
             <p className="mt-3 text-sm leading-6 text-gray-500 sm:text-base">
               Nhận tư vấn lộ trình cá nhân hóa và bắt đầu hành trình của bạn ngay hôm nay.
             </p>
@@ -243,7 +243,7 @@ export default function Footer() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span className="font-[family-name:var(--font-noto-serif)] text-2xl font-semibold tracking-tight text-[#211a16]">Hệ thống cơ sở</span>
+              <span className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-tight text-[#211a16]">Hệ thống cơ sở</span>
             </div>
           </div>
           <span className="hidden text-sm text-gray-500 sm:block">4 cơ sở tại Việt Nam & Australia</span>
@@ -288,7 +288,7 @@ export default function Footer() {
         {/* ── DIVIDER ──────────────────────────────────────────────── */}
         <div className="mb-7">
           <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#d94e00]">Cộng đồng học PTE</p>
-          <h3 className="font-[family-name:var(--font-noto-serif)] text-2xl font-semibold tracking-tight text-[#211a16]">Kết nối cùng chúng tôi</h3>
+          <h3 className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-tight text-[#211a16]">Kết nối cùng chúng tôi</h3>
         </div>
 
         {/* ── COMMUNITY SECTION ────────────────────────────────────── */}

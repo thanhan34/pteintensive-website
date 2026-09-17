@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight, CheckCircle2, Clock3, Mail, MapPin, Phone } from 'lucide-react';
 import ContactFormClient from '../../components/ContactFormClient';
 import ContactInfo from '../../components/ContactInfo';
 import CommunityLinks from '../../components/CommunityLinks';
@@ -95,78 +96,143 @@ const contactSchema = {
   ]
 };
 
+const supportHighlights = [
+  'Tư vấn lộ trình theo điểm mục tiêu',
+  'Giải đáp về lịch học và học phí',
+  'Hỗ trợ học viên tại Việt Nam & Australia',
+];
+
 export default function ContactPage() {
   return (
-    <div className="min-h-screen">
+    <main className="min-h-screen bg-[#fffaf7] pt-36">
       <Script
         id="contact-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
       />
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#fc5d01] to-[#fd7f33] text-white py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div 
-            className="absolute inset-0 opacity-10"
+      <section className="relative isolate overflow-hidden border-b border-orange-100 bg-gradient-to-br from-white via-[#fff8f2] to-[#fedac2]/55 text-gray-900">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute -left-24 top-10 h-80 w-80 rounded-full bg-[#fc5d01]/15 blur-[100px]" />
+          <div className="absolute -right-16 bottom-0 h-96 w-96 rounded-full bg-[#fd7f33]/20 blur-[120px]" />
+          <div
+            className="absolute inset-0 opacity-[0.12]"
             style={{
-              backgroundImage: 'url("/images/pattern.png")',
-              backgroundSize: '200px 200px'
+              backgroundImage: 'radial-gradient(circle at 2px 2px, #fc5d01 1px, transparent 0)',
+              backgroundSize: '28px 28px',
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 text-center pt-24">
-          <div className="relative w-40 h-32 mx-auto mb-8">
-            <Image
-              src="/images/logo/orange-logo.png"
-              alt="PTE Intensive Logo"
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-contain"
-            />
-          </div>
-
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">
-            Liên Hệ Với Chúng Tôi
-          </h1>
-          <p className="text-xl opacity-90 max-w-2xl mx-auto leading-relaxed">
-            Chúng tôi luôn sẵn sàng hỗ trợ và giải đáp mọi thắc mắc của bạn
-          </p>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="py-16 bg-gradient-to-b from-gray-50 to-white relative -mt-8">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-50">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, #f0f0f0 1px, transparent 0)',
-            backgroundSize: '20px 20px'
-          }}/>
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8 items-start">
-            {/* Left Column */}
-            <div className="space-y-6">
-              <ContactInfo />
-              <CommunityLinks />
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:px-8 lg:py-24">
+          <div>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white/80 px-4 py-2 text-sm font-semibold text-[#d94f00] shadow-sm backdrop-blur-sm">
+              <span className="h-2 w-2 rounded-full bg-[#fc5d01] shadow-[0_0_12px_rgba(252,93,1,0.9)]" />
+              Đội ngũ tư vấn luôn sẵn sàng
             </div>
+            <h1 className="max-w-3xl text-4xl font-extrabold leading-[1.15] tracking-tight sm:text-5xl lg:text-6xl">
+              Cùng bạn bắt đầu hành trình{' '}
+              <span className="text-[#fc5d01]">chinh phục PTE</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-8 text-gray-600 sm:text-lg">
+              Chia sẻ mục tiêu của bạn, PTE Intensive sẽ tư vấn lộ trình học phù hợp và giải đáp mọi thắc mắc trong thời gian sớm nhất.
+            </p>
 
-            {/* Right Column - Contact Form */}
-            <div className="lg:col-span-1 lg:sticky lg:top-8">
-              <ContactFormClient />
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="#contact-form"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#fc5d01] px-6 py-3 font-semibold text-white shadow-[0_14px_30px_rgba(252,93,1,0.28)] transition hover:-translate-y-0.5 hover:bg-[#e95500] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffb180]"
+              >
+                Nhận tư vấn miễn phí
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <a
+                href="tel:+84349213852"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-orange-200 bg-white px-6 py-3 font-semibold text-[#e45500] shadow-sm transition hover:-translate-y-0.5 hover:border-[#fc5d01] hover:bg-orange-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fc5d01]/30"
+              >
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                0349 213 852
+              </a>
             </div>
           </div>
+
+          <div className="relative">
+            <div className="rounded-3xl border border-orange-100 bg-white/90 p-6 shadow-[0_24px_70px_rgba(252,93,1,0.14)] backdrop-blur-md sm:p-8">
+              <div className="flex items-center justify-between border-b border-orange-100 pb-5">
+                <div>
+                  <p className="text-sm font-semibold text-[#fc5d01]">Bạn cần hỗ trợ?</p>
+                  <p className="mt-1 text-xl font-bold">Chúng tôi có thể giúp bạn</p>
+                </div>
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fc5d01] shadow-lg shadow-[#fc5d01]/25">
+                  <Mail className="h-6 w-6" aria-hidden="true" />
+                </div>
+              </div>
+              <ul className="mt-6 space-y-4">
+                {supportHighlights.map((highlight) => (
+                  <li key={highlight} className="flex items-start gap-3 text-sm leading-6 text-gray-700 sm:text-base">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#fc5d01]" aria-hidden="true" />
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-7 grid grid-cols-2 gap-3">
+                <div className="rounded-2xl border border-orange-100 bg-orange-50 p-4">
+                  <Clock3 className="mb-2 h-5 w-5 text-[#fc5d01]" aria-hidden="true" />
+                  <p className="text-xs text-gray-500">Phản hồi dự kiến</p>
+                  <p className="mt-1 font-semibold text-gray-900">Trong 24 giờ</p>
+                </div>
+                <div className="rounded-2xl border border-orange-100 bg-orange-50 p-4">
+                  <MapPin className="mb-2 h-5 w-5 text-[#fc5d01]" aria-hidden="true" />
+                  <p className="text-xs text-gray-500">Hệ thống</p>
+                  <p className="mt-1 font-semibold text-gray-900">4 cơ sở</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="relative mt-12">
-        <Map />
+      <section className="relative py-16 sm:py-20">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-50"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(252,93,1,0.10) 1px, transparent 0)',
+            backgroundSize: '24px 24px',
+          }}
+        />
+        <div className="relative mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:px-8">
+          <div className="space-y-6">
+            <ContactInfo />
+            <CommunityLinks />
+          </div>
+          <div id="contact-form" className="scroll-mt-40 lg:sticky lg:top-40">
+            <ContactFormClient />
+          </div>
+        </div>
       </section>
-    </div>
+
+      <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#fc5d01]">Ghé thăm chúng tôi</p>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Trụ sở PTE Intensive</h2>
+              <p className="mt-3 max-w-2xl leading-7 text-gray-600">
+                Tìm chúng tôi tại 2C6 Nguyễn Khuyến, Phường Bình Đức, An Giang.
+              </p>
+            </div>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=2C6%20Nguyễn%20Khuyến%2C%20Phường%20Bình%20Đức%2C%20An%20Giang"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-800 shadow-sm transition hover:border-[#fc5d01]/30 hover:text-[#fc5d01] md:self-auto"
+            >
+              <MapPin className="h-4 w-4" aria-hidden="true" />
+              Mở Google Maps
+            </a>
+          </div>
+          <Map />
+        </div>
+      </section>
+    </main>
   );
 }

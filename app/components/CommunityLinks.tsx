@@ -34,8 +34,7 @@ export default function CommunityLinks() {
         </svg>
       ),
       stats: "10,000+ thành viên",
-      description: "Tham gia cộng đồng học tập sôi động",
-      benefits: ["Chia sẻ kinh nghiệm", "Tài liệu miễn phí", "Hỗ trợ 24/7"]
+      description: "Tham gia cộng đồng học tập sôi động"
     },
     {
       platform: "Facebook Fanpage",
@@ -46,8 +45,7 @@ export default function CommunityLinks() {
         </svg>
       ),
       stats: "Cập nhật hàng ngày",
-      description: "Theo dõi tin tức và sự kiện mới nhất",
-      benefits: ["Thông báo khóa học", "Ưu đãi đặc biệt", "Tin tức PTE"]
+      description: "Theo dõi tin tức và sự kiện mới nhất"
     },
     {
       platform: "YouTube Channel",
@@ -58,14 +56,13 @@ export default function CommunityLinks() {
         </svg>
       ),
       stats: "Video hướng dẫn miễn phí",
-      description: "Học mọi lúc, mọi nơi với video chất lượng cao",
-      benefits: ["Tips làm bài thi", "Luyện phát âm", "Giải đề PTE"]
+      description: "Học mọi lúc, mọi nơi với video chất lượng cao"
     }
   ];
 
   return (
-    <motion.div 
-      className="bg-gradient-to-br from-[#FF4D00] to-[#ff7e3c] text-white rounded-2xl shadow-xl overflow-hidden relative"
+    <motion.section
+      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#fc5d01] to-[#f47a35] text-white shadow-[0_18px_50px_rgba(252,93,1,0.22)]"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -79,9 +76,12 @@ export default function CommunityLinks() {
       </div>
 
       {/* Content */}
-      <div className="relative p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">Tham Gia Cộng Đồng</h2>
+      <div className="relative p-6 sm:p-8">
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/70">Học hỏi & kết nối</p>
+            <h2 className="mt-2 text-2xl font-bold">Tham gia cộng đồng</h2>
+          </div>
           <div className="flex space-x-2">
             <span className="w-2 h-2 bg-white rounded-full animate-pulse"/>
             <span className="w-2 h-2 bg-white rounded-full animate-pulse delay-100"/>
@@ -89,37 +89,30 @@ export default function CommunityLinks() {
           </div>
         </div>
 
-        <div className="space-y-4">
-          {stats.map((item, index) => (
+        <div className="space-y-3">
+          {stats.map((item) => (
             <motion.a
-              key={index}
+              key={item.platform}
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
               variants={itemVariants}
               whileHover={{ scale: 1.02 }}
-              className="block bg-white/10 backdrop-blur-sm rounded-xl p-4 hover:bg-white/20 transition-all duration-300"
+              className="block rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
-              <div className="flex items-center space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+              <div className="flex items-start gap-3 sm:items-center sm:gap-4">
+                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-white/20">
                   {item.icon}
                 </div>
                 <div className="flex-grow min-w-0">
-                  <div className="flex items-center justify-between mb-1">
-                    <h3 className="text-lg font-semibold truncate">{item.platform}</h3>
-                    <span className="text-sm bg-white/20 px-2 py-1 rounded-full">{item.stats}</span>
+                  <div className="mb-1 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                    <h3 className="font-semibold">{item.platform}</h3>
+                    <span className="self-start rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-medium sm:self-auto">{item.stats}</span>
                   </div>
-                  <p className="text-sm text-white/90 mb-2">{item.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {item.benefits.map((benefit, i) => (
-                      <span key={i} className="text-xs bg-white/10 px-2 py-1 rounded-full">
-                        {benefit}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="text-sm leading-6 text-white/80">{item.description}</p>
                 </div>
-                <div className="flex-shrink-0 ml-4">
-                  <svg className="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="ml-1 hidden flex-shrink-0 sm:block">
+                  <svg className="h-5 w-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
                   </svg>
                 </div>
@@ -129,7 +122,7 @@ export default function CommunityLinks() {
         </div>
 
         <div className="mt-6 text-center">
-          <p className="text-sm text-white/80">
+          <p className="text-sm text-white/75">
             Tham gia ngay để không bỏ lỡ những thông tin hữu ích!
           </p>
         </div>
@@ -148,6 +141,6 @@ export default function CommunityLinks() {
           }}/>
         </div>
       </div>
-    </motion.div>
+    </motion.section>
   );
 }

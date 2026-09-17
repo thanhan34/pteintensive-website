@@ -10,6 +10,7 @@ import ReviewCallToAction from './components/ReviewCallToAction';
 import CommonQuestions from './components/CommonQuestions';
 import ScoreComparisonTable from './components/ScoreComparisonTable';
 import GuaranteeSection from './components/GuaranteeSection';
+import PteWorldMapSection from './components/PteWorldMapSection';
 import ScrollReveal from './components/ScrollReveal';
 import { getCanonicalUrl, SITE_URL } from '@/lib/site';
 
@@ -91,6 +92,9 @@ export default function HomePage() {
           </div>
         </section>
       </ScrollReveal>
+
+      {/* Global PTE Destinations */}
+      <PteWorldMapSection />
 
       {/* Guarantee Section */}
       <ScrollReveal direction="right">
