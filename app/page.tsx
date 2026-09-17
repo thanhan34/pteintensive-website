@@ -70,7 +70,7 @@ const structuredData = {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen overflow-x-hidden">
       <Script
         id="structured-data"
         type="application/ld+json"

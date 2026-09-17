@@ -39,10 +39,10 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
         </div>
       </section>
       <section className="mx-auto max-w-7xl px-4 py-12">
-        <div className="mb-8 rounded-2xl border border-gray-100 bg-white p-5 shadow">
-          <form className="mb-5 flex gap-3">
-            <input name="search" defaultValue={params.search} placeholder="Tìm bài viết..." className="min-h-11 flex-1 rounded-xl border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-[#FC5D01]" />
-            <button className="rounded-xl bg-[#FC5D01] px-6 font-semibold text-white">Tìm</button>
+        <div className="mb-8 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-5">
+          <form className="mb-4 flex gap-2 sm:gap-3">
+            <input name="search" defaultValue={params.search} aria-label="Tìm bài viết" placeholder="Tìm bài viết..." className="min-h-11 min-w-0 flex-1 rounded-xl border border-gray-200 bg-gray-50/70 px-4 text-sm transition placeholder:text-gray-400 hover:border-gray-300 focus:border-[#FC5D01] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#FC5D01]/10" />
+            <button className="min-h-11 rounded-xl bg-[#FC5D01] px-5 text-sm font-bold text-white shadow-sm shadow-orange-200 transition hover:bg-[#e65300] sm:px-6">Tìm</button>
           </form>
           <BlogCategoryFilter categories={categories} />
         </div>

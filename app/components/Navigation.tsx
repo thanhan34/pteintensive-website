@@ -8,9 +8,13 @@ import { ArrowRight, Menu, X } from 'lucide-react';
 
 const menuItems = [
   { href: '/', label: 'Trang chủ' },
+  { href: '/about', label: 'Về chúng tôi' },
   { href: '/courses', label: 'Khóa học' },
   { href: '/study', label: 'Lộ trình' },
-  { href: '/about', label: 'Về chúng tôi' },
+  { href: '/guarantee', label: 'Cam kết' },
+  { href: '/knowledge', label: 'Kiến thức' },
+  { href: '/migration', label: 'Visa Úc' },
+  { href: '/reviews', label: 'Đánh giá' },
   { href: '/blog', label: 'Tin tức' },
   { href: '/contact', label: 'Liên hệ' },
 ];
@@ -19,6 +23,7 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const isActive = (href: string) => href === '/' ? isHome : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <nav
@@ -40,14 +45,15 @@ export default function Navigation() {
             </span>
           </Link>
 
-          <div className="hidden items-center gap-6 lg:flex xl:gap-8">
+          <div className="hidden items-center gap-4 xl:flex">
             {menuItems.map((item) => {
-              const active = pathname === item.href;
+              const active = isActive(item.href);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative py-3 text-sm font-semibold transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:rounded-full after:bg-[#fc5d01] after:transition-transform ${
+                  aria-current={active ? 'page' : undefined}
+                  className={`relative whitespace-nowrap py-3 text-[13px] font-semibold transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:rounded-full after:bg-[#fc5d01] after:transition-transform ${
                     active
                       ? `${isHome ? 'text-[#ff9060]' : 'text-[#fc5d01]'} after:scale-x-100`
                       : `${isHome ? 'text-white/75 hover:text-white' : 'text-gray-600 hover:text-[#fc5d01]'} after:scale-x-0 hover:after:scale-x-100`
@@ -66,7 +72,7 @@ export default function Navigation() {
 
           <button
             type="button"
-            className={`rounded-xl p-2.5 lg:hidden ${isHome ? 'border border-white/15 bg-white/5 text-white' : 'text-gray-700'}`}
+            className={`rounded-xl p-2.5 xl:hidden ${isHome ? 'border border-white/15 bg-white/5 text-white' : 'text-gray-700'}`}
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-label={isMenuOpen ? 'Đóng menu' : 'Mở menu'}
             aria-expanded={isMenuOpen}
@@ -76,24 +82,28 @@ export default function Navigation() {
         </div>
 
         {isMenuOpen && (
-          <div className={`border-t pb-5 pt-3 lg:hidden ${isHome ? 'border-white/10' : 'border-gray-100'}`}>
-            <div className="grid gap-1">
-              {menuItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`rounded-xl px-4 py-3 text-sm font-semibold transition ${
-                    pathname === item.href
-                      ? 'bg-[#fc5d01]/15 text-[#ff7433]'
-                      : isHome
-                        ? 'text-white/75 hover:bg-white/5 hover:text-white'
-                        : 'text-gray-700 hover:bg-orange-50 hover:text-[#fc5d01]'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
+          <div className={`border-t pb-5 pt-3 xl:hidden ${isHome ? 'border-white/10' : 'border-gray-100'}`}>
+            <div className="grid max-h-[calc(100vh-8rem)] gap-1 overflow-y-auto">
+              {menuItems.map((item) => {
+                const active = isActive(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={active ? 'page' : undefined}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`rounded-xl px-4 py-3 text-sm font-semibold transition ${
+                      active
+                        ? 'bg-[#fc5d01]/15 text-[#ff7433]'
+                        : isHome
+                          ? 'text-white/75 hover:bg-white/5 hover:text-white'
+                          : 'text-gray-700 hover:bg-orange-50 hover:text-[#fc5d01]'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
               <Link href="/register" onClick={() => setIsMenuOpen(false)} className="mt-2 rounded-xl bg-[#fc5d01] px-4 py-3 text-center text-sm font-bold text-white sm:hidden">Đăng ký tư vấn</Link>
             </div>
           </div>

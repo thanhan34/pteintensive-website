@@ -79,7 +79,7 @@ export default function HeroSection() {
         fill
         priority
         sizes="100vw"
-        className="hero-background object-cover object-[57%_center] sm:object-center"
+        className="hero-background object-cover object-[57%_center] brightness-[1.15] sm:object-center"
       />
 
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,7,12,0.97)_0%,rgba(2,7,12,0.82)_27%,rgba(2,7,12,0.12)_57%,rgba(2,7,12,0.56)_100%)]" />
