@@ -1,270 +1,190 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
-import gsap from 'gsap';
+import Link from 'next/link';
+import { motion, useReducedMotion } from 'framer-motion';
+import heroImage from '../../public/images/hero.svg';
+import courseImage from '../../public/images/hero/1.png';
+import pathwayImage from '../../public/images/hero/2.png';
+import teachersImage from '../../public/images/hero/3.png';
+import migrationImage from '../../public/images/hero/4.png';
+import guaranteeImage from '../../public/images/hero/5.png';
+import {
+  ArrowRight,
+  BookOpen,
+  GraduationCap,
+  Plane,
+  Play,
+  Route,
+  ShieldCheck,
+  Target,
+  UsersRound,
+} from 'lucide-react';
 
-// Three.js background — client-side only
-const HeroThreeBackground = dynamic(
-  () => import('./three/HeroThreeBackground'),
-  { ssr: false }
-);
+const highlights = [
+  {
+    title: 'Khóa học PTE',
+    description: 'Lộ trình tinh gọn, khoa học, hiệu quả vượt trội.',
+    href: '/courses',
+    image: courseImage,
+    icon: BookOpen,
+  },
+  {
+    title: 'Lộ trình cá nhân hóa',
+    description: 'Đo trình độ · Xây lộ trình · Theo sát tiến độ.',
+    href: '/study',
+    image: pathwayImage,
+    icon: Route,
+  },
+  {
+    title: 'Đội ngũ giảng viên',
+    description: 'Giàu kinh nghiệm, tận tâm, đồng hành sát sao.',
+    href: '/about',
+    image: teachersImage,
+    icon: UsersRound,
+  },
+  {
+    title: 'Du học & Định cư',
+    description: 'Mở rộng cơ hội, chinh phục ước mơ toàn cầu.',
+    href: '/migration',
+    image: migrationImage,
+    icon: Plane,
+  },
+  {
+    title: 'Cam kết đầu ra',
+    description: 'Đồng hành bền bỉ đến khi bạn đạt mục tiêu.',
+    href: '/guarantee',
+    image: guaranteeImage,
+    icon: ShieldCheck,
+  },
+];
+
+const commitments = [
+  { title: 'PTE 79+', description: 'Mục tiêu không xa', icon: Target },
+  { title: '1:1 Coaching', description: 'Cá nhân hóa lộ trình', icon: UsersRound },
+  { title: 'Cam kết đồng hành', description: 'Đến khi đạt mục tiêu', icon: ShieldCheck },
+];
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function HeroSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
-  const featuresRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
-    const ctx = gsap.context(() => {
-      if (prefersReducedMotion) {
-        gsap.set(
-          [
-            logoRef.current,
-            titleRef.current,
-            subtitleRef.current,
-            ctaRef.current,
-            imageRef.current,
-          ],
-          { opacity: 1, y: 0, x: 0 }
-        );
-        return;
-      }
-
-      // --- Entrance timeline ---
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      tl.from(logoRef.current, {
-        opacity: 0,
-        y: -40,
-        scale: 0.9,
-        duration: 0.9,
-      })
-        .from(
-          titleRef.current ? titleRef.current.children : [],
-          {
-            opacity: 0,
-            y: 60,
-            rotateX: 45,
-            transformOrigin: '50% 100%',
-            stagger: 0.15,
-            duration: 1,
-          },
-          '-=0.4'
-        )
-        .from(
-          subtitleRef.current,
-          { opacity: 0, y: 30, duration: 0.8 },
-          '-=0.5'
-        )
-        .from(
-          featuresRef.current
-            ? featuresRef.current.querySelectorAll('.hero-feature')
-            : [],
-          { opacity: 0, x: -40, stagger: 0.12, duration: 0.6 },
-          '-=0.4'
-        )
-        .from(
-          ctaRef.current ? ctaRef.current.children : [],
-          {
-            opacity: 0,
-            y: 30,
-            scale: 0.9,
-            stagger: 0.12,
-            duration: 0.6,
-            ease: 'back.out(1.6)',
-          },
-          '-=0.3'
-        )
-        .from(
-          imageRef.current,
-          { opacity: 0, x: 80, scale: 0.92, duration: 1.1 },
-          0.5
-        );
-
-      // --- Continuous floating for hero image ---
-      gsap.to(imageRef.current, {
-        y: -18,
-        duration: 3,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
-        delay: 1.6,
-      });
-
-      // --- Scroll indicator bounce ---
-      gsap.to(scrollIndicatorRef.current, {
-        y: 10,
-        opacity: 0.5,
-        duration: 1,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  // Magnetic hover effect for CTA buttons
-  const handleMagnet = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const el = e.currentTarget;
-    const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    gsap.to(el, {
-      x: x * 0.25,
-      y: y * 0.25,
-      duration: 0.4,
-      ease: 'power2.out',
-    });
-  };
-
-  const resetMagnet = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    gsap.to(e.currentTarget, {
-      x: 0,
-      y: 0,
-      duration: 0.6,
-      ease: 'elastic.out(1, 0.4)',
-    });
-  };
+  const reduceMotion = useReducedMotion();
+  const initial = reduceMotion ? false : { opacity: 0, y: 28 };
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative min-h-screen pt-20 overflow-hidden bg-gradient-to-br from-[#fc5d01] to-[#fd7f33]"
-    >
-      {/* Three.js 3D Background */}
-      <HeroThreeBackground />
+    <section className="relative isolate min-h-[900px] overflow-hidden bg-[#05090d] text-white lg:min-h-[940px] xl:min-h-[min(970px,100svh)]">
+      <Image
+        src={heroImage}
+        alt="Học viên PTE Intensive với Nhà hát Opera Sydney"
+        fill
+        priority
+        sizes="100vw"
+        className="hero-background object-cover object-[57%_center] sm:object-center"
+      />
 
-      {/* Subtle overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,7,12,0.97)_0%,rgba(2,7,12,0.82)_27%,rgba(2,7,12,0.12)_57%,rgba(2,7,12,0.56)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,5,9,0.5)_0%,transparent_33%,rgba(2,5,8,0.18)_58%,rgba(2,4,7,0.9)_100%)]" />
+      <div className="absolute inset-0 shadow-[inset_0_0_130px_rgba(0,0,0,0.62)]" />
+      <div className="hero-grid absolute inset-0 opacity-20" />
 
-      <div className="relative max-w-7xl mx-auto px-4 py-36">
-        {/* Logo */}
-        <div ref={logoRef} className="flex justify-center mb-12">
-          <div className="relative w-64 h-32">
-            <Image
-              src="/images/logo/orange-logo.png"
-              alt="PTE Intensive Logo"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-        </div>
+      <div className="relative z-10 mx-auto flex min-h-[900px] max-w-[1440px] flex-col px-5 pb-8 pt-32 sm:px-8 lg:min-h-[940px] lg:px-12 lg:pb-7 lg:pt-44 xl:min-h-[min(970px,100svh)] xl:px-16">
+        <div className="grid flex-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[minmax(0,1fr)_300px]">
+          <motion.div initial={initial} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }} className="max-w-[650px] pt-4 lg:pt-8">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#ff6a25]/70 bg-black/30 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#ff8a52] shadow-[0_0_24px_rgba(252,93,1,0.16)] backdrop-blur-md">
+              <GraduationCap className="h-4 w-4" aria-hidden="true" />
+              PTE Intensive
+            </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Text Content */}
-          <div className="text-white z-10">
-            <h1
-              ref={titleRef}
-              className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
-              style={{ perspective: '800px' }}
-            >
-              <span className="block">Chinh Phục PTE</span>
-              <span className="block text-[#fedac2]">Mở Cửa Tương Lai</span>
+            <h1 className="text-[clamp(2.8rem,5vw,5.15rem)] font-extrabold leading-[0.98] tracking-[-0.055em] drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)]">
+              <span className="block">Chinh phục PTE</span>
+              <span className="mt-2 block bg-gradient-to-r from-[#ff5a16] via-[#ff812f] to-[#ffc067] bg-clip-text pb-2 text-transparent">Mở lối tương lai</span>
             </h1>
 
-            <p ref={subtitleRef} className="text-xl mb-8 text-white/90">
-              Khóa học PTE chất lượng cao với cam kết đầu ra và phương pháp học
-              tập hiệu quả.
+            <p className="mt-5 max-w-[560px] text-base font-medium leading-7 text-white/80 sm:text-lg">
+              Lộ trình học cá nhân hóa <span className="mx-2 text-[#ff6a25]">•</span>
+              Chiến lược thực chiến <span className="mx-2 text-[#ff6a25]">•</span>
+              <span className="sm:whitespace-nowrap">Đồng hành đến khi đạt mục tiêu</span>
             </p>
 
-            <div ref={featuresRef} className="space-y-4">
-              {[
-                'Giảng viên chuyên môn cao',
-                'Lộ trình học tập cá nhân hóa',
-                'Cam kết đầu ra',
-                'Hỗ trợ 24/7',
-              ].map((feature) => (
-                <div
-                  key={feature}
-                  className="hero-feature flex items-center gap-3 group"
-                >
-                  <div className="w-5 h-5 bg-white rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-125">
-                    <svg
-                      className="w-3 h-3 text-[#fc5d01]"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={3}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
-                  <span>{feature}</span>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link href="/register" className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#ff4d00] to-[#ff7417] px-7 text-sm font-extrabold uppercase tracking-wide shadow-[0_12px_34px_rgba(252,93,1,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_42px_rgba(252,93,1,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8b51] focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+                Nhận lộ trình miễn phí
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              </Link>
+              <Link href="/courses" className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full border border-[#ff7b3d]/75 bg-black/35 px-7 text-sm font-bold uppercase tracking-wide backdrop-blur-md transition hover:border-[#ff9a6a] hover:bg-[#fc5d01]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8b51]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#ff7b3d] text-[#ff7b3d]"><Play className="ml-0.5 h-3.5 w-3.5 fill-current" aria-hidden="true" /></span>
+                Xem khóa học
+              </Link>
+            </div>
+          </motion.div>
+
+          <motion.aside
+            initial={reduceMotion ? false : { opacity: 0, x: 35 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.25, ease }}
+            aria-label="Cam kết đào tạo"
+            className="hero-glass mt-4 hidden overflow-hidden rounded-[24px] lg:block"
+          >
+            {commitments.map(({ title, description, icon: Icon }, index) => (
+              <div key={title} className={`flex items-center gap-4 px-6 py-7 ${index < commitments.length - 1 ? 'border-b border-white/10' : ''}`}>
+                <Icon className="h-10 w-10 shrink-0 text-[#ff6a25] drop-shadow-[0_0_12px_rgba(252,93,1,0.55)]" strokeWidth={1.8} aria-hidden="true" />
+                <div>
+                  <p className="text-base font-extrabold uppercase tracking-tight">{title}</p>
+                  <p className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-white/60">{description}</p>
                 </div>
-              ))}
-            </div>
-
-            <div ref={ctaRef} className="mt-10 flex gap-4">
-              <a
-                href="/register"
-                onMouseMove={handleMagnet}
-                onMouseLeave={resetMagnet}
-                className="px-8 py-3 bg-white text-[#fc5d01] rounded-lg font-medium hover:bg-[#fedac2] transition-colors shadow-lg hover:shadow-xl will-change-transform"
-              >
-                Đăng Ký Ngay
-              </a>
-              <a
-                href="#learn-more"
-                onMouseMove={handleMagnet}
-                onMouseLeave={resetMagnet}
-                className="px-8 py-3 border-2 border-white text-white rounded-lg font-medium hover:bg-white/10 transition-colors will-change-transform"
-              >
-                Tìm Hiểu Thêm
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column - Hero Image */}
-          <div ref={imageRef} className="relative z-10 will-change-transform">
-            <div className="relative h-[600px]">
-              <Image
-                src="/images/hero.png"
-                alt="PTE Learning"
-                fill
-                className="object-contain drop-shadow-2xl"
-                priority
-              />
-            </div>
-          </div>
+              </div>
+            ))}
+          </motion.aside>
         </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      <div
-        ref={scrollIndicatorRef}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-      >
-        <svg
-          className="w-6 h-6 text-white"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+        <motion.div
+          initial={reduceMotion ? false : { opacity: 0, y: 35 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, delay: 0.45, ease }}
+          className="mt-auto"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
+          <div className="hero-card-scroll -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 pt-3 sm:-mx-8 sm:px-8 lg:mx-0 lg:grid lg:grid-cols-5 lg:gap-3.5 lg:overflow-visible lg:px-0 lg:pb-1 xl:gap-4">
+            {highlights.map(({ title, description, href, image, icon: Icon }, index) => (
+              <Link
+                key={title}
+                href={href}
+                aria-label={`${title} – tìm hiểu thêm`}
+                className="hero-feature-card group relative flex aspect-[5/4] w-[82vw] max-w-[350px] shrink-0 snap-center flex-col overflow-hidden rounded-[22px] focus-visible:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fc5d01] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05090d] sm:w-[48vw] lg:w-auto lg:max-w-none lg:snap-none"
+              >
+                <div className="relative h-[58%] shrink-0 overflow-hidden">
+                  <Image
+                    src={image}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1280px) 250px, (min-width: 1024px) 20vw, (min-width: 640px) 48vw, 82vw"
+                    className="object-cover object-[center_43%] transition-transform duration-700 ease-out group-hover:scale-[1.055]"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,8,13,0.03)_20%,rgba(5,12,18,0.1)_60%,#08131d_100%)]" />
+                  <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-[#061019]/55 px-2.5 py-1 text-[9px] font-bold tracking-[0.22em] text-white/80 shadow-lg backdrop-blur-md">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </div>
+
+                <div className="relative z-10 -mt-px flex min-h-0 flex-1 items-center gap-3 bg-[linear-gradient(145deg,rgba(12,23,33,0.98),rgba(6,16,25,0.99))] px-4 py-3.5 xl:px-5">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#fc5d01]/35 bg-[#fc5d01]/10 text-[#ff7526] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(252,93,1,0.1)]">
+                    <Icon className="h-[18px] w-[18px]" strokeWidth={1.8} aria-hidden="true" />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <h2 className="text-[15px] font-extrabold leading-tight tracking-[-0.02em] text-white lg:text-[13px] xl:text-[15px]">
+                      {title}
+                    </h2>
+                    <p className="mt-1 line-clamp-2 text-[11px] leading-[1.35] text-white/55 lg:text-[10px] xl:text-[11px]">
+                      {description}
+                    </p>
+                  </div>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#fc5d01]/45 bg-black/20 text-[#ff7a32] transition duration-300 group-hover:border-[#ff8445] group-hover:bg-[#fc5d01] group-hover:text-white group-hover:shadow-[0_0_18px_rgba(252,93,1,0.42)]">
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

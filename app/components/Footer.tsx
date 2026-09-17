@@ -46,6 +46,7 @@ const locations = [
 const quickLinks = [
   { href: '/', label: 'Trang Chủ' },
   { href: '/about', label: 'Về Chúng Tôi' },
+  { href: '/guarantee', label: 'Cam Kết Đầu Ra' },
   { href: '/knowledge/scoring-system', label: 'Kiến Thức' },
   { href: '/contact', label: 'Liên Lạc' },
   { href: '/register', label: 'Đăng Ký' },

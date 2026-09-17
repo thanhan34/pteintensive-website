@@ -101,6 +101,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    {
+      url: getCanonicalUrl('/guarantee'),
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
     // Knowledge base pages
     {
       url: getCanonicalUrl('/knowledge'),

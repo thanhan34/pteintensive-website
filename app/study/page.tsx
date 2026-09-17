@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import StudyPageClient from './StudyPageClient';
 
 export const metadata: Metadata = {
-  title: 'Du Học và Định Cư | PTE Intensive',
-  description: 'Khám phá thông tin du học, định cư và lộ trình sử dụng chứng chỉ PTE cho mục tiêu học tập, việc làm và visa.',
+  title: 'Lộ Trình Học PTE Cá Nhân Hóa',
+  description: 'Khám phá lộ trình học PTE cá nhân hóa từ đánh giá đầu vào, xây nền, luyện kỹ năng đến mock test và chinh phục điểm số mục tiêu.',
   alternates: {
     canonical: 'https://www.pteintensive.com/study',
   },
   openGraph: {
-    title: 'Du Học và Định Cư | PTE Intensive',
-    description: 'Tìm hiểu cơ hội du học và định cư cùng lộ trình tiếng Anh phù hợp với mục tiêu của bạn.',
+    title: 'Lộ Trình Học PTE Cá Nhân Hóa | PTE Intensive',
+    description: 'Đi đúng lộ trình, tập trung đúng kỹ năng và chinh phục điểm PTE mục tiêu cùng PTE Intensive.',
     url: 'https://www.pteintensive.com/study',
     type: 'website',
   },
