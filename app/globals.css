@@ -122,6 +122,120 @@
   }
 }
 
+/* Keep the compact home composition isolated from tablet and desktop. */
+@media (max-width: 639px) {
+  .home-hero { min-height: 0; }
+  .home-hero .hero-background {
+    height: 540px !important;
+    object-fit: cover;
+    object-position: center 40%;
+    filter: brightness(.9) saturate(1.08);
+  }
+  .home-hero .hero-shade-horizontal {
+    height: 540px;
+    background: linear-gradient(90deg, rgba(2,7,12,.84), rgba(2,7,12,.45) 40%, transparent 75%);
+  }
+  .home-hero .hero-shade-vertical {
+    height: 550px;
+    background: linear-gradient(180deg, rgba(2,7,12,.55), transparent 30%, transparent 72%, #05090d 100%);
+  }
+  .home-hero .hero-vignette { display: none; }
+  .home-hero .hero-content { min-height: 0; padding: 112px 16px 20px; }
+  .home-hero .hero-intro { display: block; flex: none; }
+  .home-hero .hero-copy { padding-top: 0; min-height: 300px; }
+  .home-hero .hero-eyebrow { margin-bottom: 14px; padding: 5px 14px; font-size: 6px; letter-spacing: .03em; }
+  .home-hero .hero-eyebrow svg { display: none; }
+  .home-hero h1 { max-width: 82%; font-size: clamp(12px, 3vw, 15px); line-height: 1.15; letter-spacing: -.04em; }
+  .home-hero h1 > span { white-space: nowrap; }
+  .home-hero h1 > span + span { margin-top: 2px; }
+  .home-hero .hero-description { max-width: 72%; margin-top: 10px; font-size: 6.75px; line-height: 1.65; text-shadow: 0 2px 8px #000; }
+  .home-hero .hero-description-line { display: block; white-space: nowrap; }
+  .home-hero .hero-description-separator { display: none; }
+  .home-hero .hero-actions { align-items: flex-start; gap: 9px; margin-top: 16px; }
+  .home-hero .hero-actions > a { min-height: 44px; padding: 8px 16px; gap: 8px; font-size: 6.75px; letter-spacing: 0; }
+  .home-hero .hero-actions > a:first-child { background: linear-gradient(100deg, #ff9900, #ff4d00); border: 1px solid #ffb04f; box-shadow: 0 0 22px #ff6a2544; }
+  .home-hero .hero-actions > a:last-child { padding-inline: 15px 22px; }
+}
+
+/* Only show the commitments panel in the desktop hero layout. */
+@media (max-width: 1023px) {
+  .home-hero .hero-commitments {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    margin-top: 18px;
+    padding: 4px 16px;
+    border-color: rgba(255, 129, 47, .3);
+    border-radius: 20px;
+    background: linear-gradient(135deg, #111c26, #080f17);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .2);
+  }
+  .home-hero .hero-commitments > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 0;
+    text-align: left;
+    min-width: 0;
+  }
+  .home-hero .hero-commitments > div + div {
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, .09);
+  }
+  .home-hero .hero-commitments > div > div { flex: 1; min-width: 0; }
+  .home-hero .hero-commitments p {
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+  .home-hero .hero-commitments svg {
+    width: 44px;
+    height: 44px;
+    padding: 9px;
+    border: 1px solid rgba(255, 129, 47, .2);
+    border-radius: 13px;
+    background: rgba(255, 106, 37, .08);
+    filter: none;
+  }
+  .home-hero .hero-commitments p:first-child {
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: -.02em;
+    text-transform: none;
+  }
+  .home-hero .hero-commitments p + p {
+    margin-top: 3px;
+    font-size: 12px;
+    line-height: 1.5;
+    text-transform: none;
+    color: #aab8c6;
+    letter-spacing: 0;
+  }
+}
+
+@media (max-width: 639px) {
+  .home-hero .hero-card-scroll { margin-inline: -16px; padding: 4px 16px 10px; gap: 10px; }
+  .home-hero .hero-card-scroll > a { width: 38%; max-width: none; min-height: 205px; aspect-ratio: auto; border-radius: 12px; scroll-snap-align: start; }
+  .home-hero .hero-card-scroll > a:nth-child(n+4) { display: none; }
+  .home-hero .hero-card-image { height: 82px; }
+  .home-hero .hero-card-image > span { display: none; }
+  .home-hero .hero-card-copy { display: block; padding: 0 9px 34px; }
+  .home-hero .hero-card-copy > span:first-child { width: 27px; height: 27px; margin-top: -12px; margin-bottom: 6px; border: 0; background: transparent; }
+  .home-hero .hero-card-copy > span:first-child svg { width: 26px; height: 26px; }
+  .home-hero .hero-card-copy h2 { font-size: 12px; line-height: 1.4; }
+  .home-hero .hero-card-copy p { display: block; font-size: 10px; line-height: 1.5; color: #cbd5e1; }
+  .home-hero .hero-card-copy > span:last-child { position: absolute; right: 8px; bottom: 7px; width: 25px; height: 25px; }
+  .home-hero .hero-mobile-nav { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+  .home-mobile-header { left: 12px; right: 12px; top: 12px; border-color: transparent; background: rgba(5,11,16,.55); box-shadow: none; }
+  .home-mobile-header > div { padding-inline: 8px; }
+  .home-mobile-header .home-brand { display: block; font-size: 17px; letter-spacing: -.02em; }
+  .home-mobile-header button { border-color: #ff9c7066; color: #ff9c70; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-feature-card,
   .hero-feature-card::after,

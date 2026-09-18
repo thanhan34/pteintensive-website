@@ -28,7 +28,7 @@ export default function Navigation() {
   return (
     <nav
       aria-label="Điều hướng chính"
-      className={`fixed z-50 transition-all duration-300 ${
+      className={`${isHome ? 'home-mobile-header' : ''} fixed z-50 transition-all duration-300 ${
         isHome
           ? 'left-4 right-4 top-4 rounded-2xl border border-white/15 bg-[#050b10]/75 text-white shadow-[0_16px_45px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:left-6 sm:right-6 lg:left-1/2 lg:right-auto lg:w-[min(1320px,calc(100vw-64px))] lg:-translate-x-1/2'
           : 'left-0 right-0 top-0 bg-white text-gray-800 shadow-md'
@@ -40,8 +40,9 @@ export default function Navigation() {
             <div className={`relative shrink-0 ${isHome ? 'h-12 w-12' : 'h-16 w-16'}`}>
               <Image src="/images/logo/white-logo.png" alt="" fill sizes="64px" className="object-contain" priority />
             </div>
-            <span className={`hidden text-[15px] font-extrabold uppercase tracking-[0.08em] sm:block ${isHome ? 'text-[#ff8350]' : 'text-[#fc5d01]'}`}>
+            <span className={`${isHome ? 'home-brand' : ''} hidden text-[15px] font-extrabold uppercase tracking-[0.08em] sm:block ${isHome ? 'text-[#ff8350]' : 'text-[#fc5d01]'}`}>
               PTE Intensive
+              {isHome && <span className="mt-1 block text-[8px] font-medium tracking-[.06em] text-slate-300 sm:hidden">MORE SKILLS · A BRIGHTER YOU</span>}
             </span>
           </Link>
 
