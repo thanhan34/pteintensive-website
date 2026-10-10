@@ -1,0 +1,652 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-10T16:05:28.399Z",
+  "title": "Design System: PTE Intensive",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Launch Orange",
+        "tonalRamp": [
+          "oklch(15.00% 0.12 45)",
+          "oklch(26.43% 0.12 45)",
+          "oklch(37.86% 0.12 45)",
+          "oklch(49.29% 0.12 45)",
+          "oklch(60.71% 0.12 45)",
+          "oklch(72.14% 0.12 45)",
+          "oklch(83.57% 0.12 45)",
+          "oklch(95.00% 0.12 45)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "peach-light": {
+        "role": "secondary",
+        "displayName": "Warm Peach Light",
+        "tonalRamp": [
+          "oklch(15.00% 0.065 45)",
+          "oklch(26.43% 0.065 45)",
+          "oklch(37.86% 0.065 45)",
+          "oklch(49.29% 0.065 45)",
+          "oklch(60.71% 0.065 45)",
+          "oklch(72.14% 0.065 45)",
+          "oklch(83.57% 0.065 45)",
+          "oklch(95.00% 0.065 45)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "peach": {
+        "role": "secondary",
+        "displayName": "Warm Peach",
+        "tonalRamp": [
+          "oklch(15.00% 0.065 45)",
+          "oklch(26.43% 0.065 45)",
+          "oklch(37.86% 0.065 45)",
+          "oklch(49.29% 0.065 45)",
+          "oklch(60.71% 0.065 45)",
+          "oklch(72.14% 0.065 45)",
+          "oklch(83.57% 0.065 45)",
+          "oklch(95.00% 0.065 45)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "peach-dark": {
+        "role": "secondary",
+        "displayName": "Warm Peach Dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.065 45)",
+          "oklch(26.43% 0.065 45)",
+          "oklch(37.86% 0.065 45)",
+          "oklch(49.29% 0.065 45)",
+          "oklch(60.71% 0.065 45)",
+          "oklch(72.14% 0.065 45)",
+          "oklch(83.57% 0.065 45)",
+          "oklch(95.00% 0.065 45)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "hero-night": {
+        "role": "neutral",
+        "displayName": "Hero Night",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "glass": {
+        "role": "neutral",
+        "displayName": "Dark Glass Surface",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "Light Content Surface",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "orange-soft": {
+        "role": "neutral",
+        "displayName": "orange-soft",
+        "tonalRamp": [
+          "oklch(15.00% 0.12 45)",
+          "oklch(26.43% 0.12 45)",
+          "oklch(37.86% 0.12 45)",
+          "oklch(49.29% 0.12 45)",
+          "oklch(60.71% 0.12 45)",
+          "oklch(72.14% 0.12 45)",
+          "oklch(83.57% 0.12 45)",
+          "oklch(95.00% 0.12 45)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "ink",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "shell-night": {
+        "role": "neutral",
+        "displayName": "shell-night",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "gray-100": {
+        "role": "neutral",
+        "displayName": "gray-100",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "gray-600": {
+        "role": "neutral",
+        "displayName": "gray-600",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "gray-900": {
+        "role": "neutral",
+        "displayName": "gray-900",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "background-light": {
+        "role": "neutral",
+        "displayName": "background-light",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "foreground-light": {
+        "role": "neutral",
+        "displayName": "foreground-light",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "border-light": {
+        "role": "neutral",
+        "displayName": "border-light",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "background-dark": {
+        "role": "neutral",
+        "displayName": "background-dark",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "foreground-dark": {
+        "role": "neutral",
+        "displayName": "foreground-dark",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "border-dark": {
+        "role": "neutral",
+        "displayName": "border-dark",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "ring": {
+        "role": "neutral",
+        "displayName": "ring",
+        "tonalRamp": [
+          "oklch(15.00% 0.12 45)",
+          "oklch(26.43% 0.12 45)",
+          "oklch(37.86% 0.12 45)",
+          "oklch(49.29% 0.12 45)",
+          "oklch(60.71% 0.12 45)",
+          "oklch(72.14% 0.12 45)",
+          "oklch(83.57% 0.12 45)",
+          "oklch(95.00% 0.12 45)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "destructive-light": {
+        "role": "neutral",
+        "displayName": "destructive-light",
+        "tonalRamp": [
+          "oklch(15.00% 0.12 25)",
+          "oklch(26.43% 0.12 25)",
+          "oklch(37.86% 0.12 25)",
+          "oklch(49.29% 0.12 25)",
+          "oklch(60.71% 0.12 25)",
+          "oklch(72.14% 0.12 25)",
+          "oklch(83.57% 0.12 25)",
+          "oklch(95.00% 0.12 25)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "destructive-dark": {
+        "role": "neutral",
+        "displayName": "destructive-dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.12 25)",
+          "oklch(26.43% 0.12 25)",
+          "oklch(37.86% 0.12 25)",
+          "oklch(49.29% 0.12 25)",
+          "oklch(60.71% 0.12 25)",
+          "oklch(72.14% 0.12 25)",
+          "oklch(83.57% 0.12 25)",
+          "oklch(95.00% 0.12 25)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "glass-strong": {
+        "role": "neutral",
+        "displayName": "glass-strong",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "glass-border": {
+        "role": "neutral",
+        "displayName": "glass-border",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "glass-border-strong": {
+        "role": "neutral",
+        "displayName": "glass-border-strong",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "glass-text": {
+        "role": "neutral",
+        "displayName": "glass-text",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "glass-secondary": {
+        "role": "neutral",
+        "displayName": "glass-secondary",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      },
+      "glass-muted": {
+        "role": "neutral",
+        "displayName": "glass-muted",
+        "tonalRamp": [
+          "oklch(15.00% 0 0)",
+          "oklch(26.43% 0 0)",
+          "oklch(37.86% 0 0)",
+          "oklch(49.29% 0 0)",
+          "oklch(60.71% 0 0)",
+          "oklch(72.14% 0 0)",
+          "oklch(83.57% 0 0)",
+          "oklch(95.00% 0 0)"
+        ],
+        "rampSource": "Synthesized preview only; not an application palette extension. Transparency is not represented."
+      }
+    },
+    "typographyMeta": {
+      "body": {
+        "displayName": "Manrope Body",
+        "purpose": "Shared Vietnamese-language body text; route-specific line height may vary."
+      },
+      "display-serif": {
+        "displayName": "Playfair Display",
+        "purpose": "Selected cinematic and editorial headings; no universal size is established."
+      }
+    },
+    "shadows": [
+      {
+        "name": "glass",
+        "value": "0 18px 45px rgba(0, 0, 0, 0.22), 0 6px 18px rgba(0, 0, 0, 0.14)",
+        "purpose": "Shared ambient glass depth from --shadow-glass."
+      },
+      {
+        "name": "glass-strong",
+        "value": "0 22px 55px rgba(0, 0, 0, 0.24), 0 8px 24px rgba(0, 0, 0, 0.16)",
+        "purpose": "Stronger glass depth from --shadow-glass-strong."
+      },
+      {
+        "name": "hero-glass",
+        "value": "0 24px 70px rgba(0, 0, 0, 0.42), inset 0 0 34px rgba(252, 93, 1, 0.05)",
+        "purpose": "Homepage commitment panel; not a default light-card shadow."
+      },
+      {
+        "name": "light-card",
+        "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+        "purpose": "Structural depth from the existing Tailwind shadow-lg treatment."
+      }
+    ],
+    "motion": [
+      {
+        "name": "glass-state",
+        "value": "200ms ease",
+        "purpose": "Shared glass border, shadow, and transform transitions."
+      },
+      {
+        "name": "card-state",
+        "value": "300ms",
+        "purpose": "Observed light-card transition duration."
+      },
+      {
+        "name": "hero-ease",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Hero reveals and feature-card transforms."
+      },
+      {
+        "name": "hero-border-orbit",
+        "value": "2.2s linear infinite",
+        "purpose": "Hero feature-card hover/focus animation; existing reduced-motion rules disable it."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "cinematic-results",
+        "value": "900px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "2xl",
+        "value": "1536px"
+      }
+    ],
+    "blur": {
+      "glass": "20px",
+      "glass-strong": "24px",
+      "hero-glass": "18px"
+    },
+    "verification": {
+      "method": "Source scan only; no browser automation or rendered visual verification.",
+      "scope": "Documentation and standalone component previews; application source unchanged."
+    }
+  },
+  "components": [
+    {
+      "name": "Shared Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Compact shared Button default variant.",
+      "html": "<button type=\"button\" class=\"ds-primary\">Đăng ký tư vấn</button>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:8px 16px;border:0;border-radius:6px;background:#fc5d01;color:#fff;font-family:var(--font-body,Manrope),sans-serif;font-size:14px;font-weight:500;white-space:nowrap;transition:color .15s,background-color .15s}.ds-primary:hover{background:rgba(252,93,1,.9)}.ds-primary:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--background,0 0% 100%)),0 0 0 4px hsl(var(--ring,22 100% 50%))}.ds-primary:disabled{pointer-events:none;opacity:.5}"
+    },
+    {
+      "name": "Shared Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Theme-aware bordered shared Button variant.",
+      "html": "<button type=\"button\" class=\"ds-outline\">Xem khóa học</button>",
+      "css": ".ds-outline{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:8px 16px;border:1px solid hsl(var(--input,214.3 31.8% 91.4%));border-radius:6px;background:hsl(var(--background,0 0% 100%));color:#171717;font-family:var(--font-body,Manrope),sans-serif;font-size:14px;font-weight:500;transition:color .15s,background-color .15s}.ds-outline:hover{background:hsl(var(--accent,210 40% 96%));color:hsl(var(--accent-foreground,222.2 84% 4.9%))}.ds-outline:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--background,0 0% 100%)),0 0 0 4px hsl(var(--ring,22 100% 50%))}.ds-outline:disabled{pointer-events:none;opacity:.5}"
+    },
+    {
+      "name": "Hero CTA",
+      "kind": "button",
+      "refersTo": "button-hero",
+      "description": "Homepage pill action; distinct from the shared compact primitive.",
+      "html": "<a class=\"ds-hero-cta\" href=\"/register\">Nhận lộ trình miễn phí</a>",
+      "css": ".ds-hero-cta{display:inline-flex;min-height:56px;align-items:center;justify-content:center;padding:0 28px;border-radius:9999px;background:linear-gradient(to right,#ff4d00,#ff7417);color:#fff;text-decoration:none;font-family:var(--font-body,Manrope),sans-serif;font-size:14px;font-weight:800;letter-spacing:.025em;text-transform:uppercase;box-shadow:0 12px 34px rgba(252,93,1,.35);transition:transform .15s,box-shadow .15s}.ds-hero-cta:hover{transform:translateY(-2px);box-shadow:0 16px 42px rgba(252,93,1,.5)}.ds-hero-cta:focus-visible{outline:none;box-shadow:0 0 0 2px #000,0 0 0 4px #ff8b51}"
+    },
+    {
+      "name": "Shared Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Theme-aware Input with muted placeholder and visible keyboard focus.",
+      "html": "<input class=\"ds-input\" aria-label=\"Họ và tên\" placeholder=\"Họ và tên\" />",
+      "css": ".ds-input{display:flex;height:40px;width:100%;border-radius:6px;border:1px solid hsl(var(--input,214.3 31.8% 91.4%));background:hsl(var(--background,0 0% 100%));color:#171717;padding:8px 12px;font-family:var(--font-body,Manrope),sans-serif;font-size:14px}.ds-input::placeholder{color:hsl(var(--muted-foreground,215.4 16.3% 46.9%))}.ds-input:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--background,0 0% 100%)),0 0 0 4px hsl(var(--ring,22 100% 50%))}.ds-input:disabled{cursor:not-allowed;opacity:.5}"
+    },
+    {
+      "name": "Light Content Card",
+      "kind": "card",
+      "refersTo": "card-light",
+      "description": "Existing blog-card surface; not a generic Card component API.",
+      "html": "<article class=\"ds-light-card\"><h2>Kiến thức PTE</h2><p>Tìm hiểu lộ trình học phù hợp.</p></article>",
+      "css": ".ds-light-card{padding:24px;border:1px solid #f3f4f6;border-radius:16px;background:#fff;color:#111827;font-family:var(--font-body,Manrope),sans-serif;box-shadow:0 10px 15px -3px rgb(0 0 0 / .1),0 4px 6px -4px rgb(0 0 0 / .1);transition:box-shadow .3s}.ds-light-card:hover{box-shadow:0 25px 50px -12px rgb(0 0 0 / .25)}.ds-light-card h2{margin:0 0 12px;font-size:20px;line-height:28px;font-weight:700}.ds-light-card p{margin:0;font-size:14px;line-height:1.625;color:#4b5563}"
+    },
+    {
+      "name": "Legal Glass Card",
+      "kind": "card",
+      "refersTo": "card-glass",
+      "description": "Shared glass surface as applied on legal pages; preview includes a dark contextual backdrop.",
+      "html": "<div class=\"ds-glass-stage\"><article class=\"ds-glass-card\"><h2>Thông tin hỗ trợ</h2><p>Nội dung rõ ràng, dễ đọc.</p></article></div>",
+      "css": ".ds-glass-stage{padding:16px;background:linear-gradient(180deg,#08111f,#111827);border-radius:24px}.ds-glass-card{padding:24px;border-radius:24px;background:var(--glass-bg,rgba(255,255,255,.1));border:1px solid var(--glass-border,rgba(255,255,255,.18));backdrop-filter:blur(var(--blur-glass,20px));box-shadow:var(--shadow-glass,0 18px 45px rgba(0,0,0,.22));color:var(--text-primary-glass,rgba(255,255,255,.9));font-family:var(--font-body,Manrope),sans-serif;transition:transform .2s,box-shadow .2s,border-color .2s}.ds-glass-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.28);box-shadow:0 24px 60px rgba(0,0,0,.28),0 10px 28px rgba(0,0,0,.18)}.ds-glass-card:active{transform:translateY(2px);box-shadow:0 14px 32px rgba(0,0,0,.2),0 4px 12px rgba(0,0,0,.12)}.ds-glass-card h2{margin:0 0 16px;font-size:20px;font-weight:600}.ds-glass-card p{margin:0;font-size:14px;line-height:28px;color:var(--text-secondary-glass,rgba(255,255,255,.7))}"
+    },
+    {
+      "name": "Warm Peach Tag",
+      "kind": "chip",
+      "refersTo": "chip-peach",
+      "description": "Static blog tag, not an interactive control.",
+      "html": "<span class=\"ds-peach-tag\">PTE Academic</span>",
+      "css": ".ds-peach-tag{display:inline-flex;align-items:center;padding:4px 12px;border-radius:9999px;border:1px solid #fdbc94;background:linear-gradient(to right,#fedac2,#fdbc94);color:#1f2937;font-family:var(--font-body,Manrope),sans-serif;font-size:12px;line-height:16px;font-weight:500}"
+    },
+    {
+      "name": "Homepage Navigation Surface",
+      "kind": "nav",
+      "refersTo": "navigation-home",
+      "description": "Representative home navigation links and active underline; not a full responsive menu implementation.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Điều hướng mẫu\"><a href=\"/\" aria-current=\"page\">Trang chủ</a><a href=\"/courses\">Khóa học</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:16px;min-height:76px;padding:0 24px;border:1px solid rgba(255,255,255,.15);border-radius:16px;background:rgba(5,11,16,.75);backdrop-filter:blur(24px);box-shadow:0 16px 45px rgba(0,0,0,.35);font-family:var(--font-body,Manrope),sans-serif}.ds-nav a{position:relative;padding:12px 0;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;text-decoration:none;transition:color .15s}.ds-nav a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:9999px;background:#fc5d01;transform:scaleX(0);transform-origin:left;transition:transform .15s}.ds-nav a[aria-current=page]{color:#ff9060}.ds-nav a[aria-current=page]::after,.ds-nav a:hover::after{transform:scaleX(1)}.ds-nav a:hover{color:#fff}.ds-nav a:focus-visible{outline:2px auto Highlight;outline-offset:2px}"
+    },
+    {
+      "name": "Shared secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Existing shared Button variant.",
+      "html": "<button type=\"button\" class=\"ds-secondary\">Tiếp tục</button>",
+      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:8px 16px;border:0;border-radius:6px;background:#171717;color:#fff;font-family:var(--font-body,Manrope),sans-serif;font-size:14px;font-weight:500;white-space:nowrap;transition:color .15s,background-color .15s}.ds-secondary:hover{background:rgba(23,23,23,.8)}.ds-secondary:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--background,0 0% 100%)),0 0 0 4px hsl(var(--ring,22 100% 50%))}.ds-secondary:disabled{pointer-events:none;opacity:.5}"
+    },
+    {
+      "name": "Shared ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Existing shared Button variant.",
+      "html": "<button type=\"button\" class=\"ds-ghost\">Tiếp tục</button>",
+      "css": ".ds-ghost{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:8px 16px;border:0;border-radius:6px;background:transparent;color:#171717;font-family:var(--font-body,Manrope),sans-serif;font-size:14px;font-weight:500;white-space:nowrap;transition:color .15s,background-color .15s}.ds-ghost:hover{background:hsl(var(--accent,210 40% 96%));color:hsl(var(--accent-foreground,222.2 84% 4.9%))}.ds-ghost:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--background,0 0% 100%)),0 0 0 4px hsl(var(--ring,22 100% 50%))}.ds-ghost:disabled{pointer-events:none;opacity:.5}"
+    },
+    {
+      "name": "Shared destructive Button",
+      "kind": "button",
+      "refersTo": "button-destructive",
+      "description": "Existing shared Button variant.",
+      "html": "<button type=\"button\" class=\"ds-destructive\">Tiếp tục</button>",
+      "css": ".ds-destructive{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:8px 16px;border:0;border-radius:6px;background:hsl(var(--destructive,0 84.2% 60.2%));color:hsl(var(--destructive-foreground,210 40% 98%));font-family:var(--font-body,Manrope),sans-serif;font-size:14px;font-weight:500;white-space:nowrap;transition:color .15s,background-color .15s}.ds-destructive:hover{filter:opacity(.9)}.ds-destructive:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--background,0 0% 100%)),0 0 0 4px hsl(var(--ring,22 100% 50%))}.ds-destructive:disabled{pointer-events:none;opacity:.5}"
+    },
+    {
+      "name": "Shared link Button",
+      "kind": "button",
+      "refersTo": "button-link",
+      "description": "Existing shared Button variant.",
+      "html": "<button type=\"button\" class=\"ds-link\">Tiếp tục</button>",
+      "css": ".ds-link{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:8px 16px;border:0;border-radius:6px;background:transparent;color:#fc5d01;font-family:var(--font-body,Manrope),sans-serif;font-size:14px;font-weight:500;white-space:nowrap;transition:color .15s,background-color .15s}.ds-link:hover{text-decoration:underline;text-underline-offset:4px}.ds-link:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--background,0 0% 100%)),0 0 0 4px hsl(var(--ring,22 100% 50%))}.ds-link:disabled{pointer-events:none;opacity:.5}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Guided Launch",
+    "overview": "Confident, practical, and aspirational. Cinematic dark-glass moments lead into clear, light educational content. Launch Orange connects the two treatments, while existing learner, teacher, and destination imagery gives the interface its recognizable identity.\n\nComponents feel tactile and confident. Dark Glass uses ambient layered depth; Light Content uses structural shadows to separate readable cards. Admin Surfaces remain light, clear, and task-oriented rather than inheriting the cinematic hero treatment.",
+    "keyCharacteristics": [
+      "Launch Orange and Warm Peach unify dark and light surfaces.",
+      "Manrope provides the shared voice; Playfair Display supports selected editorial and cinematic headings.",
+      "Rounded cards, pill actions, and visible depth create tactile hierarchy.",
+      "Responsive layouts preserve readable Vietnamese content and existing identity assets."
+    ],
+    "rules": [
+      {
+        "name": "The Surface Context Rule",
+        "body": "Reuse the target route's existing dark, light, or theme-aware treatment; do not spread the cinematic hero or glass styling across all pages.",
+        "section": "colors"
+      },
+      {
+        "name": "The Responsive Continuity Rule",
+        "body": "Keep the same identity while stacking, scrolling, or expanding existing layout patterns for the available width.",
+        "section": "layout"
+      }
+    ],
+    "dos": [
+      "**Do** preserve the target route's dark, light, or theme-aware surface context.",
+      "**Do** reuse Launch Orange, Warm Peach, the loaded fonts, and existing imagery.",
+      "**Do** keep Admin Surfaces light, clear, and task-oriented.",
+      "**Do** distinguish shared compact controls from hero and legal CTA variants.",
+      "**Do** preserve existing reduced-motion paths when extending animated components."
+    ],
+    "donts": [
+      "**Don't** turn the entire product into dark glass because the hero uses it.",
+      "**Don't** add unrelated accents, replacement fonts, or a rebrand without explicit direction.",
+      "**Don't** present missing Card or Tabs primitives as existing reusable APIs.",
+      "**Don't** silently normalize conflicting CSS/Tailwind tokens during documentation.",
+      "**Don't** claim rendered verification or accessibility compliance from this source scan."
+    ]
+  }
+}

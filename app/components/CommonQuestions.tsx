@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useId, useState } from 'react';
+import { Plus } from 'lucide-react';
+import Link from 'next/link';
 
 interface Question {
   id: number;
@@ -11,6 +12,7 @@ interface Question {
 
 export default function CommonQuestions() {
   const [openQuestion, setOpenQuestion] = useState<number | null>(null);
+  const idPrefix = useId();
 
   const questions: Question[] = [
     {
@@ -66,102 +68,55 @@ export default function CommonQuestions() {
   ];
 
   const toggleQuestion = (id: number) => {
-    setOpenQuestion(openQuestion === id ? null : id);
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5
-      }
-    }
+    setOpenQuestion(current => current === id ? null : id);
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-[#fedac2]/10 to-white overflow-hidden">
-      <motion.div 
-        className="max-w-4xl mx-auto px-4"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-      >
-        <motion.h2 
-          className="text-4xl font-bold text-center text-[#fc5d01] mb-12"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+    <section aria-labelledby={`${idPrefix}-heading`} className="home-content py-16 md:py-20 bg-gradient-to-b from-[#fedac2]/10 to-white">
+      <div className="max-w-4xl mx-auto px-4">
+        <h2
+          id={`${idPrefix}-heading`}
+          className="text-2xl md:text-4xl font-bold text-center text-gray-900 mb-4"
         >
-          NHỮNG CÂU HỎI THƯỜNG GẶP
-        </motion.h2>
+          Những câu hỏi thường gặp
+        </h2>
+        <p className="mx-auto mb-8 max-w-2xl text-center text-base leading-7 text-gray-600 md:mb-12">Tìm hiểu thêm trước khi bắt đầu hành trình học PTE của bạn.</p>
 
-        <motion.div 
-          className="space-y-4"
-          variants={containerVariants}
-        >
+        <div className="space-y-4">
           {questions.map((q) => (
-            <motion.div
+            <div
               key={q.id}
-              variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              className={`bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ${
-                openQuestion === q.id ? 'ring-2 ring-[#fc5d01]' : 'hover:shadow-lg'
+              className={`bg-white rounded-2xl border shadow-sm transition-all duration-200 ${
+                openQuestion === q.id ? 'border-primary/50' : 'border-gray-200 hover:shadow-md'
               }`}
             >
-              <motion.button
+              <h3>
+                <button
+                type="button"
+                id={`${idPrefix}-trigger-${q.id}`}
+                aria-expanded={openQuestion === q.id}
+                aria-controls={`${idPrefix}-answer-${q.id}`}
                 onClick={() => toggleQuestion(q.id)}
-                className="w-full px-6 py-4 flex items-center justify-between text-left"
-                whileTap={{ scale: 0.98 }}
+                className="home-focus min-h-14 w-full rounded-2xl px-6 py-5 flex gap-4 items-center justify-between text-left transition hover:bg-peach-light/20"
               >
                 <span className="font-medium text-gray-900">{q.question}</span>
-                <motion.span
-                  animate={{ rotate: openQuestion === q.id ? 45 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <svg className="w-6 h-6 text-[#fc5d01]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                </motion.span>
-              </motion.button>
-              <AnimatePresence>
-                {openQuestion === q.id && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="px-6 pb-4"
-                  >
-                    <motion.p 
-                      className="text-gray-600"
-                      initial={{ y: -10, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: -10, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {q.answer}
-                    </motion.p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+                <Plus aria-hidden="true" className={`h-6 w-6 shrink-0 text-primary transition-transform duration-200 motion-reduce:transition-none ${openQuestion === q.id ? 'rotate-45' : ''}`} />
+                </button>
+              </h3>
+              <div
+                id={`${idPrefix}-answer-${q.id}`}
+                hidden={openQuestion !== q.id}
+                role="region"
+                aria-labelledby={`${idPrefix}-trigger-${q.id}`}
+                className="overflow-hidden px-6"
+              >
+                <p className="pb-5 text-sm leading-7 text-gray-600 md:text-base">{q.answer}</p>
+              </div>
+            </div>
           ))}
-        </motion.div>
-      </motion.div>
+        </div>
+        <p className="mt-8 text-center text-sm leading-7 text-gray-600">Bạn có câu hỏi khác?{' '}<Link href="/contact" className="home-focus inline-flex min-h-11 items-center rounded-md font-semibold text-gray-900 underline decoration-primary underline-offset-4 hover:decoration-2">Liên hệ để được tư vấn</Link></p>
+      </div>
     </section>
   );
 }

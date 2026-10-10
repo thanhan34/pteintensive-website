@@ -66,7 +66,7 @@ export default function Navigation() {
             })}
           </div>
 
-          <Link href="/register" className="hidden min-h-12 items-center gap-2 rounded-full bg-gradient-to-r from-[#ff4d00] to-[#ff7417] px-6 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_8px_24px_rgba(252,93,1,0.3)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(252,93,1,0.45)] sm:flex">
+          <Link href="/register" className="home-focus hidden min-h-12 items-center gap-2 rounded-full bg-gradient-to-r from-[#ff4d00] to-[#ff7417] px-6 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_8px_24px_rgba(252,93,1,0.3)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(252,93,1,0.45)] active:translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none sm:flex">
             Đăng ký tư vấn
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
@@ -105,7 +105,7 @@ export default function Navigation() {
                   </Link>
                 );
               })}
-              <Link href="/register" onClick={() => setIsMenuOpen(false)} className="mt-2 rounded-xl bg-[#fc5d01] px-4 py-3 text-center text-sm font-bold text-white sm:hidden">Đăng ký tư vấn</Link>
+              <Link href="/register" onClick={() => setIsMenuOpen(false)} className="home-focus mt-2 rounded-xl bg-[#fc5d01] px-4 py-3 text-center text-sm font-bold text-white sm:hidden">Đăng ký tư vấn</Link>
             </div>
           </div>
         )}

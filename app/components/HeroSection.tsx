@@ -17,7 +17,6 @@ import {
   Home,
   Newspaper,
   Plane,
-  Play,
   Route,
   ShieldCheck,
   Target,
@@ -116,12 +115,12 @@ export default function HeroSection() {
             </p>
 
             <div className="hero-actions mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link href="/register" className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#ff4d00] to-[#ff7417] px-7 text-sm font-extrabold uppercase tracking-wide shadow-[0_12px_34px_rgba(252,93,1,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_42px_rgba(252,93,1,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8b51] focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+              <Link href="/register" className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#ff4d00] to-[#ff7417] px-7 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_12px_34px_rgba(252,93,1,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_42px_rgba(252,93,1,0.5)] active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8b51] focus-visible:ring-offset-2 focus-visible:ring-offset-black">
                 Nhận lộ trình miễn phí
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </Link>
-              <Link href="/courses" className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full border border-[#ff7b3d]/75 bg-black/35 px-7 text-sm font-bold uppercase tracking-wide backdrop-blur-md transition hover:border-[#ff9a6a] hover:bg-[#fc5d01]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8b51]">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#ff7b3d] text-[#ff7b3d]"><Play className="ml-0.5 h-3.5 w-3.5 fill-current" aria-hidden="true" /></span>
+              <Link href="#home-courses" className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full border border-[#ff7b3d]/75 bg-black/35 px-7 text-sm font-bold uppercase tracking-wide backdrop-blur-md transition hover:border-[#ff9a6a] hover:bg-[#fc5d01]/15 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8b51]">
+                <BookOpen className="h-5 w-5 shrink-0 text-[#ff7b3d]" aria-hidden="true" />
                 Xem khóa học
               </Link>
             </div>
