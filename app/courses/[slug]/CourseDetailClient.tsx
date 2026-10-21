@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { CoursePurchase } from '@/components/billing/CoursePurchase';
 import { FaUsers, FaClock, FaVideo, FaBook } from 'react-icons/fa';
 import { type Course } from '../../../lib/courseData';
 
@@ -114,6 +115,7 @@ export default function CourseDetailClient({ course }: CourseDetailClientProps) 
                 className="mt-8 flex flex-wrap gap-4"
                 variants={itemVariants}
               >
+                <CoursePurchase />
                 <Link
                   href="/register"
                   className="inline-flex items-center px-6 py-3 bg-white text-[#fc5d01] rounded-lg hover:bg-[#fedac2] transition-colors"

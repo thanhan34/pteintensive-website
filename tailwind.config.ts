@@ -68,10 +68,12 @@ module.exports = {
         }
       },
       borderRadius: {
+        billing: 'var(--billing-radius, 16px)',
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow: { billing: 'var(--billing-shadow, 0 8px 24px rgba(23,23,23,0.04))' },
     },
   },
   plugins: [],

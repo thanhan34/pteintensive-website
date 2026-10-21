@@ -163,7 +163,7 @@ export default function ContactPage() {
                   <p className="mt-1 text-xl font-bold">Chúng tôi có thể giúp bạn</p>
                 </div>
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fc5d01] shadow-lg shadow-[#fc5d01]/25">
-                  <Mail className="h-6 w-6" aria-hidden="true" />
+                  <Mail className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
               </div>
               <ul className="mt-6 space-y-4">

@@ -61,7 +61,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           uid: firebaseUser.uid,
           email: firebaseUser.email!,
           displayName: firebaseUser.displayName || '',
-          photoURL: firebaseUser.photoURL || undefined,
+          ...(firebaseUser.photoURL ? { photoURL: firebaseUser.photoURL } : {}),
           roles: ['subscriber'] as UserRole[], // Default role
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
@@ -133,7 +133,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         uid: newUser.uid,
         email: newUser.email!,
         displayName,
-        photoURL: newUser.photoURL || undefined,
+        ...(newUser.photoURL ? { photoURL: newUser.photoURL } : {}),
         roles: ['subscriber'] as UserRole[],
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),

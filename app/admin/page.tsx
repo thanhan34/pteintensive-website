@@ -99,6 +99,7 @@ export default function AdminDashboard() {
 
   return (
     <AuthGuard requiredRoles={['admin', 'editor', 'author']}>
+    <div className="pt-28 px-6"><Link href="/admin/billing" className="inline-flex min-h-11 items-center rounded-lg bg-primary px-5 font-semibold text-white">Quản lý học phí &amp; thanh toán</Link></div>
       <div className="admin-dashboard min-h-screen bg-gray-50 text-gray-900">
         {/* Header */}
         <header className="bg-white shadow">

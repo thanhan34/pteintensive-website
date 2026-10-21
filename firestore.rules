@@ -95,7 +95,8 @@ service cloud.firestore {
       allow create: if isSignedIn() 
                     && request.auth.uid == uid
                     && request.resource.data.uid == uid
-                    && request.resource.data.email == request.auth.token.email;
+                    && request.resource.data.email == request.auth.token.email
+                    && request.resource.data.roles == ['subscriber'];
       
       allow update: if isSignedIn()
                     && request.resource.data.uid == uid
@@ -112,6 +113,14 @@ service cloud.firestore {
       // Users cannot delete their profiles
       allow delete: if false;
     }
+
+    // Financial records: server Admin SDK only. Browser access is through authenticated APIs.
+    match /billingPrices/{id} { allow read, write: if false; }
+    match /tuitionFees/{id} { allow read, write: if false; }
+    match /billingOrders/{id} { allow read, write: if false; }
+    match /billingLocks/{id} { allow read, write: if false; }
+    match /billingLimits/{id} { allow read, write: if false; }
+    match /billingFeeDeletions/{id} { allow read, write: if false; }
 
     // Comments collection
     match /comments/{id} {

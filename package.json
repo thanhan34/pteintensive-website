@@ -9,6 +9,7 @@
     "import:mdx-blog": "node scripts/import-mdx-to-cms.js",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "test:billing": "node --test scripts/test-billing.cjs scripts/test-billing-link-ui.cjs",
     "check:seo": "node scripts/check-seo.js"
   },
   "dependencies": {
