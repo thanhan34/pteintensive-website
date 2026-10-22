@@ -91,6 +91,7 @@ async function main() {
       await sleep(300);
       for (const state of ['courses-locked', 'checkout-populated', 'fees-populated']) {
         if (state === 'courses-locked') {
+          assert.equal(await evaluate(`document.querySelector('.student-course-action strong') === null`), true, 'Course prices must be absent before placement');
           assert.equal(await evaluate(`getComputedStyle(document.querySelector('.student-course-add-hint')).visibility`), 'hidden');
           await evaluate(`document.querySelector('.student-course-add').focus()`);
           assert.equal(await evaluate(`getComputedStyle(document.querySelector('.student-course-add-hint')).visibility`), 'visible');
@@ -129,12 +130,24 @@ async function main() {
           assert.equal(await evaluate(`document.querySelector('textarea[name="academicFeedback"]').disabled`), false);
           assert.equal(await evaluate(`document.querySelector('li[aria-current="step"] h3').textContent`), 'Chọn khóa theo nhận xét');
           assert.equal(await evaluate(`document.querySelector('.student-placement-unlock button').dataset.guidance`), 'true');
+          assert.equal(await evaluate(`document.querySelector('.student-course-action strong') === null`), true, 'Completing feedback alone must not reveal prices');
+          assert.equal(await evaluate(`document.querySelector('.student-course-add button').disabled`), true, 'Course selection must wait for Continue');
+          await evaluate(`Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Tiếp tục chọn khóa')).click()`);
+          await sleep(300);
+          assert.match(await evaluate(`document.querySelector('.student-course-action strong').textContent`), /7.900.000/);
+          await evaluate(`document.querySelector('input[name="placementCompleted"]').click()`);
+          await sleep(100);
+          assert.equal(await evaluate(`document.querySelector('.student-course-action strong') === null`), true, 'Invalid placement must hide prices again');
+          await evaluate(`document.querySelector('input[name="placementCompleted"]').click()`);
+          await sleep(100);
+          assert.equal(await evaluate(`document.querySelector('.student-course-action strong') === null`), true, 'Restoring placement still requires Continue');
           await evaluate(`Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Tiếp tục chọn khóa')).click()`);
           await sleep(300);
           assert.equal(await evaluate(`document.activeElement.id`), 'student-course-selection');
           assert.equal(await evaluate(`document.querySelector('.student-course-add button').dataset.guidance`), 'true');
           await evaluate(`document.querySelector('.student-course-add button').click()`);
           await sleep(150);
+          assert.match(await evaluate(`document.querySelector('.student-course-action strong').textContent`), /7.900.000/, 'Prices remain visible after adding a course');
           assert.equal(await evaluate(`document.querySelector('nav a[href="/cart"]').getAttribute('aria-label')`), 'Giỏ hàng, 1 khoản đã chọn');
           assert.equal(await evaluate(`document.querySelector('nav a[href="/cart"]').dataset.guidance`), 'true');
           assert.equal(await evaluate(`document.querySelector('.student-course-add button').dataset.guidance`), 'false');
