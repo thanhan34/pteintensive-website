@@ -40,6 +40,6 @@ export function PlacementJourney({ declaration, onChange, ready, busy, onContinu
         <Button size="lg" data-guidance={!busy && guidanceStep === 'continue'} disabled={busy || !ready} onClick={onContinue}>{ready ? <Check aria-hidden="true" className="mr-2 h-4 w-4" /> : <LockKeyhole aria-hidden="true" className="mr-2 h-4 w-4" />}Tiếp tục chọn khóa<ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" /></Button>
       </li>
     </ol>
-    <p id="placement-privacy" className="student-placement-disclosure">Đây là thông tin do bạn tự khai, chưa được hệ thống xác minh với đội học thuật. Nhận xét được gửi kèm đơn để trung tâm đối chiếu và chỉ được giữ khi chuyển trang trong phiên này. Tải lại trang hoặc đóng tab cần nhập lại.</p>
+    <p id="placement-privacy" className="student-placement-disclosure">Đây là thông tin do bạn tự khai, chưa được hệ thống xác minh với đội học thuật. Nhận xét được lưu theo tài khoản để trung tâm đối chiếu; tải lại trang không cần nhập lại. Sau 30 phút, hãy kiểm tra lại bản nháp, không cần làm lại bài kiểm tra.</p>
   </section>;
 }

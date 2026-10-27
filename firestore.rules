@@ -122,6 +122,8 @@ service cloud.firestore {
     match /billingLimits/{id} { allow read, write: if false; }
     match /billingFeeDeletions/{id} { allow read, write: if false; }
 
+    match /billingDrafts/{id} { allow read, write: if false; }
+
     // Comments collection
     match /comments/{id} {
       // Anyone can read approved comments

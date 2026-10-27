@@ -3,11 +3,12 @@
 import Link from 'next/link';
 import { ArrowRight, BookOpen, CalendarDays, Check, CreditCard, FileText, Info, Link2, LoaderCircle, LockKeyhole, Mail, ShieldCheck, Trash2 } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
-import { checkoutStep, checkoutStepCopy, type CheckoutContact } from '@/lib/billing/checkout-guidance';
+import { checkoutStep, checkoutStepCopy } from '@/lib/billing/checkout-guidance';
 import { money, type CartItem, type Price, type TuitionFee } from '@/lib/billing/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
+import { usePlacementSession } from './PlacementSession';
 import { placementTestUrl } from '@/lib/billing/placement';
 
 type SelectionProps = {
@@ -42,7 +43,7 @@ function TuitionSupport({ children }: { children: React.ReactNode }) {
   </aside>;
 }
 
-export function PersonalTuitionPanel({ placementReady, fees, cart, busy, add, setTab }: SelectionProps & { fees: TuitionFee[]; add: (item: CartItem) => void }) {
+export function PersonalTuitionPanel({ fees, cart, busy, add, setTab }: SelectionProps & { fees: TuitionFee[]; add: (item: CartItem) => void }) {
   return <div className="student-tuition-layout">
     <Card className="student-personal-fees">
       <div className="student-section-heading"><div><h2>Học phí cá nhân</h2><p>Các khoản thu được trung tâm gửi riêng qua liên kết.</p></div>{fees.length > 0 && <span>{fees.length} khoản thu</span>}</div>
@@ -60,12 +61,12 @@ export function PersonalTuitionPanel({ placementReady, fees, cart, busy, add, se
           <div className="student-fee-entry-heading"><span className="student-cart-icon"><FileText aria-hidden="true" /></span><div><span className="student-status" data-status={fee.status}>{fee.status === 'paid' && <Check aria-hidden="true" />}{status.label}</span><h3>{fee.title}</h3></div></div>
           <dl className="student-fee-facts"><div><dt>Số tiền</dt><dd>{money(fee.amount)}</dd></div><div><dt><CalendarDays aria-hidden="true" />Hạn thanh toán</dt><dd>{fee.dueDate ? dueDateLabel(fee.dueDate) : 'Chưa có hạn cụ thể'}</dd></div></dl>
           {fee.courseTitle && <p className="mt-4 text-sm font-semibold">Khóa được đề xuất: {fee.courseTitle}</p>}
-          <div className="student-fee-entry-footer"><p>{status.description}{!placementReady && ' Cần xác nhận đã làm bài và nhập nhận xét trên trang khóa học trước khi thêm.'}</p>{fee.status === 'unpaid' && (selected ? <Button variant="outline" size="lg" disabled={busy} onClick={() => setTab('cart')}><Check aria-hidden="true" className="mr-2 h-4 w-4" />Đã chọn · Xem lại</Button> : <Button size="lg" disabled={busy || !placementReady} onClick={() => add({ kind: 'fee', id: fee.id })}>Chọn thanh toán <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" /></Button>)}</div>
+          <div className="student-fee-entry-footer"><p>{status.description}{fee.academicApproved ? ' Đã có xác nhận đầu vào; không cần nhập lại nhận xét.' : ' Trung tâm cần bổ sung xác nhận đầu vào.'}</p>{fee.status === 'unpaid' && (selected ? <Button variant="outline" size="lg" disabled={busy} onClick={() => setTab('cart')}><Check aria-hidden="true" className="mr-2 h-4 w-4" />Đã chọn · Xem lại</Button> : <Button size="lg" disabled={busy || !fee.academicApproved} onClick={() => add({ kind: 'fee', id: fee.id })}>Chọn thanh toán <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" /></Button>)}</div>
         </li>;
       })}</ul>}
       <p className="student-personal-security"><ShieldCheck aria-hidden="true" />Liên kết là quyền truy cập khoản thu. Chỉ chia sẻ với người thanh toán giúp bạn, không đăng công khai.</p>
     </Card>
-    <TuitionSupport><p>Không cần đăng nhập hoặc tìm kiếm bằng email. Chỉ các khoản thu từ liên kết bạn đã mở mới xuất hiện trên trình duyệt này.</p></TuitionSupport>
+    <TuitionSupport><p>Đăng nhập rồi mở liên kết từ trung tâm. Khoản thu được lưu theo tài khoản người thanh toán, không tra cứu công khai bằng email.</p></TuitionSupport>
   </div>;
 }
 
@@ -78,7 +79,7 @@ type CheckoutProps = SelectionProps & {
 };
 
 export function TuitionCheckoutPanel({ placementReady, cart, busy, total, paymentAvailable, setTab, changeCart, resolve, pay }: CheckoutProps) {
-  const [contact, setContact] = useState<CheckoutContact>({ name: '', email: '', phone: '' });
+  const { contact, updateContact: setContact } = usePlacementSession();
   const [reviewedSelection, setReviewedSelection] = useState('');
   const selection = JSON.stringify(cart.map((item) => [item.kind, item.id, resolve(item)?.title, resolve(item)?.amount, !!resolve(item)]));
   const reviewed = reviewedSelection === selection;
@@ -98,7 +99,7 @@ export function TuitionCheckoutPanel({ placementReady, cart, busy, total, paymen
   </Card>;
 
   return <form onSubmit={submit} onInput={(event) => updateContact(event.currentTarget)} onChange={(event) => updateContact(event.currentTarget)} className="student-checkout-form" data-checkout-step={step}>
-    <div className="student-checkout-intro"><div><h2>Kiểm tra & thanh toán</h2><p>Đối chiếu khoản thu và điền thông tin học viên trước khi tiếp tục.</p></div><span><LockKeyhole aria-hidden="true" />Không cần tài khoản</span></div>
+    <div className="student-checkout-intro"><div><h2>Kiểm tra & thanh toán</h2><p>Đối chiếu khoản thu và điền thông tin học viên trước khi tiếp tục.</p></div><span><LockKeyhole aria-hidden="true" />Lưu theo tài khoản</span></div>
     <p id="checkout-guidance" className="course-guidance-note" role="status" aria-atomic="true"><ArrowRight aria-hidden="true" /><span>{checkoutStepCopy[step]}</span></p>
     <div className="student-checkout-grid">
       <div className="student-checkout-main">
@@ -113,11 +114,12 @@ export function TuitionCheckoutPanel({ placementReady, cart, busy, total, paymen
           })}</ul>
           <label className="student-placement-checkbox" data-guidance={step === 'review'}><input name="checkoutReviewed" type="checkbox" checked={reviewed} disabled={busy || !placementReady || invalidCount > 0} onChange={(event) => setReviewedSelection(event.target.checked ? selection : '')} required /><span>Tôi đã kiểm tra đúng khóa, các khoản đã chọn và tổng tiền {money(total)}.</span></label>
         </Card>
-        <Card className="student-contact-card"><div className="student-section-heading"><div><h3>Thông tin học viên</h3><p>Dùng để liên hệ và ghi nhận học phí, không tạo tài khoản.</p></div></div>
+        <Card className="student-checkout-contact">
+          <div className="student-section-heading"><div><h3>Thông tin học viên</h3><p>Người được ghi nhận học phí; có thể khác người đăng nhập thanh toán giúp.</p></div></div>
           <fieldset disabled={busy} className="student-contact-fields"><legend className="sr-only">Thông tin liên hệ bắt buộc</legend>
-            <label className="billing-label student-field-full">Họ và tên học viên <span className="course-guide-field" data-guidance={step === 'name'}><Input name="name" aria-describedby="checkout-guidance" placeholder="Nhập đầy đủ họ và tên" autoComplete="name" minLength={2} maxLength={100} required /></span></label>
-            <label className="billing-label">Email liên hệ <span className="course-guide-field" data-guidance={step === 'email'}><Input name="email" aria-describedby="checkout-guidance" placeholder="ban@example.com" type="email" autoComplete="email" maxLength={254} required /></span></label>
-            <label className="billing-label">Số điện thoại <span className="course-guide-field" data-guidance={step === 'phone'}><Input name="phone" aria-describedby="checkout-guidance" placeholder="Nhập số điện thoại" type="tel" autoComplete="tel" pattern="[+0-9 ()-]{8,25}" required /></span></label>
+            <label className="billing-label student-field-full">Họ và tên học viên <span className="course-guide-field" data-guidance={step === 'name'}><Input name="name" defaultValue={contact.name} aria-describedby="checkout-guidance" placeholder="Nhập đầy đủ họ và tên" autoComplete="name" minLength={2} maxLength={100} required /></span></label>
+            <label className="billing-label">Email liên hệ <span className="course-guide-field" data-guidance={step === 'email'}><Input name="email" defaultValue={contact.email} aria-describedby="checkout-guidance" placeholder="ban@example.com" type="email" autoComplete="email" maxLength={254} required /></span></label>
+            <label className="billing-label">Số điện thoại <span className="course-guide-field" data-guidance={step === 'phone'}><Input name="phone" defaultValue={contact.phone} aria-describedby="checkout-guidance" placeholder="Nhập số điện thoại" type="tel" autoComplete="tel" pattern="[+0-9 ()-]{8,25}" required /></span></label>
           </fieldset><p className="student-contact-caption">Tất cả thông tin trên đều bắt buộc. Vui lòng dùng thông tin của học viên được ghi nhận học phí.</p>
         </Card>
         <p className="student-checkout-footnote"><Info aria-hidden="true" />Thanh toán xác nhận đã thu học phí, không tự động ghi danh hoặc xếp lớp.</p>

@@ -5,15 +5,16 @@ const fs = require('node:fs');
 const ts = require('typescript');
 const vm = require('node:vm');
 const path = require('node:path');
-function load(file, mocks = {}) {
+function load(file, mocks = {}, globals = {}) {
   const code = ts.transpileModule(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
   const module = { exports: {} };
-  vm.runInNewContext(code, { exports: module.exports, module, require: (id) => Object.hasOwn(mocks, id) ? mocks[id] : require(id), process, Buffer, URL, URLSearchParams, console });
+  vm.runInNewContext(code, { exports: module.exports, module, require: (id) => Object.hasOwn(mocks, id) ? mocks[id] : require(id), process, Buffer, URL, URLSearchParams, AbortSignal, console, ...globals });
   return module.exports;
 }
 const gateway = load('lib/billing/vnpay.ts');
 const records = new Map();
 let serial = 0;
+let studentUid = 'student1';
 const ref = (key) => ({ key, id: key.split('/')[1] });
 const snap = (reference) => ({ id: reference.id, exists: records.has(reference.key), data: () => records.get(reference.key) });
 const db = {
@@ -34,6 +35,7 @@ const db = {
   },
 };
 const billing = load('lib/billing/server.ts', {
+  './student-auth': { studentIdentity: async (required = true) => { if (!studentUid && required) throw Error('AUTH'); return studentUid; } },
   '@/lib/firebase-admin': { getAdminDb: () => db, getAdminAuth: () => ({ verifyIdToken: async (token) => { if (token !== 'valid') throw Error('invalid'); return { uid: 'student1', email: 'student@example.test' }; } }) },
   '@/lib/admin-auth': { requireAdminFromRequest: async (request) => { if (request.headers.get('authorization') !== 'Bearer valid') throw Error('denied'); return { uid: 'admin1' }; } },
   '@/lib/courseData': { courseData: { course1: { title: 'PTE' } } },
@@ -45,9 +47,10 @@ const feeSecret = 'b'.repeat(64);
 const request = (items, token = guestSecret, expectedTotal = items.reduce((total, item) => total + (records.get(`${item.kind === 'fee' ? 'tuitionFees' : 'billingPrices'}/${item.id}`)?.amount || 0), 0)) => ({ headers: new Headers({ 'x-billing-guest': token === 'valid' ? guestSecret : token, 'x-billing-fees': JSON.stringify({ fee1: feeSecret }) }), json: async () => ({ items, expectedTotal, placementDeclaration: { completed: true, feedback: 'Academic feedback recommending course1' }, name: 'Test Student', email: 'student@example.test', phone: '+84912345678' }) });
 beforeEach(() => {
   records.clear(); serial = 0;
+  studentUid = 'student1';
   Object.assign(process.env, { VNPAY_ENABLED: 'true', VNPAY_ENVIRONMENT: 'sandbox', VNPAY_TMN_CODE: 'TESTCODE', VNPAY_HASH_SECRET: 'isolated-test-secret', BILLING_BASE_URL: 'https://example.test', VNPAY_PRODUCTION_APPROVED: 'false' });
   records.set('billingPrices/course1', { title: 'PTE', enabled: true, amount: 100000 });
-  records.set('tuitionFees/fee1', { title: 'Đợt 1', accessHash: billing.capabilityHash(feeSecret), status: 'unpaid', amount: 200000, academicReview: {reference: 'Placement assessment approved', courseId: 'course1', reviewedBy: 'admin1', reviewedAt: '2026-10-20T00:00:00Z'} });
+  records.set('tuitionFees/fee1', { payerUid: 'student1', title: 'Đợt 1', accessHash: billing.capabilityHash(feeSecret), status: 'unpaid', amount: 200000, academicReview: {reference: 'Placement assessment approved', courseId: 'course1', reviewedBy: 'admin1', reviewedAt: '2026-10-20T00:00:00Z'} });
 });
 function callback(id, amount = '20000000', code = '00', status = '00') {
   const params = { vnp_TmnCode: 'TESTCODE', vnp_TxnRef: id, vnp_Amount: amount, vnp_ResponseCode: code, vnp_TransactionStatus: status, vnp_TransactionNo: '12345' };
@@ -74,14 +77,192 @@ test('disabled / unapproved production / insecure origin fail closed', () => {
   process.env.VNPAY_ENABLED = 'true'; process.env.VNPAY_ENVIRONMENT = 'production'; assert.throws(gateway.paymentConfig);
   process.env.VNPAY_ENVIRONMENT = 'sandbox'; process.env.BILLING_BASE_URL = 'http://example.test'; assert.throws(gateway.paymentConfig);
 });
+test('sandbox allows explicit loopback returns with ports and signed URLs', () => {
+  for (const origin of ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://[::1]:3000']) {
+    process.env.BILLING_BASE_URL = origin;
+    assert.equal(gateway.paymentAvailable(), true);
+    const url = new URL(gateway.createPaymentUrl('local-test', 100000, new Date(), '127.0.0.1').url);
+    assert.equal(url.searchParams.get('vnp_ReturnUrl'), `${origin}/api/payments/vnpay/return`);
+    assert.equal(gateway.verifySignature(gateway.parseCallback(url.searchParams), process.env.VNPAY_HASH_SECRET), true);
+  }
+});
+test('callback origins reject non-loopback HTTP, malformed origins and all production loopback', () => {
+  for (const origin of ['http://example.test', 'http://localhost.evil.test:3000', 'http://192.168.1.1:3000', 'ftp://localhost', 'http://user:pass@localhost:3000', 'http://localhost:3000/cart', 'http://localhost:3000?x=1', 'http://localhost:3000#x']) {
+    process.env.BILLING_BASE_URL = origin;
+    assert.equal(gateway.paymentAvailable(), false, origin);
+  }
+  process.env.VNPAY_ENVIRONMENT = 'production'; process.env.VNPAY_PRODUCTION_APPROVED = 'true';
+  for (const origin of ['http://localhost:3000', 'https://localhost:3000', 'http://127.0.0.1:3000', 'https://[::1]:3000']) {
+    process.env.BILLING_BASE_URL = origin;
+    assert.equal(gateway.paymentAvailable(), false, origin);
+  }
+  process.env.BILLING_BASE_URL = 'https://example.test';
+  assert.equal(gateway.paymentAvailable(), true);
+});
+test('local Return route redirects verified callbacks to local cart without settling payments', async () => {
+  process.env.BILLING_BASE_URL = 'http://localhost:3000';
+  const route = load('app/api/payments/vnpay/return/route.ts', { '@/lib/billing/vnpay': gateway });
+  const { orderId } = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
+  const response = await route.GET({ nextUrl: new URL(`http://localhost:3000/api/payments/vnpay/return?${new URLSearchParams(callback(orderId))}`) });
+  assert.equal(response.status, 303);
+  assert.equal(response.headers.get('location'), `http://localhost:3000/cart?order=${orderId}`);
+  assert.equal(records.get(`billingOrders/${orderId}`).status, 'pending');
+  const invalid = await route.GET({ nextUrl: new URL('http://localhost:3000/api/payments/vnpay/return?vnp_SecureHash=invalid') });
+  assert.equal(invalid.headers.get('location'), 'http://localhost:3000/cart?callback=invalid');
+});
+test('issued PTE sandbox merchant uses the sandbox gateway and signed callback origin', () => {
+  process.env.VNPAY_TMN_CODE = 'PTETEST1';
+  process.env.BILLING_BASE_URL = 'https://www.pteintensive.com';
+  const result = gateway.createPaymentUrl('pte-demo-1', 100000, new Date('2026-10-23T00:00:00Z'), '127.0.0.1');
+  const url = new URL(result.url);
+  assert.equal(url.origin, 'https://sandbox.vnpayment.vn');
+  assert.equal(url.searchParams.get('vnp_TmnCode'), 'PTETEST1');
+  assert.equal(url.searchParams.get('vnp_ReturnUrl'), 'https://www.pteintensive.com/api/payments/vnpay/return');
+  assert.equal(url.searchParams.has('vnp_BankCode'), false);
+  assert.equal(gateway.verifySignature(gateway.parseCallback(url.searchParams), process.env.VNPAY_HASH_SECRET), true);
+});
+test('placeholder credentials and TEST merchant in production fail closed', () => {
+  for (const value of ['', '<mã sandbox được cấp>', 'BAD CODE']) {
+    process.env.VNPAY_TMN_CODE = value;
+    assert.equal(gateway.paymentAvailable(), false);
+  }
+  process.env.VNPAY_TMN_CODE = 'PTETEST1';
+  for (const value of ['', '<secret sandbox được cấp>', 'your_secret', 'replace-me', ' key ']) {
+    process.env.VNPAY_HASH_SECRET = value;
+    assert.equal(gateway.paymentAvailable(), false);
+  }
+  process.env.VNPAY_HASH_SECRET = 'isolated-test-secret';
+  process.env.VNPAY_ENVIRONMENT = 'production';
+  process.env.VNPAY_PRODUCTION_APPROVED = 'true';
+  assert.throws(gateway.paymentConfig, /TEST/);
+});
 test('approved tuition checkout calculates trusted total and locks all items', async () => {
   const result = await billing.checkout(request([{ kind: 'fee', id: 'fee1', amount: 1 }]));
   assert.equal(records.get(`billingOrders/${result.orderId}`).total, 200000);
   assert.equal(records.get('tuitionFees/fee1').status, 'pending');
-  await assert.rejects(billing.checkout(request([{ kind: 'fee', id: 'fee1' }])));
+  const retry = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
+  assert.equal(retry.orderId, result.orderId);
+  assert.equal(retry.url, result.url);
+});
+test('approved private tuition does not require a student self-declaration', async () => {
+  const req = request([{ kind: 'fee', id: 'fee1' }]);
+  const body = await req.json(); delete body.placementDeclaration;
+  const { orderId } = await billing.checkout({ ...req, json: async () => body });
+  const order = records.get(`billingOrders/${orderId}`);
+  assert.equal(order.uid, 'student1');
+  assert.equal(order.placementDeclaration, undefined);
+});
+test('Clerk identity is mandatory for checkout; posting another UID cannot override it', async () => {
+  studentUid = null;
+  await assert.rejects(billing.checkout(request([{ kind: 'fee', id: 'fee1' }])), /AUTH/);
+  studentUid = 'student1';
+  const req = request([{ kind: 'fee', id: 'fee1' }]);
+  const body = { ...await req.json(), uid: 'attacker', academicApproved: true };
+  const { orderId } = await billing.checkout({ ...req, json: async () => body });
+  assert.equal(records.get(`billingOrders/${orderId}`).uid, 'student1');
+});
+test('public billing catalog discloses no private fees or orders when signed out', async () => {
+  await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
+  studentUid = null;
+  const data = await billing.billingData(request([]));
+  assert.equal(data.prices.length, 1);
+  assert.equal(data.fees.length, 0); assert.equal(data.orders.length, 0);
+});
+test('redeeming a private link binds one payer and persists access without the link', async () => {
+  delete records.get('tuitionFees/fee1').payerUid;
+  const first = await billing.billingData(request([]));
+  assert.equal(first.fees.length, 1);
+  const noLink = await billing.billingData({ headers: new Headers() });
+  assert.equal(noLink.fees.length, 1);
+  studentUid = 'other';
+  assert.equal((await billing.billingData(request([]))).fees.length, 0);
+  await assert.rejects(billing.checkout(request([{ kind: 'fee', id: 'fee1' }])), /PUBLIC:/);
+});
+test('legacy pending guest fees are not silently attached to a new Clerk payer', async () => {
+  const fee = records.get('tuitionFees/fee1');
+  delete fee.payerUid; fee.status = 'pending'; fee.orderId = 'legacy-order';
+  await assert.rejects(billing.billingData(request([])), /PUBLIC:/);
+  assert.equal(fee.payerUid, undefined); assert.equal(fee.orderId, 'legacy-order');
+});
+test('QueryDR checksum follows the documented pipe order and rejects tampering', () => {
+  const { createHmac } = require('node:crypto');
+  const result = Object.fromEntries(gateway.queryResponseFields.map((key, index) => [key, String(index)]));
+  result.vnp_SecureHash = createHmac('sha512', 'key').update(gateway.queryResponseFields.map((key) => result[key]).join('|')).digest('hex');
+  assert.equal(gateway.verifyQueryResponse(result, 'key'), true);
+  result.vnp_Amount = '999';
+  assert.equal(gateway.verifyQueryResponse(result, 'key'), false);
+});
+test('QueryDR request is signed correctly and verifies the gateway response before use', async () => {
+  process.env.VNPAY_QUERY_IP = '127.0.0.1';
+  let posted;
+  const queryGateway = load('lib/billing/vnpay.ts', {}, { fetch: async (url, options) => {
+    assert.equal(url, 'https://sandbox.vnpayment.vn/merchant_webapi/api/transaction');
+    posted = JSON.parse(options.body);
+    const fields = ['vnp_RequestId', 'vnp_Version', 'vnp_Command', 'vnp_TmnCode', 'vnp_TxnRef', 'vnp_TransactionDate', 'vnp_CreateDate', 'vnp_IpAddr', 'vnp_OrderInfo'];
+    assert.equal(posted.vnp_SecureHash, gateway.querySignature(posted, fields, process.env.VNPAY_HASH_SECRET));
+    const result = { vnp_ResponseId: 'response1', vnp_Command: 'querydr', vnp_ResponseCode: '00', vnp_Message: 'Success', vnp_TmnCode: 'TESTCODE', vnp_TxnRef: 'order1', vnp_Amount: '20000000', vnp_BankCode: 'NCB', vnp_TransactionNo: '123', vnp_TransactionType: '01', vnp_TransactionStatus: '00', vnp_OrderInfo: 'Test' };
+    result.vnp_SecureHash = gateway.querySignature(result, gateway.queryResponseFields, process.env.VNPAY_HASH_SECRET);
+    return { ok: true, json: async () => result };
+  } });
+  assert.equal((await queryGateway.queryTransaction('order1', '2026-10-27T00:00:00Z')).vnp_TransactionStatus, '00');
+  assert.equal(posted.vnp_TransactionDate, '20261027070000');
+  const invalid = load('lib/billing/vnpay.ts', {}, { fetch: async () => ({ ok: true, json: async () => ({ vnp_SecureHash: 'bad' }) }) });
+  await assert.rejects(invalid.queryTransaction('order1', '2026-10-27T00:00:00Z'), /Invalid/);
+});
+test('QueryDR reconciliation checks account ownership, cooldown, uncertain status and late IPN', async () => {
+  const { orderId } = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
+  let calls = 0; let status = '01';
+  const queryBilling = load('lib/billing/server.ts', {
+    '@/lib/firebase-admin': { getAdminDb: () => db }, '@/lib/admin-auth': {}, '@/lib/courseData': { courseData: {} },
+    './student-auth': { studentIdentity: async () => studentUid }, './placement': load('lib/billing/placement.ts'),
+    './vnpay': { ...gateway, queryTransaction: async () => { calls++; return { vnp_TmnCode: 'TESTCODE', vnp_TxnRef: orderId, vnp_Amount: '20000000', vnp_ResponseCode: '00', vnp_TransactionType: '01', vnp_TransactionStatus: status }; } },
+  });
+  const req = { json: async () => ({ orderId }) };
+  studentUid = 'other'; await assert.rejects(queryBilling.checkStudentOrder(req), /FORBIDDEN/); assert.equal(calls, 0);
+  studentUid = 'student1'; await queryBilling.checkStudentOrder(req); assert.equal(calls, 1);
+  assert.equal(records.get(`billingOrders/${orderId}`).status, 'pending');
+  await assert.rejects(queryBilling.checkStudentOrder(req), /PUBLIC:/); assert.equal(calls, 1);
+  records.get(`billingOrders/${orderId}`).lastQueryAt = 0; status = '00';
+  await queryBilling.checkStudentOrder(req);
+  assert.equal(records.get(`billingOrders/${orderId}`).status, 'paid');
+  assert.equal((await billing.processIPN(callback(orderId))).RspCode, '02');
+});
+test('uncertain signed IPN validates merchant, order and amount before acknowledging', async () => {
+  const { orderId } = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
+  assert.equal((await billing.processIPN(callback('missing', '20000000', '07', '07'))).RspCode, '01');
+  assert.equal((await billing.processIPN(callback(orderId, '10000000', '07', '07'))).RspCode, '04');
+  const wrong = callback(orderId); wrong.vnp_TmnCode = 'WRONG123'; wrong.vnp_SecureHash = gateway.signature(wrong, process.env.VNPAY_HASH_SECRET);
+  assert.equal((await billing.processIPN(wrong)).RspCode, '97');
+  assert.equal(records.get(`billingOrders/${orderId}`).status, 'pending');
+  assert.equal((await billing.processIPN(callback(orderId, '20000000', '07', '07'))).RspCode, '00');
+  assert.equal(records.get('billingLocks/fee_fee1').status, 'pending');
+  assert.equal((await billing.processIPN(callback(orderId))).RspCode, '00');
+  assert.equal(records.get(`billingOrders/${orderId}`).status, 'paid');
+});
+test('draft API scopes persisted progress to Clerk account and preserves stale drafts for review', async () => {
+  const draftLib = load('lib/billing/draft.ts');
+  const route = load('app/api/billing/draft/route.ts', {
+    '@/lib/billing/student-auth': { studentIdentity: async () => { if (!studentUid) throw Error('AUTH'); return studentUid; } },
+    '@/lib/firebase-admin': { getAdminDb: () => db }, '@/lib/billing/server': { billingError: billing.billingError }, '@/lib/billing/draft': draftLib,
+  });
+  const draft = draftLib.emptyDraft();
+  draft.declaration = { completed: true, feedback: 'Actual academic feedback' };
+  draft.cart = [{ kind: 'course', id: 'course1' }];
+  draft.contact = { name: 'Student', email: 'test@example.test', phone: '0912345678' };
+  const draftRequest = { headers: new Headers({ 'x-billing-account': 'student1' }), json: async () => draft };
+  assert.equal((await route.PUT(draftRequest)).status, 200);
+  let result = await (await route.GET()).json();
+  assert.equal(result.draft.declaration.feedback, draft.declaration.feedback); assert.equal(result.needsReview, false);
+  records.get('billingDrafts/student1').updatedAt = Date.now() - draftLib.DRAFT_REVIEW_MS - 1;
+  result = await (await route.GET()).json();
+  assert.equal(result.needsReview, true); assert.equal(result.draft.cart.length, 1);
+  studentUid = 'other';
+  assert.equal((await (await route.GET()).json()).draft.cart.length, 0);
+  assert.equal((await route.PUT(draftRequest)).status, 403);
+  studentUid = null; assert.equal((await route.GET()).status, 401);
 });
 test('guest checkout rejects wrong fee capability, duplicate items, disabled courses, malformed session', async () => {
-  records.get('tuitionFees/fee1').accessHash = billing.capabilityHash('c'.repeat(64));
+  records.get('tuitionFees/fee1').payerUid = 'other';
   await assert.rejects(billing.checkout(request([{ kind: 'fee', id: 'fee1' }])));
   await assert.rejects(billing.checkout(request([{ kind: 'course', id: 'course1' }, { kind: 'course', id: 'course1' }])));
   records.get('billingPrices/course1').enabled = false;
@@ -89,9 +270,117 @@ test('guest checkout rejects wrong fee capability, duplicate items, disabled cou
   await assert.rejects(billing.checkout(request([], 'wrong')));
   assert.equal(records.has('billingLocks/fee_fee1'), false);
 });
+test('checkout retries reuse the entire pending order without writes, even at the creation limit', async () => {
+  const items = [{ kind: 'fee', id: 'fee1' }, { kind: 'course', id: 'course1' }];
+  const first = await billing.checkout(request(items));
+  for (const [key, value] of records) if (key.startsWith('billingLimits/')) value.count = 5;
+  const before = JSON.stringify([...records]);
+  const retry = await billing.checkout(request([...items].reverse()));
+  assert.equal(retry.orderId, first.orderId);
+  assert.equal(retry.url, first.url);
+  assert.equal(JSON.stringify([...records]), before);
+});
+test('pending checkout refuses changed carts, totals, customer details, prices and environments without writes', async () => {
+  const items = [{ kind: 'fee', id: 'fee1' }, { kind: 'course', id: 'course1' }];
+  await billing.checkout(request(items));
+  const before = JSON.stringify([...records]);
+  await assert.rejects(billing.checkout(request(items.slice(0, 1))), /Lịch sử đơn/);
+  await assert.rejects(billing.checkout(request(items, guestSecret, 1)), /Lịch sử đơn/);
+  for (const changes of [{ name: 'Another Student' }, { email: 'another@example.test' }, { phone: '+84987654321' }]) {
+    const req = request(items); const body = await req.json();
+    await assert.rejects(billing.checkout({ ...req, json: async () => ({ ...body, ...changes }) }), /Lịch sử đơn/);
+  }
+  assert.equal(JSON.stringify([...records]), before);
+  records.get('billingPrices/course1').amount++;
+  await assert.rejects(billing.checkout(request(items)), /Lịch sử đơn/);
+  records.get('billingPrices/course1').amount--;
+  records.get('billingOrders/order1').environment = 'production';
+  await assert.rejects(billing.checkout(request(items)), /Lịch sử đơn/);
+});
+test('expired pending and paid orders remain locked with specific recovery instructions', async () => {
+  const items = [{ kind: 'fee', id: 'fee1' }];
+  const { orderId } = await billing.checkout(request(items));
+  records.get(`billingOrders/${orderId}`).expiresAt = '2000-01-01T00:00:00Z';
+  const before = JSON.stringify([...records]);
+  await assert.rejects(billing.checkout(request(items)), /hết hạn.*VNPAY/);
+  assert.equal(JSON.stringify([...records]), before);
+  await billing.settleOrder(orderId, 'paid', {});
+  await assert.rejects(billing.checkout(request(items)), /đã được thanh toán/);
+  assert.equal(records.get('billingLocks/fee_fee1').status, 'paid');
+});
+test('checkout conflicts identify the blocking order and exact reason without modifying financial records', async () => {
+  const items = [{ kind: 'course', id: 'course1' }];
+  const { orderId } = await billing.checkout(request(items));
+  const before = JSON.stringify([...records]);
+  for (const [changes, reason] of [
+    [{ name: 'Another Student' }, /Thông tin học viên khác/],
+    [{ expectedTotal: 1 }, /Giỏ hàng hoặc giá hiện tại khác/],
+  ]) {
+    const req = request(items); const body = await req.json();
+    await assert.rejects(billing.checkout({ ...req, json: async () => ({ ...body, ...changes }) }), (error) => {
+      assert.equal(error.orderId, orderId);
+      assert.match(error.message, reason);
+      return true;
+    });
+    assert.equal(JSON.stringify([...records]), before);
+  }
+});
+test('pending order URLs are never returned to another session or an invalid fee capability', async () => {
+  const items = [{ kind: 'fee', id: 'fee1' }];
+  await billing.checkout(request(items));
+  const before = JSON.stringify([...records]);
+  studentUid = 'other';
+  await assert.rejects(billing.checkout(request(items)), /PUBLIC:/);
+  assert.equal(JSON.stringify([...records]), before);
+});
 test('checkout rejects stale totals without writing an order or lock', async () => {
   await assert.rejects(billing.checkout(request([{ kind: 'fee', id: 'fee1' }], 'valid', 1)));
   assert.equal([...records.keys()].some((key) => key.startsWith('billingLocks/')), false);
+});
+test('production course repurchase creates a new order, preserves paid history and ignores old callbacks', async () => {
+  process.env.VNPAY_ENVIRONMENT = 'production';
+  process.env.VNPAY_PRODUCTION_APPROVED = 'true';
+  const items = [{ kind: 'course', id: 'course1' }];
+  const first = await billing.checkout(request(items));
+  assert.equal((await billing.processIPN(callback(first.orderId, '10000000'))).RspCode, '00');
+  const original = JSON.stringify(records.get(`billingOrders/${first.orderId}`));
+  const second = await billing.checkout(request(items));
+  assert.notEqual(second.orderId, first.orderId);
+  const lockKey = [...records.keys()].find((key) => key.startsWith('billingLocks/course_'));
+  assert.equal(records.get(lockKey).orderId, second.orderId);
+  assert.equal(records.get(lockKey).status, 'pending');
+  assert.equal((await billing.checkout(request(items))).orderId, second.orderId);
+  assert.equal((await billing.processIPN(callback(first.orderId, '10000000'))).RspCode, '02');
+  assert.equal(records.get(lockKey).orderId, second.orderId);
+  assert.equal((await billing.processIPN(callback(second.orderId, '10000000'))).RspCode, '00');
+  assert.equal(JSON.stringify(records.get(`billingOrders/${first.orderId}`)), original);
+  assert.equal(records.get(`billingOrders/${second.orderId}`).status, 'paid');
+});
+test('repurchase with a new private fee preserves the original paid fee and failed repurchase unlocks only the new order', async () => {
+  const first = await billing.checkout(request([{ kind: 'course', id: 'course1' }, { kind: 'fee', id: 'fee1' }]));
+  assert.equal((await billing.processIPN(callback(first.orderId, '30000000'))).RspCode, '00');
+  const second = await billing.checkout(request([{ kind: 'course', id: 'course1' }]));
+  assert.equal((await billing.processIPN(callback(second.orderId, '10000000', '24', '02'))).RspCode, '00');
+  assert.equal(records.get('tuitionFees/fee1').status, 'paid');
+  assert.equal(records.get('billingLocks/fee_fee1').orderId, first.orderId);
+  await assert.rejects(billing.checkout(request([{ kind: 'course', id: 'course1' }, { kind: 'fee', id: 'fee1' }])), /đã được thanh toán/);
+  assert.ok((await billing.checkout(request([{ kind: 'course', id: 'course1' }]))).url);
+});
+test('repurchase validates prior payment, current price and environment without modifying locks on rejection', async () => {
+  const items = [{ kind: 'course', id: 'course1' }];
+  const first = await billing.checkout(request(items));
+  await billing.processIPN(callback(first.orderId, '10000000'));
+  const before = JSON.stringify([...records]);
+  await assert.rejects(billing.checkout(request(items, guestSecret, 1)), /Học phí đã thay đổi/);
+  assert.equal(JSON.stringify([...records]), before);
+  const previous = records.get(`billingOrders/${first.orderId}`);
+  for (const [field, value] of [['status', 'pending'], ['guestHash', 'wrong'], ['environment', 'production']]) {
+    const saved = previous[field]; previous[field] = value;
+    const snapshot = JSON.stringify([...records]);
+    await assert.rejects(billing.checkout(request(items)), /Không thể xác minh/);
+    assert.equal(JSON.stringify([...records]), snapshot);
+    previous[field] = saved;
+  }
 });
 test('IPN wrong amount and signature never settle; success settles once', async () => {
   const { orderId } = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
@@ -105,17 +394,101 @@ test('IPN wrong amount and signature never settle; success settles once', async 
 });
 test('ambiguous or expired payments stay locked; definitive failure unlocks', async () => {
   const { orderId } = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
-  assert.equal((await billing.processIPN(callback(orderId, '20000000', '07', '07'))).RspCode, '99');
+  assert.equal((await billing.processIPN(callback(orderId, '20000000', '07', '07'))).RspCode, '00');
+  assert.equal(records.get(`billingOrders/${orderId}`).reviewRequired, true);
   assert.equal(records.get('tuitionFees/fee1').status, 'pending');
   assert.equal((await billing.processIPN(callback(orderId, '20000000', '24', '02'))).RspCode, '00');
   assert.equal(records.get('tuitionFees/fee1').status, 'unpaid');
   assert.equal(records.has('billingLocks/fee_fee1'), false);
 });
-test('manual reconciliation cannot change a settled order', async () => {
+test('archive preserves failed order evidence, supports retries and allows a new checkout', async () => {
   const { orderId } = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
-  assert.equal(await billing.settleOrder(orderId, 'paid', { reconciliationEvidence: 'Verified in merchant portal' }), '00');
+  assert.equal((await billing.processIPN(callback(orderId, '20000000', '24', '02'))).RspCode, '00');
+  const req = { headers: new Headers({ authorization: 'Bearer valid' }), json: async () => ({ action: 'order-archive', orderId, confirmed: true }) };
+  const before = { ...records.get(`billingOrders/${orderId}`) };
+  await billing.adminAction(req);
+  const archived = { ...records.get(`billingOrders/${orderId}`) };
+  assert.equal(archived.archivedBy, 'admin1');
+  assert.ok(archived.archivedAt);
+  for (const [key, value] of Object.entries(before)) assert.deepEqual(archived[key], value);
+  await billing.adminAction(req);
+  assert.deepEqual(records.get(`billingOrders/${orderId}`), archived);
+  assert.equal((await billing.billingData(request([]))).orders[0].id, orderId);
+  assert.ok((await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]))).orderId);
+});
+test('archive rejects unauthorized, unconfirmed, missing, pending and paid orders without writes', async () => {
+  const { orderId } = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
+  const call = (body, token = 'valid') => billing.adminAction({ headers: new Headers({ authorization: `Bearer ${token}` }), json: async () => ({ action: 'order-archive', orderId, confirmed: true, ...body }) });
+  await assert.rejects(call({}), /Chỉ lưu trữ/);
+  await assert.rejects(call({ confirmed: false }), /Cần xác nhận/);
+  await assert.rejects(call({ orderId: '../invalid' }), /Cần xác nhận/);
+  await assert.rejects(call({ orderId: 'missing' }), /Chỉ lưu trữ/);
+  await assert.rejects(call({}, 'invalid'), /AUTH/);
+  await billing.settleOrder(orderId, 'paid', {});
+  await assert.rejects(call({}), /Chỉ lưu trữ/);
+  assert.equal(records.get(`billingOrders/${orderId}`).archivedAt, undefined);
+  assert.equal(records.get('billingLocks/fee_fee1').status, 'paid');
+});
+test('sandbox reset releases mixed checkout locks, keeps audit, allows retry and ignores old callbacks', async () => {
+  const items = [{ kind: 'fee', id: 'fee1' }, { kind: 'course', id: 'course1' }];
+  const { orderId } = await billing.checkout(request(items));
+  const req = { headers: new Headers({ authorization: 'Bearer valid' }), json: async () => ({ action: 'sandbox-reset', orderId, confirmed: true }) };
+  await billing.adminAction(req);
+  const reset = { ...records.get(`billingOrders/${orderId}`) };
+  assert.equal(reset.status, 'failed');
+  assert.equal(reset.sandboxResetBy, 'admin1'); assert.ok(reset.sandboxResetAt);
+  assert.equal(records.get('tuitionFees/fee1').status, 'unpaid');
+  assert.equal(records.get('tuitionFees/fee1').orderId, '');
+  assert.equal([...records.keys()].some((key) => key.startsWith('billingLocks/')), false);
+  const next = await billing.checkout(request(items));
+  const locks = JSON.stringify([...records.entries()].filter(([key]) => key.startsWith('billingLocks/')));
+  await billing.adminAction(req);
+  assert.deepEqual(records.get(`billingOrders/${orderId}`), reset);
+  assert.equal(await billing.settleOrder(orderId, 'paid', {}), '02');
+  assert.equal(JSON.stringify([...records.entries()].filter(([key]) => key.startsWith('billingLocks/'))), locks);
+  assert.equal(records.get(`billingOrders/${next.orderId}`).status, 'pending');
+});
+test('sandbox reset rejects production, unauthorized, unconfirmed, settled and mismatched records without writes', async () => {
+  const { orderId } = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
+  const call = (changes = {}, token = 'valid') => billing.adminAction({ headers: new Headers({ authorization: `Bearer ${token}` }), json: async () => ({ action: 'sandbox-reset', orderId, confirmed: true, ...changes }) });
+  const original = JSON.stringify([...records]);
+  for (const environment of ['production', '', undefined]) {
+    if (environment === undefined) delete process.env.VNPAY_ENVIRONMENT; else process.env.VNPAY_ENVIRONMENT = environment;
+    await assert.rejects(call(), /môi trường sandbox/);
+  }
+  process.env.VNPAY_ENVIRONMENT = 'sandbox';
+  await assert.rejects(call({}, 'invalid'), /AUTH/);
+  await assert.rejects(call({ confirmed: false }), /Cần xác nhận/);
+  await assert.rejects(call({ orderId: '../invalid' }), /Cần xác nhận/);
+  await assert.rejects(call({ orderId: 'missing' }), /không tồn tại/);
+  assert.equal(JSON.stringify([...records]), original);
+  const order = records.get(`billingOrders/${orderId}`);
+  order.environment = 'production'; await assert.rejects(call(), /thanh toán thật/); order.environment = 'sandbox';
+  order.status = 'paid'; await assert.rejects(call(), /đang chờ/);
+  order.status = 'failed'; await assert.rejects(call(), /đang chờ/); order.status = 'pending';
+  records.get('billingLocks/fee_fee1').orderId = 'other';
+  await assert.rejects(call(), /đã thay đổi/);
+  records.get('billingLocks/fee_fee1').orderId = orderId;
+  records.get('tuitionFees/fee1').orderId = 'other';
+  await assert.rejects(call(), /đã thay đổi/);
+  assert.equal(order.status, 'pending'); assert.equal(order.sandboxResetAt, undefined);
+});
+test('verified IPN cannot change a settled order', async () => {
+  const { orderId } = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
+  assert.equal((await billing.processIPN(callback(orderId))).RspCode, '00');
   assert.equal(await billing.settleOrder(orderId, 'failed', {}), '02');
   assert.equal(records.get('tuitionFees/fee1').status, 'paid');
+});
+test('removed manual reconciliation API rejects both outcomes without changing pending or paid orders', async () => {
+  const { orderId } = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
+  for (const status of ['pending', 'paid']) {
+    if (status === 'paid') assert.equal((await billing.processIPN(callback(orderId))).RspCode, '00');
+    const before = JSON.stringify([...records]);
+    for (const outcome of ['paid', 'failed']) {
+      await assert.rejects(billing.adminAction({ headers: new Headers({ authorization: 'Bearer valid' }), json: async () => ({ action: 'reconcile', orderId, outcome, evidence: 'Previously accepted manual evidence' }) }), /Thao tác không hợp lệ/);
+      assert.equal(JSON.stringify([...records]), before);
+    }
+  }
 });
 test('guest reads expose only authorized fees and this session orders, never contact data or hashes', async () => {
   await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
@@ -124,7 +497,8 @@ test('guest reads expose only authorized fees and this session orders, never con
   assert.equal(Object.hasOwn(owner.orders[0], 'guestHash'), false);
   assert.equal(Object.hasOwn(owner.orders[0], 'email'), false);
   assert.equal(Object.hasOwn(owner.fees[0], 'accessHash'), false);
-  const other = await billing.billingData({ headers: new Headers({ 'x-billing-guest': 'c'.repeat(64) }) });
+  studentUid = 'other';
+  const other = await billing.billingData({ headers: new Headers() });
   assert.equal(other.orders.length, 0); assert.equal(other.fees.length, 0);
 });
 test('guest checkout validates contact information without Firebase login', async () => {
@@ -134,10 +508,12 @@ test('guest checkout validates contact information without Firebase login', asyn
   const result = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
   assert.equal(records.get(`billingOrders/${result.orderId}`).name, 'Test Student');
 });
-test('rotating a fee link revokes the old token without requiring a student account', async () => {
+test('rotating a link keeps existing account ownership and rejects another payer', async () => {
   const result = await billing.adminAction({ headers: new Headers({ authorization: 'Bearer valid' }), json: async () => ({ action: 'fee-link', feeId: 'fee1' }) });
   assert.equal(result.accessToken.length, 64);
+  studentUid = 'other';
   await assert.rejects(billing.checkout(request([{ kind: 'fee', id: 'fee1' }])));
+  studentUid = 'student1';
   const newRequest = request([{ kind: 'fee', id: 'fee1' }]);
   newRequest.headers.set('x-billing-fees', JSON.stringify({ fee1: result.accessToken }));
   const order = await billing.checkout(newRequest);
@@ -210,13 +586,12 @@ test('direct course checkout cannot bypass required placement assessment, even w
   await assert.rejects(billing.checkout({ ...req, json: async () => body }), /PUBLIC:/);
   assert.equal([...records.keys()].some((key) => key.startsWith('billingOrders/')), false);
 });
-test('self-report allows a private fee without staff approval but still requires its secret', async () => {
+test('private fee requires staff approval even when student supplied a declaration', async () => {
   delete records.get('tuitionFees/fee1').academicReview;
   const req = request([{ kind: 'fee', id: 'fee1' }]);
   req.headers.set('x-billing-fees', '{}');
   await assert.rejects(billing.checkout(req), /PUBLIC:/);
-  const result = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
-  assert.equal(records.get(`billingOrders/${result.orderId}`).placementDeclaration.source, 'student-self-report');
+  await assert.rejects(billing.checkout(request([{ kind: 'fee', id: 'fee1' }])), /PUBLIC:/);
   const data = await billing.billingData(request([]));
   assert.equal(data.fees[0].academicApproved, false);
 });

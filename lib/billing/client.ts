@@ -37,13 +37,16 @@ export function savedValue<T>(key: string, fallback: T): T {
 }
 export const guestFeesKey = 'pte-billing-fees';
 export const guestOrdersKey = 'pte-billing-orders';
-export async function guestFetch<T>(body?: unknown): Promise<T> {
+export class BillingRequestError extends Error {
+  constructor(message: string, public readonly orderId?: string) { super(message); }
+}
+export async function guestFetch<T>(body?: unknown, uid?: string | null): Promise<T> {
   const response = await fetch('/api/billing', {
     method: body ? 'POST' : 'GET', cache: 'no-store',
-    headers: { 'Content-Type': 'application/json', 'x-billing-guest': guestToken(), 'x-billing-fees': JSON.stringify(savedValue(guestFeesKey, {})) },
+    headers: { 'Content-Type': 'application/json', 'x-billing-fees': JSON.stringify(uid ? savedValue(`${guestFeesKey}:${uid}`, {}) : {}) },
     ...(body ? { body: JSON.stringify(body) } : {}),
   });
   const data = await response.json();
-  if (!response.ok) throw new Error(data.error || 'Không thể tải học phí. Vui lòng thử lại.');
+  if (!response.ok) throw new BillingRequestError(data.error || 'Không thể tải học phí. Vui lòng thử lại.', data.code === 'BILLING_ORDER_CONFLICT' && typeof data.orderId === 'string' && /^[a-zA-Z0-9_-]{1,100}$/.test(data.orderId) ? data.orderId : undefined);
   return data;
 }

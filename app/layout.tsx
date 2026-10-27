@@ -1,5 +1,8 @@
+import { ClerkProvider } from '@clerk/nextjs';
+import { viVN } from '@clerk/localizations';
 import type { Metadata } from 'next';
 import { Manrope, Playfair_Display } from 'next/font/google';
+import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -101,16 +104,18 @@ export default function RootLayout({
     <html lang="vi">
       <head />
       <body className={`${manrope.className} ${manrope.variable} ${playfairDisplay.variable}`}>
-        <Script id="organization-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
-        <Script id="website-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
-        <Providers>
+        <ClerkProvider localization={viVN} appearance={{ variables: { colorPrimary: '#fc5d01', borderRadius: '1rem', fontFamily: 'var(--font-body)' } }}>
+          <Script id="organization-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+          <Script id="website-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+          <Providers>
           <Navigation />
           {children}
           <Footer />
           <Suspense>
-            <MessengerChatWrapper />
+          <MessengerChatWrapper />
           </Suspense>
-        </Providers>
+          </Providers>
+        </ClerkProvider>
       </body>
     </html>
   );

@@ -2,6 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Toasts follow the existing light billing surfaces and orange brand accent. */
+.app-toast-container {
+  --toastify-font-family: var(--font-body), sans-serif;
+  --toastify-toast-width: 400px;
+  --toastify-toast-background: #ffffff;
+  --toastify-text-color-light: #171717;
+  --toastify-color-error: #fc5d01;
+  --toastify-toast-bd-radius: 16px;
+  --toastify-toast-shadow: 0 8px 24px rgba(23, 23, 23, 0.12), 0 24px 48px rgba(23, 23, 23, 0.08);
+  --toastify-toast-top: max(96px, env(safe-area-inset-top));
+}
+
+.app-toast-container .Toastify__toast {
+  padding: 16px 48px 16px 16px;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.app-toast-container .Toastify__close-button {
+  display: grid;
+  place-items: center;
+  top: 4px;
+  right: 4px;
+  width: 44px;
+  height: 44px;
+  color: #4b5563;
+  opacity: 1;
+  border-radius: 12px;
+}
+
+.app-toast-container .Toastify__close-button:hover {
+  background: #fff3e8;
+  color: #9a3412;
+}
+
+.app-toast-container .Toastify__close-button:focus-visible {
+  outline: 2px solid #fc5d01;
+  outline-offset: -4px;
+}
+
+@media (max-width: 480px) {
+  .app-toast-container.Toastify__toast-container {
+    top: max(88px, env(safe-area-inset-top));
+    right: 16px;
+    left: 16px;
+    width: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-toast-container .Toastify__toast,
+  .app-toast-container .Toastify__toast-container {
+    animation-duration: 1ms;
+    transition-duration: 1ms;
+  }
+}
+
 /* A moving orange trail follows the active control's own rounded perimeter. */
 @property --course-guide-angle {
   syntax: '<angle>';

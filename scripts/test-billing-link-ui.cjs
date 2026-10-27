@@ -5,6 +5,103 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const ts = require('typescript');
 const path = require('node:path');
+function reconciliationHarness(options) {
+  let now = 0; let scheduled;
+  const module = { exports: {} };
+  const code = ts.transpileModule(fs.readFileSync(path.join(__dirname, '../lib/billing/auto-reconcile.ts'), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
+  vm.runInNewContext(code, { module, exports: module.exports, AbortController, Date: { now: () => now }, setTimeout: (fn, delay) => { scheduled = { fn, delay }; return 1; }, clearTimeout: () => { scheduled = null; } });
+  const stop = module.exports.startAutoReconciliation(options);
+  return { stop, pending: () => !!scheduled, advance: async (ms = scheduled?.delay || 0) => { now += ms; const task = scheduled; scheduled = null; if (task) await task.fn(); for (let i = 0; i < 20; i++) await Promise.resolve(); } };
+}
+test('automatic reconciliation queries pending orders, respects cooldown and stops on verified payment', async () => {
+  let paid = false; let calls = 0;
+  const h = reconciliationHarness({ read: async () => paid, query: async () => { if (++calls === 2) paid = true; }, onError: () => assert.fail('unexpected error'), onExhausted: () => assert.fail('unexpected deadline') });
+  await h.advance(); assert.equal(calls, 1);
+  await h.advance(5000); assert.equal(calls, 1);
+  await h.advance(60000); assert.equal(calls, 2); assert.equal(h.pending(), false);
+});
+test('automatic reconciliation skips QueryDR when IPN already settled, and cancels timers', async () => {
+  const h = reconciliationHarness({ read: async () => true, query: async () => assert.fail('already paid'), onError: () => {}, onExhausted: () => {} });
+  await h.advance(); assert.equal(h.pending(), false);
+  const cancelled = reconciliationHarness({ read: async () => assert.fail('cancelled'), query: async () => {}, onError: () => {}, onExhausted: () => {} });
+  cancelled.stop(); assert.equal(cancelled.pending(), false);
+});
+test('automatic reconciliation retries query failures without settling and ends at ten minutes', async () => {
+  let errors = 0; let exhausted = 0;
+  const h = reconciliationHarness({ read: async () => false, query: async () => { throw Error('offline'); }, onError: () => errors++, onExhausted: () => exhausted++ });
+  await h.advance(); assert.equal(errors, 1); assert.equal(h.pending(), true);
+  await h.advance(600000); assert.equal(exhausted, 1); assert.equal(h.pending(), false);
+});
+test('billing errors create readable error toasts with stable duplicate-prevention IDs', () => {
+  const calls = [];
+  const file = path.join(__dirname, '../lib/hooks/useErrorToast.ts');
+  const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
+  const module = { exports: {} };
+  const mocks = {
+    react: { useEffect: (effect) => effect() },
+    'react-toastify': { toast: { error: (message, options) => calls.push({ message, options }) } },
+  };
+  vm.runInNewContext(code, { module, exports: module.exports, require: (id) => mocks[id] || require(id) });
+  module.exports.useErrorToast('');
+  module.exports.useErrorToast('   ');
+  assert.equal(calls.length, 0);
+  const message = 'Khoản học phí đang gắn với đơn Nrqcuf1By8BHGkMYoRVu.';
+  module.exports.useErrorToast(message);
+  module.exports.useErrorToast(message);
+  assert.equal(calls[0].message, message);
+  assert.equal(calls[0].options.toastId, calls[1].options.toastId);
+  assert.equal(calls[0].options.ariaLabel, `Lỗi: ${message}`);
+});
+test('toast host is mounted once with reading time, queue limit and pause support', () => {
+  const file = path.join(__dirname, '../components/ui/toast-provider.tsx');
+  const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS } }).outputText;
+  const module = { exports: {} };
+  vm.runInNewContext(code, { module, exports: module.exports, require: (id) => id === 'react-toastify' ? { ToastContainer: 'toast-host' } : require(id) });
+  const tree = module.exports.ToastProvider();
+  assert.equal(tree.props.autoClose, 10000);
+  assert.equal(tree.props.limit, 3);
+  assert.equal(tree.props.pauseOnHover, true);
+  assert.equal(tree.props.pauseOnFocusLoss, true);
+  assert.equal(tree.props.closeOnClick, false);
+  const providers = fs.readFileSync(path.join(__dirname, '../app/providers.tsx'), 'utf8');
+  assert.equal((providers.match(/<ToastProvider\s*\/>/g) || []).length, 1);
+});
+test('admin billing has no manual settlement form or controls', () => {
+  const source = fs.readFileSync(path.join(__dirname, '../components/billing/AdminBilling.tsx'), 'utf8');
+  assert.doesNotMatch(source, /reconcile|name="outcome"|name="evidence"|Ghi nhận kết quả đối soát/);
+  assert.match(source, /Đơn thanh toán/);
+});
+test('payment result notice reports success only for server-paid orders and labels sandbox explicitly', () => {
+  const file = path.join(__dirname, '../components/billing/PaymentResultNotice.tsx');
+  const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS } }).outputText;
+  const module = { exports: {} };
+  const paymentModule = { exports: {} };
+  vm.runInNewContext(ts.transpileModule(fs.readFileSync(path.join(__dirname, '../lib/billing/payment-state.ts'), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText, { module: paymentModule, exports: paymentModule.exports, Date });
+  const mocks = { '@/lib/billing/payment-state': paymentModule.exports, react: { useState: (initial) => [initial, () => {}] }, 'next/link': { default: 'a' }, '@/lib/billing/types': { money: String }, '@/components/ui/button': { Button: 'button' }, '@/components/ui/card': { Card: 'section' } };
+  vm.runInNewContext(code, { module, exports: module.exports, require: (id) => mocks[id] || require(id) });
+  const render = (order) => module.exports.PaymentResultNotice({ order, orderId: 'order1', busy: false, refresh: async () => {} });
+  const base = { id: 'order1', total: 100000, environment: 'production', transactionNo: '15715005' };
+  assert.match(panelText(render({ ...base, status: 'paid' })), /Thanh toán thành công/);
+  assert.match(panelText(render({ ...base, status: 'paid', environment: 'sandbox' })), /không phải khoản thu tiền thật/);
+  for (const order of [undefined, { ...base, status: 'pending' }, { ...base, status: 'failed' }]) {
+    const tree = render(order);
+    assert.doesNotMatch(panelText(tree), /Thanh toán thành công/);
+    assert.ok(panelNodes(tree).some((node) => node.props.role === 'status'));
+    assert.ok(panelNodes(tree).some((node) => node.type === 'button' && panelText(node).includes('Kiểm tra lại')));
+  }
+});
+test('sandbox payment instructions show test details only in sandbox', () => {
+  const file = path.join(__dirname, '../components/billing/SandboxPaymentGuide.tsx');
+  const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS } }).outputText;
+  const module = { exports: {} };
+  vm.runInNewContext(code, { module, exports: module.exports, require });
+  assert.equal(module.exports.SandboxPaymentGuide({ environment: 'production' }), null);
+  const tree = module.exports.SandboxPaymentGuide({ environment: 'sandbox' });
+  assert.equal(tree.type, 'details');
+  for (const text of ['9704198526191432198', 'NGUYEN VAN A', '07/15', '123456', 'Không nhập thẻ thật']) {
+    assert.ok(JSON.stringify(tree).includes(text));
+  }
+});
 test('admin assessment form requires written feedback separately from exam reference', () => {
   const file = path.join(__dirname, '../components/billing/AcademicApprovalFields.tsx');
   const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS } }).outputText;
@@ -30,6 +127,7 @@ function harness(fetcher) {
   };
   const mocks = {
     react: { ...require('react'), ...hooks },
+    '@/lib/hooks/useErrorToast': { useErrorToast() {} },
     'next/link': { default: 'a' },
     '@/lib/auth/context': { useAuth: () => ({ user: { uid: 'admin' }, loading: false }) },
     '@/lib/billing/client': { billingFetch: fetcher },
@@ -41,6 +139,8 @@ function harness(fetcher) {
     './FeeDeleteControl': { FeeDeleteControl: 'fee-delete-control' },
     './AcademicApprovalFields': { AcademicApprovalFields: 'academic-approval-fields' },
     './OrderPlacementNote': { OrderPlacementNote: 'order-placement-note' },
+    './OrderArchiveControl': { OrderArchiveControl: 'order-archive-control' },
+    './SandboxResetControl': { SandboxResetControl: 'sandbox-reset-control' },
   };
   const file = path.join(__dirname, '../components/billing/AdminBilling.tsx');
   const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
@@ -57,8 +157,88 @@ function harness(fetcher) {
     return found;
   }
   const button = () => nodes(tree).find((node) => node.type === 'button' && node.props['aria-busy'] !== undefined);
-  return { render, nodes: () => nodes(tree), button, click: () => button().props.onClick() };
+  return { render, nodes: () => nodes(tree), button, click: () => button().props.onClick(), setOrders: (orders, sandboxResetAvailable = false) => { values[0].orders = orders; values[0].sandboxResetAvailable = sandboxResetAvailable; render(); } };
 }
+test('failed orders archive only after API success and remain available in archived view', async () => {
+  let finish;
+  const h = harness(async (_user, _url, body) => {
+    assert.equal(body.action, 'order-archive'); assert.equal(body.confirmed, true);
+    return new Promise((resolve) => { finish = resolve; });
+  });
+  h.setOrders([{ id: 'failed1', email: 'test@example.test', status: 'failed', lines: [], total: 1000 }]);
+  const pending = h.nodes().find((node) => node.type === 'order-archive-control').props.onArchive();
+  h.render();
+  assert.ok(h.nodes().some((node) => node.type === 'order-archive-control' && node.props.disabled));
+  finish({ success: true }); await pending; h.render();
+  assert.equal(h.nodes().some((node) => node.type === 'details'), false);
+  h.nodes().find((node) => node.type === 'input' && node.props.type === 'checkbox' && node.props.checked === false).props.onChange({ target: { checked: true } });
+  h.render();
+  assert.ok(h.nodes().some((node) => node.type === 'details'));
+  assert.equal(h.nodes().some((node) => node.type === 'order-archive-control'), false);
+});
+test('archive errors retain the order and pending/paid orders have no archive action', async () => {
+  const h = harness(async () => { throw Error('Không thể lưu trữ'); });
+  h.setOrders([{ id: 'failed1', status: 'failed', lines: [] }, { id: 'pending1', status: 'pending', lines: [] }, { id: 'paid1', status: 'paid', lines: [] }]);
+  assert.equal(h.nodes().filter((node) => node.type === 'order-archive-control').length, 1);
+  await assert.rejects(h.nodes().find((node) => node.type === 'order-archive-control').props.onArchive(), /Không thể/);
+  h.render();
+  assert.equal(h.nodes().filter((node) => node.type === 'details').length, 3);
+});
+test('archive control confirms, cancels, prevents duplicate submissions and permits retry on failure', async () => {
+  const values = []; let cursor = 0;
+  const file = path.join(__dirname, '../components/billing/OrderArchiveControl.tsx');
+  const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS } }).outputText;
+  const mocks = {
+    react: { ...require('react'), useState: (initial) => { const i = cursor++; if (!(i in values)) values[i] = initial; return [values[i], (value) => { values[i] = value; }]; }, useRef: (initial) => { const i = cursor++; if (!(i in values)) values[i] = { current: initial }; return values[i]; } },
+    '@/components/ui/button': { Button: 'button' },
+  };
+  const module = { exports: {} };
+  vm.runInNewContext(code, { Error, module, exports: module.exports, require: (id) => mocks[id] || require(id) });
+  let calls = 0; let fail;
+  const props = { disabled: false, onArchive: () => { calls++; return new Promise((_resolve, reject) => { fail = reject; }); } };
+  const nodes = () => { cursor = 0; return panelNodes(module.exports.OrderArchiveControl(props)); };
+  const button = (text) => nodes().find((node) => node.type === 'button' && panelText(node).includes(text));
+  button('Lưu trữ đơn thất bại').props.onClick();
+  button('Hủy').props.onClick();
+  assert.equal(calls, 0);
+  button('Lưu trữ đơn thất bại').props.onClick();
+  const submit = button('Xác nhận lưu trữ').props.onClick;
+  const pending = submit(); await submit();
+  assert.equal(calls, 1);
+  assert.equal(button('Đang lưu trữ').props.disabled, true);
+  fail(Error('Thử lại')); await pending;
+  assert.ok(nodes().some((node) => node.props.role === 'alert'));
+  assert.equal(button('Xác nhận lưu trữ').props.disabled, false);
+  props.disabled = true;
+  await button('Xác nhận lưu trữ').props.onClick();
+  assert.equal(calls, 1);
+});
+test('sandbox reset only appears for pending sandbox orders on sandbox server and updates after success', async () => {
+  let finish; let calls = 0;
+  const h = harness(async (_user, _url, body) => {
+    calls++; assert.equal(body.action, 'sandbox-reset'); assert.equal(body.confirmed, true);
+    return new Promise((resolve) => { finish = resolve; });
+  });
+  const orders = [{ id: 'test1', status: 'pending', environment: 'sandbox', lines: [] }, { id: 'real1', status: 'pending', environment: 'production', lines: [] }, { id: 'paid1', status: 'paid', environment: 'sandbox', lines: [] }];
+  h.setOrders(orders);
+  assert.equal(h.nodes().some((node) => node.type === 'sandbox-reset-control'), false);
+  h.setOrders(orders, true);
+  assert.equal(h.nodes().filter((node) => node.type === 'sandbox-reset-control').length, 1);
+  const reset = h.nodes().find((node) => node.type === 'sandbox-reset-control').props.onReset;
+  const pending = reset(); await assert.rejects(reset(), /Vui lòng chờ/); h.render();
+  assert.equal(calls, 1);
+  assert.ok(h.nodes().some((node) => node.type === 'sandbox-reset-control' && node.props.disabled));
+  finish({ success: true }); await pending; h.render();
+  assert.equal(h.nodes().some((node) => node.type === 'sandbox-reset-control'), false);
+  assert.ok(h.nodes().some((node) => node.type === 'order-archive-control'));
+});
+test('sandbox reset error keeps the order available for retry', async () => {
+  const h = harness(async () => { throw Error('Không thể reset'); });
+  h.setOrders([{ id: 'test1', status: 'pending', environment: 'sandbox', lines: [] }], true);
+  await assert.rejects(h.nodes().find((node) => node.type === 'sandbox-reset-control').props.onReset(), /Không thể reset/);
+  h.render();
+  assert.ok(h.nodes().some((node) => node.type === 'sandbox-reset-control' && !node.props.disabled));
+});
 test('regenerate displays pending state, then inline link with correct token', async () => {
   let resolve;
   let calls = 0;
@@ -146,6 +326,7 @@ function tuitionPanels(initialState = []) {
   const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
   const mocks = {
     react: { ...require('react'), useState: (initial) => { const index = cursor++; return [state[index] === undefined ? initial : state[index], (value) => { state[index] = value; }]; } },
+    './PlacementSession': { usePlacementSession: () => { const index = cursor++; return { contact: state[index] || { name: '', email: '', phone: '' }, updateContact: (value) => { state[index] = value; } }; } },
     '@/lib/billing/checkout-guidance': (() => {
       const module = { exports: {} };
       const code = ts.transpileModule(fs.readFileSync(path.join(__dirname, '../lib/billing/checkout-guidance.ts'), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;

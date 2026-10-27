@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ArrowRight, Menu, ShoppingCart, X } from 'lucide-react';
-import { cartKey, readCart } from '@/lib/billing/client';
+import { UserButton, SignInButton, useAuth } from '@clerk/nextjs';
 import { usePlacementSession } from '@/components/billing/PlacementSession';
 
 const menuItems = [
@@ -22,17 +22,10 @@ const menuItems = [
 ];
 
 export default function Navigation() {
-  const { guidanceStep, openGuidedCart } = usePlacementSession();
+  const { guidanceStep, openGuidedCart, cart } = usePlacementSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
-  useEffect(() => {
-    const sync = () => setCartCount(readCart('guest').length);
-    const onStorage = (event: StorageEvent) => { if (!event.key || event.key === cartKey('guest')) sync(); };
-    sync();
-    window.addEventListener('pte-cart-updated', sync);
-    window.addEventListener('storage', onStorage);
-    return () => { window.removeEventListener('pte-cart-updated', sync); window.removeEventListener('storage', onStorage); };
-  }, []);
+  const cartCount = cart.length;
+  const { isSignedIn, isLoaded } = useAuth();
   const pathname = usePathname();
   const isHome = pathname === '/';
   const guideCart = pathname === '/courses' && guidanceStep === 'cart' && cartCount > 0;
@@ -80,6 +73,7 @@ export default function Navigation() {
           </div>
 
           <div className="flex items-center gap-3">
+          {isLoaded && (isSignedIn ? <div className="flex min-h-11 min-w-11 items-center justify-center"><UserButton /></div> : <SignInButton mode="modal"><button className="billing-link min-h-11 rounded-lg px-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">Đăng nhập</button></SignInButton>)}
           <Link href="/cart" data-guidance={guideCart} aria-describedby={guideCart ? 'course-guide-cart-hint' : undefined} onClick={() => { setIsMenuOpen(false); openGuidedCart(); }} aria-label={`Giỏ hàng, ${cartCount} khoản đã chọn`} aria-current={pathname === '/cart' ? 'page' : undefined} className={`relative inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-full border transition hover:-translate-y-0.5 active:translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#fc5d01] ${isHome ? 'border-white/20 text-white hover:bg-white/10' : 'border-orange-200 text-[#9a3412] hover:bg-orange-50'} ${pathname === '/cart' ? 'bg-orange-100' : ''}`}><ShoppingCart className="h-5 w-5" aria-hidden="true" /><span aria-hidden="true" className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#fc5d01] px-1 text-xs font-bold text-white">{cartCount}</span>{guideCart && <span id="course-guide-cart-hint" className="course-guide-cart-hint">Tiếp theo: mở giỏ hàng <ArrowRight className="inline h-3 w-3" aria-hidden="true" /></span>}</Link>
           <Link href="/register" className="home-focus hidden min-h-12 items-center gap-2 rounded-full bg-gradient-to-r from-[#ff4d00] to-[#ff7417] px-6 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_8px_24px_rgba(252,93,1,0.3)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(252,93,1,0.45)] active:translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none sm:flex">
             Đăng ký tư vấn

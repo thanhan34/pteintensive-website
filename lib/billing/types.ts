@@ -7,7 +7,10 @@ export type BillingOrder = {
   status: 'pending' | 'paid' | 'failed'; createdAt: string; expiresAt: string;
   paymentUrl: string; environment: 'sandbox' | 'production'; transactionNo?: string;
   responseCode?: string; transactionStatus?: string; payDate?: string;
+  lastQueryAt?: number; reviewRequired?: boolean;
   name?: string; phone?: string; guestHash?: string;
+  archivedAt?: string; archivedBy?: string;
+  sandboxResetAt?: string; sandboxResetBy?: string;
   placementDeclaration?: { completed: true; feedback: string; source: 'student-self-report'; recordedAt: string };
 };
 export const money = (amount: number) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
