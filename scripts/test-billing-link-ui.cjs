@@ -141,6 +141,7 @@ function harness(fetcher) {
     './OrderPlacementNote': { OrderPlacementNote: 'order-placement-note' },
     './OrderArchiveControl': { OrderArchiveControl: 'order-archive-control' },
     './SandboxResetControl': { SandboxResetControl: 'sandbox-reset-control' },
+    './SandboxCleanupControl': { SandboxCleanupControl: 'sandbox-cleanup-control' },
   };
   const file = path.join(__dirname, '../components/billing/AdminBilling.tsx');
   const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
@@ -159,6 +160,22 @@ function harness(fetcher) {
   const button = () => nodes(tree).find((node) => node.type === 'button' && node.props['aria-busy'] !== undefined);
   return { render, nodes: () => nodes(tree), button, click: () => button().props.onClick(), setOrders: (orders, sandboxResetAvailable = false) => { values[0].orders = orders; values[0].sandboxResetAvailable = sandboxResetAvailable; render(); } };
 }
+test('bulk sandbox cleanup is gated by server flag, follows cursors and refreshes after success', async () => {
+  const calls = [];
+  const h = harness(async (_user, _url, body) => {
+    calls.push(body);
+    if (!body) return { prices: [], fees: [], orders: [], sandboxResetAvailable: true };
+    assert.equal(body.action, 'sandbox-cleanup'); assert.equal(body.confirmed, true);
+    return { cleaned: 1, skipped: [], nextCursor: body.cursor ? null : 'next1' };
+  });
+  h.setOrders([], false);
+  assert.equal(h.nodes().some((node) => node.type === 'sandbox-cleanup-control'), false);
+  h.setOrders([], true);
+  await h.nodes().find((node) => node.type === 'sandbox-cleanup-control').props.onCleanup();
+  h.render();
+  assert.equal(calls.length, 3); assert.equal(calls[1].cursor, 'next1'); assert.equal(calls[2], undefined);
+  assert.match(panelText(h.render()), /Đã xử lý 2 đơn sandbox/);
+});
 test('failed orders archive only after API success and remain available in archived view', async () => {
   let finish;
   const h = harness(async (_user, _url, body) => {

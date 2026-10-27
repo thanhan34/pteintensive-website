@@ -465,6 +465,48 @@ test('archive rejects unauthorized, unconfirmed, missing, pending and paid order
   assert.equal(records.get(`billingOrders/${orderId}`).archivedAt, undefined);
   assert.equal(records.get('billingLocks/fee_fee1').status, 'paid');
 });
+test('bulk sandbox cleanup resets pending, archives settled, preserves paid fees and production orders', async () => {
+  const { orderId } = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
+  records.set('billingOrders/paidTest', { environment: 'sandbox', status: 'paid', lines: [], uid: 'student1' });
+  records.set('billingOrders/realOrder', { environment: 'production', status: 'pending', lines: [] });
+  const call = () => billing.adminAction({ headers: new Headers({ authorization: 'Bearer valid' }), json: async () => ({ action: 'sandbox-cleanup', confirmed: true }) });
+  const result = await call();
+  assert.equal(result.cleaned, 2); assert.equal(result.skipped.length, 0); assert.equal(result.nextCursor, null);
+  assert.equal(records.get(`billingOrders/${orderId}`).status, 'failed');
+  assert.equal(records.get(`billingOrders/${orderId}`).archivedBy, 'admin1');
+  assert.equal(records.get(`billingOrders/${orderId}`).sandboxResetBy, 'admin1');
+  assert.equal(records.has('billingLocks/fee_fee1'), false);
+  assert.equal(records.get('tuitionFees/fee1').status, 'unpaid');
+  assert.equal(records.get('billingOrders/paidTest').status, 'paid');
+  assert.ok(records.get('billingOrders/paidTest').archivedAt);
+  assert.equal(records.get('billingOrders/realOrder').archivedAt, undefined);
+  assert.equal((await call()).cleaned, 0);
+  assert.equal((await billing.processIPN(callback(orderId))).RspCode, '02');
+  assert.notEqual((await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]))).orderId, orderId);
+});
+test('bulk sandbox cleanup rejects unauthorized, unconfirmed and production requests without writes', async () => {
+  await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
+  const original = JSON.stringify([...records]);
+  const call = (confirmed, token = 'valid') => billing.adminAction({ headers: new Headers({ authorization: `Bearer ${token}` }), json: async () => ({ action: 'sandbox-cleanup', confirmed }) });
+  await assert.rejects(call(true, 'invalid'));
+  await assert.rejects(call(false));
+  process.env.VNPAY_ENVIRONMENT = 'production';
+  await assert.rejects(call(true));
+  assert.equal(JSON.stringify([...records]), original);
+});
+test('bulk sandbox cleanup pages beyond recent orders and skips conflicting locks', async () => {
+  for (let i = 0; i < 23; i++) records.set(`billingOrders/test${String(i).padStart(2, '0')}`, { environment: 'sandbox', status: 'failed', lines: [] });
+  const { orderId } = await billing.checkout(request([{ kind: 'fee', id: 'fee1' }]));
+  records.get('billingLocks/fee_fee1').orderId = 'different';
+  const call = (cursor) => billing.adminAction({ headers: new Headers({ authorization: 'Bearer valid' }), json: async () => ({ action: 'sandbox-cleanup', confirmed: true, ...(cursor ? { cursor } : {}) }) });
+  let result = await call(); let count = result.cleaned;
+  assert.ok(result.skipped.includes(orderId));
+  while (result.nextCursor) { result = await call(result.nextCursor); count += result.cleaned; }
+  assert.equal(count, 23);
+  assert.equal(records.get(`billingOrders/${orderId}`).status, 'pending');
+  assert.equal(records.get(`billingOrders/${orderId}`).archivedAt, undefined);
+  assert.equal(records.get('tuitionFees/fee1').status, 'pending');
+});
 test('sandbox reset releases mixed checkout locks, keeps audit, allows retry and ignores old callbacks', async () => {
   const items = [{ kind: 'fee', id: 'fee1' }, { kind: 'course', id: 'course1' }];
   const { orderId } = await billing.checkout(request(items));

@@ -307,6 +307,42 @@ export async function adminAction(request: NextRequest) {
       });
       tx.delete(ref);
     });
+  } else if (body.action === 'sandbox-cleanup') {
+    if (process.env.VNPAY_ENVIRONMENT !== 'sandbox' || body.confirmed !== true) reject('Chỉ dọn đơn test khi server ở sandbox và admin đã xác nhận.');
+    if (body.cursor !== undefined && (typeof body.cursor !== 'string' || !/^[a-zA-Z0-9_-]{1,100}$/.test(body.cursor))) reject('Mốc xử lý không hợp lệ.');
+    const snapshot = await db.collection('billingOrders').where('environment', '==', 'sandbox').get();
+    const candidates = snapshot.docs.filter((doc) => !doc.data().archivedAt && (!body.cursor || doc.id > body.cursor)).sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+    const batch = candidates.slice(0, 10);
+    let cleaned = 0;
+    const skipped: string[] = [];
+    for (const candidate of batch) {
+      try {
+        await db.runTransaction(async (tx) => {
+          const ref = db.collection('billingOrders').doc(candidate.id);
+          const current = await tx.get(ref);
+          const order = current.data() as BillingOrder | undefined;
+          if (!order || order.environment !== 'sandbox' || order.archivedAt) return;
+          if (!['pending', 'paid', 'failed'].includes(order.status)) throw new Error('Invalid sandbox order state');
+          const now = new Date().toISOString();
+          if (order.status === 'pending') {
+            const lockRefs = order.lines.map((line) => db.collection('billingLocks').doc(line.kind === 'fee' ? `fee_${line.id}` : `course_${order.uid}_${line.id}`));
+            const feeRefs = order.lines.filter((line) => line.kind === 'fee').map((line) => db.collection('tuitionFees').doc(line.id));
+            const locks = await tx.getAll(...lockRefs);
+            const fees = feeRefs.length ? await tx.getAll(...feeRefs) : [];
+            if (locks.some((lock) => lock.data()?.orderId !== candidate.id || lock.data()?.status !== 'pending') || fees.some((fee) => !fee.exists || fee.data()?.orderId !== candidate.id || fee.data()?.status !== 'pending')) throw new Error('Sandbox cleanup lock mismatch');
+            tx.update(ref, { status: 'failed', settledAt: now, sandboxResetAt: now, sandboxResetBy: admin.uid });
+            lockRefs.forEach((lock) => tx.delete(lock));
+            feeRefs.forEach((fee) => tx.update(fee, { status: 'unpaid', orderId: '' }));
+          }
+          // Paid history is hidden, never reversed; keep paid fees and locks intact.
+          tx.update(ref, { archivedAt: now, archivedBy: admin.uid });
+        });
+        cleaned++;
+      } catch {
+        skipped.push(candidate.id);
+      }
+    }
+    return { success: true, cleaned, skipped, nextCursor: candidates.length > batch.length ? batch[batch.length - 1].id : null };
   } else if (body.action === 'sandbox-reset') {
     if (process.env.VNPAY_ENVIRONMENT !== 'sandbox') reject('Chỉ được reset đơn test khi server ở môi trường sandbox.');
     if (typeof body.orderId !== 'string' || !/^[a-zA-Z0-9_-]{1,100}$/.test(body.orderId) || body.confirmed !== true) reject('Cần xác nhận hủy/reset đơn test.');

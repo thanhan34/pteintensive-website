@@ -1,3 +1,19 @@
+# Bulk sandbox cleanup
+
+In `/admin/billing`, open **Đơn thanh toán → Dọn tất cả đơn sandbox**.
+Confirm only after closing all old sandbox payment pages. The authenticated admin
+action processes ten orders per request across all sandbox history, not just the
+100 displayed orders. Pending test orders are reset to failed, their matching
+pending locks released and private fees reopened. All processed test orders are
+archived with actor and timestamp; paid test orders are only archived (paid fees
+and locks remain intact). Production records are never changed. Server must be
+in sandbox mode. Inconsistent locks are skipped and reported rather than deleted.
+Retries preserve audit data; late callbacks cannot settle reset orders. No
+provider cancellation/refund is requested, and old order IDs are never reused.
+The UI caps a run at 100 requests; run again if more records remain. Concurrently
+created records may need a subsequent run. Archived history remains available
+with **Xem đơn đã lưu trữ**, within the existing 100-order display limit.
+
 # Diagnose a disabled checkout on a deployed server
 
 If the page shows "Thanh toán trực tuyến chưa được mở", inspect the GET
