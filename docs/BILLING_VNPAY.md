@@ -1,3 +1,27 @@
+# Diagnose a disabled checkout on a deployed server
+
+If the page shows "Thanh toán trực tuyến chưa được mở", inspect the GET
+`/api/billing` response in the browser Network panel. `paymentUnavailableCode`
+identifies the failed configuration check without returning credentials. Server
+logs include `[billing] payment unavailable` with that same safe code.
+
+- `VNPAY_DISABLED`: `VNPAY_ENABLED` is not exactly `true`.
+- `VNPAY_ENVIRONMENT_INVALID`: environment is neither `sandbox` nor `production`.
+- `VNPAY_PRODUCTION_NOT_APPROVED`: real-payment environment lacks explicit approval.
+- `VNPAY_TMN_CODE_MISSING` / `VNPAY_TMN_CODE_INVALID`: missing or malformed merchant code.
+- `VNPAY_SECRET_MISSING` / `VNPAY_SECRET_INVALID`: missing secret, placeholder, or surrounding whitespace.
+- `BILLING_BASE_URL_MISSING` / `BILLING_BASE_URL_INVALID`: missing or invalid callback origin.
+- `VNPAY_PRODUCTION_TEST_CODE`: test merchant code configured for real payments.
+- `VNPAY_CONFIG_INVALID`: unexpected configuration error; investigate on the server.
+
+On a server with the project's dependencies installed, run
+`npm run check:billing -- --server-env` to inspect its injected environment only,
+without loading `.env.local` or `.env`. Running this locally does not inspect
+the hosting platform's environment. Configure the actual deployed environment,
+then restart/redeploy as required by that hosting setup. Test payments on a public
+deployment should still use `VNPAY_ENVIRONMENT=sandbox` and sandbox credentials;
+do not enable real payments merely to bypass this diagnostic.
+
 # Automatic student payment confirmation
 
 When a signed-in student opens a selected pending order on the cart/result page,

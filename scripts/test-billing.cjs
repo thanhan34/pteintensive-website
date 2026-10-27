@@ -77,6 +77,42 @@ test('disabled / unapproved production / insecure origin fail closed', () => {
   process.env.VNPAY_ENABLED = 'true'; process.env.VNPAY_ENVIRONMENT = 'production'; assert.throws(gateway.paymentConfig);
   process.env.VNPAY_ENVIRONMENT = 'sandbox'; process.env.BILLING_BASE_URL = 'http://example.test'; assert.throws(gateway.paymentConfig);
 });
+test('payment readiness diagnoses configuration without exposing credentials or URLs', () => {
+  const baseline = { ...process.env };
+  const cases = [
+    ['VNPAY_ENABLED', 'false', 'VNPAY_DISABLED'],
+    ['VNPAY_ENVIRONMENT', 'invalid', 'VNPAY_ENVIRONMENT_INVALID'],
+    ['VNPAY_TMN_CODE', '', 'VNPAY_TMN_CODE_MISSING'],
+    ['VNPAY_TMN_CODE', 'bad', 'VNPAY_TMN_CODE_INVALID'],
+    ['VNPAY_HASH_SECRET', '', 'VNPAY_SECRET_MISSING'],
+    ['VNPAY_HASH_SECRET', 'private-secret\n', 'VNPAY_SECRET_INVALID'],
+    ['BILLING_BASE_URL', '', 'BILLING_BASE_URL_MISSING'],
+    ['BILLING_BASE_URL', 'private-invalid-url', 'BILLING_BASE_URL_INVALID'],
+    ['BILLING_BASE_URL', 'https://example.test/cart', 'BILLING_BASE_URL_INVALID'],
+    ['VNPAY_ENVIRONMENT', 'production', 'VNPAY_PRODUCTION_NOT_APPROVED'],
+  ];
+  for (const [key, value, code] of cases) {
+    Object.assign(process.env, baseline, { [key]: value });
+    const result = gateway.paymentReadiness();
+    assert.equal(result.available, false); assert.equal(result.code, code);
+    assert.deepEqual(Object.keys(result).sort(), ['available', 'code']);
+    assert.doesNotMatch(JSON.stringify(result), /private-secret|private-invalid-url/);
+  }
+  Object.assign(process.env, baseline);
+  assert.equal(gateway.paymentReadiness().available, true);
+  assert.equal(gateway.paymentReadiness().code, null);
+});
+test('billing data exposes safe configuration code and recovers when environment is corrected', async () => {
+  process.env.VNPAY_ENABLED = 'false';
+  const disabled = await billing.billingData(request([]));
+  assert.equal(disabled.paymentAvailable, false);
+  assert.equal(disabled.paymentUnavailableCode, 'VNPAY_DISABLED');
+  assert.equal(Object.hasOwn(disabled, 'secret'), false);
+  process.env.VNPAY_ENABLED = 'true';
+  const enabled = await billing.billingData(request([]));
+  assert.equal(enabled.paymentAvailable, true);
+  assert.equal(enabled.paymentUnavailableCode, null);
+});
 test('sandbox allows explicit loopback returns with ports and signed URLs', () => {
   for (const origin of ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://[::1]:3000']) {
     process.env.BILLING_BASE_URL = origin;

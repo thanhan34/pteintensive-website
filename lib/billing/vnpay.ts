@@ -33,26 +33,42 @@ export function vnpDate(date: Date) {
 }
 function DateParts(parts: Record<string, string>) { return `${parts.year}${parts.month}${parts.day}${parts.hour}${parts.minute}${parts.second}`; }
 
+class PaymentConfigurationError extends Error {
+  constructor(public readonly code: string, message: string) { super(message); }
+}
+function configError(code: string, message: string): never { throw new PaymentConfigurationError(code, message); }
+
 export function paymentConfig() {
-  if (process.env.VNPAY_ENABLED !== 'true') throw new Error('Thanh toán trực tuyến chưa được bật. Vui lòng liên hệ trung tâm.');
+  if (process.env.VNPAY_ENABLED !== 'true') configError('VNPAY_DISABLED', 'Thanh toán trực tuyến chưa được bật. Vui lòng liên hệ trung tâm.');
   const environment = process.env.VNPAY_ENVIRONMENT;
-  if (environment !== 'sandbox' && environment !== 'production') throw new Error('Chưa cấu hình môi trường thanh toán.');
-  if (environment === 'production' && process.env.VNPAY_PRODUCTION_APPROVED !== 'true') throw new Error('Thanh toán thật chưa được phê duyệt.');
+  if (environment !== 'sandbox' && environment !== 'production') configError('VNPAY_ENVIRONMENT_INVALID', 'Chưa cấu hình môi trường thanh toán.');
+  if (environment === 'production' && process.env.VNPAY_PRODUCTION_APPROVED !== 'true') configError('VNPAY_PRODUCTION_NOT_APPROVED', 'Thanh toán thật chưa được phê duyệt.');
   const tmnCode = process.env.VNPAY_TMN_CODE;
   const secret = process.env.VNPAY_HASH_SECRET;
   const base = process.env.BILLING_BASE_URL;
-  if (!tmnCode || !secret || !base) throw new Error('Chưa cấu hình đầy đủ kết nối VNPAY.');
-  if (!/^[A-Z0-9]{8}$/i.test(tmnCode)) throw new Error('Mã kết nối VNPAY phải gồm 8 ký tự chữ hoặc số được VNPAY cấp.');
-  if (secret !== secret.trim() || /[<>\r\n]/.test(secret) || /^(your[_ -]|replace[_ -]|placeholder|changeme)/i.test(secret)) throw new Error('Vui lòng nhập secret key được VNPAY cấp, không dùng giá trị mẫu.');
-  if (environment === 'production' && tmnCode === 'PTETEST1') throw new Error('Không được dùng mã kết nối TEST cho thanh toán thật.');
-  const origin = new URL(base);
+  if (!tmnCode) configError('VNPAY_TMN_CODE_MISSING', 'Chưa cấu hình mã kết nối VNPAY.');
+  if (!secret) configError('VNPAY_SECRET_MISSING', 'Chưa cấu hình secret VNPAY.');
+  if (!base) configError('BILLING_BASE_URL_MISSING', 'Chưa cấu hình địa chỉ website thanh toán.');
+  if (!/^[A-Z0-9]{8}$/i.test(tmnCode)) configError('VNPAY_TMN_CODE_INVALID', 'Mã kết nối VNPAY phải gồm 8 ký tự chữ hoặc số được VNPAY cấp.');
+  if (secret !== secret.trim() || /[<>\r\n]/.test(secret) || /^(your[_ -]|replace[_ -]|placeholder|changeme)/i.test(secret)) configError('VNPAY_SECRET_INVALID', 'Vui lòng nhập secret key được VNPAY cấp, không dùng giá trị mẫu.');
+  if (environment === 'production' && tmnCode === 'PTETEST1') configError('VNPAY_PRODUCTION_TEST_CODE', 'Không được dùng mã kết nối TEST cho thanh toán thật.');
+  let origin: URL;
+  try { origin = new URL(base); }
+  catch { configError('BILLING_BASE_URL_INVALID', 'BILLING_BASE_URL không phải URL hợp lệ.'); }
   const loopback = ['localhost', '127.0.0.1', '[::1]'].includes(origin.hostname);
   const localSandbox = environment === 'sandbox' && loopback;
-  if ((!localSandbox && loopback) || (origin.protocol !== 'https:' && !(localSandbox && origin.protocol === 'http:')) || origin.username || origin.password || origin.pathname !== '/' || origin.search || origin.hash) throw new Error('BILLING_BASE_URL phải là origin HTTPS; chỉ sandbox được dùng HTTP localhost/loopback, không có đường dẫn.');
+  if ((!localSandbox && loopback) || (origin.protocol !== 'https:' && !(localSandbox && origin.protocol === 'http:')) || origin.username || origin.password || origin.pathname !== '/' || origin.search || origin.hash) configError('BILLING_BASE_URL_INVALID', 'BILLING_BASE_URL phải là origin HTTPS; chỉ sandbox được dùng HTTP localhost/loopback, không có đường dẫn.');
   return { environment, tmnCode, secret, origin: origin.origin,
     gateway: environment === 'sandbox' ? 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html' : 'https://pay.vnpay.vn/vpcpay.html' } as const;
 }
-export function paymentAvailable() { try { paymentConfig(); return true; } catch { return false; } }
+export function paymentReadiness(): { available: boolean; code: string | null } {
+  try { paymentConfig(); return { available: true, code: null }; }
+  catch (error) {
+    // Never return error.message: URL parser errors can contain configuration values.
+    return { available: false, code: error instanceof PaymentConfigurationError ? error.code : 'VNPAY_CONFIG_INVALID' };
+  }
+}
+export function paymentAvailable() { return paymentReadiness().available; }
 export function createPaymentUrl(id: string, total: number, now: Date, ip: string) {
   const config = paymentConfig();
   const expires = new Date(now.getTime() + 15 * 60 * 1000);

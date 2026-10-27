@@ -4,7 +4,7 @@ import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
 import { getAdminAuth, getAdminDb } from '@/lib/firebase-admin';
 import { requireAdminFromRequest } from '@/lib/admin-auth';
 import { courseData } from '@/lib/courseData';
-import { createPaymentUrl, paymentAvailable, paymentConfig, verifySignature, queryTransaction } from './vnpay';
+import { createPaymentUrl, paymentReadiness, paymentConfig, verifySignature, queryTransaction } from './vnpay';
 import type { BillingOrder, BillingLine, CartItem } from './types';
 import { academicallyApproved, validPlacementDeclaration } from './placement';
 import { studentIdentity } from './student-auth';
@@ -49,6 +49,8 @@ export function validAmount(value: unknown): value is number {
   return typeof value === 'number' && Number.isSafeInteger(value) && value > 0 && value <= 500_000_000;
 }
 export async function billingData(request: NextRequest) {
+  const readiness = paymentReadiness();
+  if (!readiness.available) console.warn('[billing] payment unavailable', { code: readiness.code });
   const uid = await studentIdentity(false);
   const feeTokens = capabilities(request);
   const db = getAdminDb();
@@ -78,7 +80,8 @@ export async function billingData(request: NextRequest) {
       return { id: doc.id, lines: order.lines, total: order.total, status: order.status, createdAt: order.createdAt, expiresAt: order.expiresAt, paymentUrl: order.paymentUrl, environment: order.environment, transactionNo: order.transactionNo || '', responseCode: order.responseCode || '', transactionStatus: order.transactionStatus || '', reviewRequired: !!order.reviewRequired };
     })
       .sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 50),
-    paymentAvailable: paymentAvailable(),
+    paymentAvailable: readiness.available,
+    paymentUnavailableCode: readiness.code,
     environment: process.env.VNPAY_ENVIRONMENT === 'production' ? 'production' : 'sandbox',
   };
 }

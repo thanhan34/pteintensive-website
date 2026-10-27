@@ -4,7 +4,8 @@ const path = require('node:path');
 const vm = require('node:vm');
 const ts = require('typescript');
 
-for (const name of ['.env.local', '.env']) {
+// Use --server-env on the hosting server to avoid loading local fallback files.
+for (const name of process.argv.includes('--server-env') ? [] : ['.env.local', '.env']) {
   const file = path.join(__dirname, '..', name);
   if (fs.existsSync(file)) process.loadEnvFile(file);
 }
@@ -26,6 +27,6 @@ try {
   } else console.log(`IPN URL to register with VNPAY: ${config.origin}/api/payments/vnpay/ipn`);
   console.log('Configuration is structurally valid. Secret authenticity, registered callbacks and an end-to-end sandbox payment still require verification with VNPAY.');
 } catch (error) {
-  console.error(`Billing not ready: ${error.message}`);
+  console.error(`Billing not ready [${loaded.exports.paymentReadiness().code}]: ${error.message}`);
   process.exitCode = 1;
 }
