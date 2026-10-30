@@ -71,7 +71,7 @@ test('admin billing has no manual settlement form or controls', () => {
   assert.doesNotMatch(source, /reconcile|name="outcome"|name="evidence"|Ghi nhận kết quả đối soát/);
   assert.match(source, /Đơn thanh toán/);
 });
-test('payment result notice reports success only for server-paid orders and labels sandbox explicitly', () => {
+test('payment result notice reports success only for server-paid orders without environment labels', () => {
   const file = path.join(__dirname, '../components/billing/PaymentResultNotice.tsx');
   const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS } }).outputText;
   const module = { exports: {} };
@@ -82,24 +82,12 @@ test('payment result notice reports success only for server-paid orders and labe
   const render = (order) => module.exports.PaymentResultNotice({ order, orderId: 'order1', busy: false, refresh: async () => {} });
   const base = { id: 'order1', total: 100000, environment: 'production', transactionNo: '15715005' };
   assert.match(panelText(render({ ...base, status: 'paid' })), /Thanh toán thành công/);
-  assert.match(panelText(render({ ...base, status: 'paid', environment: 'sandbox' })), /không phải khoản thu tiền thật/);
+  assert.doesNotMatch(panelText(render({ ...base, status: 'paid', environment: 'sandbox' })), /sandbox|thử nghiệm|ghi nhận học phí/i);
   for (const order of [undefined, { ...base, status: 'pending' }, { ...base, status: 'failed' }]) {
     const tree = render(order);
     assert.doesNotMatch(panelText(tree), /Thanh toán thành công/);
     assert.ok(panelNodes(tree).some((node) => node.props.role === 'status'));
     assert.ok(panelNodes(tree).some((node) => node.type === 'button' && panelText(node).includes('Kiểm tra lại')));
-  }
-});
-test('sandbox payment instructions show test details only in sandbox', () => {
-  const file = path.join(__dirname, '../components/billing/SandboxPaymentGuide.tsx');
-  const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS } }).outputText;
-  const module = { exports: {} };
-  vm.runInNewContext(code, { module, exports: module.exports, require });
-  assert.equal(module.exports.SandboxPaymentGuide({ environment: 'production' }), null);
-  const tree = module.exports.SandboxPaymentGuide({ environment: 'sandbox' });
-  assert.equal(tree.type, 'details');
-  for (const text of ['9704198526191432198', 'NGUYEN VAN A', '07/15', '123456', 'Không nhập thẻ thật']) {
-    assert.ok(JSON.stringify(tree).includes(text));
   }
 });
 test('admin assessment form requires written feedback separately from exam reference', () => {
@@ -140,8 +128,6 @@ function harness(fetcher) {
     './AcademicApprovalFields': { AcademicApprovalFields: 'academic-approval-fields' },
     './OrderPlacementNote': { OrderPlacementNote: 'order-placement-note' },
     './OrderArchiveControl': { OrderArchiveControl: 'order-archive-control' },
-    './SandboxResetControl': { SandboxResetControl: 'sandbox-reset-control' },
-    './SandboxCleanupControl': { SandboxCleanupControl: 'sandbox-cleanup-control' },
   };
   const file = path.join(__dirname, '../components/billing/AdminBilling.tsx');
   const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
@@ -160,22 +146,21 @@ function harness(fetcher) {
   const button = () => nodes(tree).find((node) => node.type === 'button' && node.props['aria-busy'] !== undefined);
   return { render, nodes: () => nodes(tree), button, click: () => button().props.onClick(), setOrders: (orders, sandboxResetAvailable = false) => { values[0].orders = orders; values[0].sandboxResetAvailable = sandboxResetAvailable; render(); } };
 }
-test('bulk sandbox cleanup is gated by server flag, follows cursors and refreshes after success', async () => {
-  const calls = [];
-  const h = harness(async (_user, _url, body) => {
-    calls.push(body);
-    if (!body) return { prices: [], fees: [], orders: [], sandboxResetAvailable: true };
-    assert.equal(body.action, 'sandbox-cleanup'); assert.equal(body.confirmed, true);
-    return { cleaned: 1, skipped: [], nextCursor: body.cursor ? null : 'next1' };
-  });
-  h.setOrders([], false);
-  assert.equal(h.nodes().some((node) => node.type === 'sandbox-cleanup-control'), false);
-  h.setOrders([], true);
-  await h.nodes().find((node) => node.type === 'sandbox-cleanup-control').props.onCleanup();
-  h.render();
-  assert.equal(calls.length, 3); assert.equal(calls[1].cursor, 'next1'); assert.equal(calls[2], undefined);
-  assert.match(panelText(h.render()), /Đã xử lý 2 đơn sandbox/);
+test('admin omits environment labels and test tools even when the API advertises them', () => {
+  const h = harness(async () => assert.fail('Viewing orders must not invoke cleanup or reset'));
+  h.setOrders([{ id: 'order1', status: 'pending', environment: 'sandbox', sandboxResetAt: '2026-10-29T00:00:00Z', sandboxResetBy: 'staff', lines: [], total: 1000 }], true);
+  assert.doesNotMatch(panelText(h.render()), /sandbox|thử nghiệm|đơn test|reset/i);
+  const source = fs.readFileSync(path.join(__dirname, '../components/billing/AdminBilling.tsx'), 'utf8');
+  assert.doesNotMatch(source, /SandboxResetControl|SandboxCleanupControl|sandbox-reset|sandbox-cleanup|order\.environment/);
 });
+
+test('learner billing has no environment banners, test guides or test card details', () => {
+  for (const name of ['StudentBillingView.tsx', 'StudentBilling.tsx', 'PaymentResultNotice.tsx']) {
+    const source = fs.readFileSync(path.join(__dirname, '../components/billing', name), 'utf8');
+    assert.doesNotMatch(source, /SandboxPaymentGuide|thử nghiệm|Thử nghiệm|9704198526191432198|OTP test| · Sandbox/);
+  }
+});
+
 test('failed orders archive only after API success and remain available in archived view', async () => {
   let finish;
   const h = harness(async (_user, _url, body) => {
@@ -229,32 +214,6 @@ test('archive control confirms, cancels, prevents duplicate submissions and perm
   props.disabled = true;
   await button('Xác nhận lưu trữ').props.onClick();
   assert.equal(calls, 1);
-});
-test('sandbox reset only appears for pending sandbox orders on sandbox server and updates after success', async () => {
-  let finish; let calls = 0;
-  const h = harness(async (_user, _url, body) => {
-    calls++; assert.equal(body.action, 'sandbox-reset'); assert.equal(body.confirmed, true);
-    return new Promise((resolve) => { finish = resolve; });
-  });
-  const orders = [{ id: 'test1', status: 'pending', environment: 'sandbox', lines: [] }, { id: 'real1', status: 'pending', environment: 'production', lines: [] }, { id: 'paid1', status: 'paid', environment: 'sandbox', lines: [] }];
-  h.setOrders(orders);
-  assert.equal(h.nodes().some((node) => node.type === 'sandbox-reset-control'), false);
-  h.setOrders(orders, true);
-  assert.equal(h.nodes().filter((node) => node.type === 'sandbox-reset-control').length, 1);
-  const reset = h.nodes().find((node) => node.type === 'sandbox-reset-control').props.onReset;
-  const pending = reset(); await assert.rejects(reset(), /Vui lòng chờ/); h.render();
-  assert.equal(calls, 1);
-  assert.ok(h.nodes().some((node) => node.type === 'sandbox-reset-control' && node.props.disabled));
-  finish({ success: true }); await pending; h.render();
-  assert.equal(h.nodes().some((node) => node.type === 'sandbox-reset-control'), false);
-  assert.ok(h.nodes().some((node) => node.type === 'order-archive-control'));
-});
-test('sandbox reset error keeps the order available for retry', async () => {
-  const h = harness(async () => { throw Error('Không thể reset'); });
-  h.setOrders([{ id: 'test1', status: 'pending', environment: 'sandbox', lines: [] }], true);
-  await assert.rejects(h.nodes().find((node) => node.type === 'sandbox-reset-control').props.onReset(), /Không thể reset/);
-  h.render();
-  assert.ok(h.nodes().some((node) => node.type === 'sandbox-reset-control' && !node.props.disabled));
 });
 test('regenerate displays pending state, then inline link with correct token', async () => {
   let resolve;
@@ -495,6 +454,170 @@ test('checkout requires contact fields, blocks unavailable payment and removes o
   assert.equal(incomplete.find((node) => node.type === 'button' && node.props.type === 'submit').props.disabled, true);
   const invalid = panelNodes(TuitionCheckoutPanel({ ...props, paymentAvailable: true, resolve: () => undefined }));
   assert.equal(invalid.find((node) => node.type === 'button' && node.props.type === 'submit').props.disabled, true);
+});
+
+test('draft session resets all fields after inactivity, restarts on edit and preserves failed-save feedback', async () => {
+  const values = []; const effects = []; const timers = new Map();
+  let cursor = 0; let clock = 1000; let timerId = 0; let failSave = false; let saveCalls = 0;
+  const draft = { cart: [{ kind: 'course', id: 'foundation' }], declaration: { completed: true, feedback: 'Academic feedback' }, contact: { name: '', email: '', phone: '' } };
+  const timingModule = { exports: {} };
+  vm.runInNewContext(ts.transpileModule(fs.readFileSync(path.join(__dirname, '../lib/billing/draft.ts'), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText, { module: timingModule, exports: timingModule.exports });
+  const hooks = {
+    createContext: () => ({ Provider: 'provider' }),
+    useState(initial) { const i = cursor++; if (!(i in values)) values[i] = typeof initial === 'function' ? initial() : initial; return [values[i], (next) => { values[i] = typeof next === 'function' ? next(values[i]) : next; }]; },
+    useRef(initial) { const i = cursor++; if (!(i in values)) values[i] = { current: initial }; return values[i]; },
+    useCallback(fn, deps) { const i = cursor++; const previous = values[i]; if (!previous || deps.some((value, index) => value !== previous.deps[index])) values[i] = { fn, deps }; return values[i].fn; },
+    useEffect(fn, deps) { const i = cursor++; const previous = effects[i]; if (!previous || deps.some((value, index) => value !== previous.deps[index])) effects[i] = { fn, deps, cleanup: previous?.cleanup, pending: true }; },
+  };
+  const mocks = { react: hooks, '@clerk/nextjs': {}, '@/lib/billing/draft': timingModule.exports, '@/lib/billing/placement': { validPlacementDeclaration: () => true }, '@/lib/billing/guidance': { courseGuidanceStep: () => 'courses' } };
+  const module = { exports: {} };
+  const file = fs.readFileSync(path.join(__dirname, '../components/billing/PlacementSession.tsx'), 'utf8') + '\nexport { AccountPlacementSession };';
+  const events = { addEventListener() {}, removeEventListener() {}, dispatchEvent() {} };
+  vm.runInNewContext(ts.transpileModule(file, { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS } }).outputText, {
+    module, exports: module.exports, require: (id) => mocks[id] || require(id), Date: { now: () => clock }, window: events, document: events,
+    setTimeout(fn, delay) { const id = ++timerId; timers.set(id, { fn, delay }); return id; }, clearTimeout: (id) => timers.delete(id),
+    fetch: async (_url, options) => {
+      if (options?.method === 'PUT') { saveCalls++; return { ok: !failSave, json: async () => timingModule.exports.draftReviewTiming(clock, clock) }; }
+      return { ok: true, json: async () => ({ draft: clock >= 1000 + 30 * 60 * 1000 ? timingModule.exports.emptyDraft() : draft, expired: clock >= 1000 + 30 * 60 * 1000, ...timingModule.exports.draftReviewTiming(clock, clock) }) };
+    },
+  });
+  const render = () => { cursor = 0; const tree = module.exports.AccountPlacementSession({ uid: 'student1', authLoaded: true, children: null }); for (const effect of effects.filter(Boolean)) { if (effect.pending) { effect.cleanup?.(); effect.pending = false; effect.cleanup = effect.fn(); } } return tree.props.value; };
+  const settle = async () => { for (let i = 0; i < 20; i++) await Promise.resolve(); };
+  render(); await settle();
+  let session = render();
+  const originalDeadline = session.draftReviewAt;
+  assert.equal(originalDeadline, clock + 30 * 60 * 1000);
+  clock = originalDeadline;
+  [...timers.values()].find((timer) => timer.delay === 30 * 60 * 1000).fn();
+  await settle();
+  session = render();
+  assert.equal(session.cart.length, 0);
+  assert.equal(session.declaration.completed, false);
+  assert.equal(session.declaration.feedback, '');
+  assert.equal(session.contact.name, '');
+  assert.equal(session.draftReviewAt, null);
+  assert.equal(session.resetVersion, 1);
+  assert.ok(session.saveMessage.includes('30 phút'));
+  failSave = true;
+  session.updateContact({ name: 'New student', email: '', phone: '' });
+  session = render();
+  assert.equal(session.draftReviewAt, clock + 30 * 60 * 1000, 'Editing starts a new inactivity window');
+  await assert.rejects(session.flush()); await settle();
+  session = render();
+  assert.ok(session.saveMessage.includes('Không lưu'));
+  failSave = false;
+  await session.flush(); await settle();
+  session = render();
+  assert.equal(session.contact.name, 'New student');
+  assert.equal(session.draftReviewAt, clock + 30 * 60 * 1000);
+  assert.equal(saveCalls, 2);
+  for (const effect of effects.filter(Boolean)) effect.cleanup?.();
+  await settle();
+  assert.equal(timers.size, 0);
+});
+
+test('navigation draft countdown hides absent drafts, ticks by wall clock, handles expiry and cleans up', () => {
+  const values = []; let cursor = 0; let effect; let cleanup; let scheduled; let clock = 1000;
+  const listeners = new Map();
+  const events = { addEventListener: (name, fn) => listeners.set(name, fn), removeEventListener: (name) => listeners.delete(name) };
+  const session = { draftReviewAt: null, needsReview: false };
+  const module = { exports: {} };
+  const timingModule = { exports: {} };
+  vm.runInNewContext(ts.transpileModule(fs.readFileSync(path.join(__dirname, '../lib/billing/draft.ts'), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText, { module: timingModule, exports: timingModule.exports });
+  const mocks = {
+    react: { useState(initial) { const i = cursor++; if (!(i in values)) values[i] = initial; return [values[i], (value) => { values[i] = value; }]; }, useEffect(fn) { effect = fn; } },
+    'next/link': { default: 'a' }, './PlacementSession': { usePlacementSession: () => session },
+    '@/lib/billing/draft': timingModule.exports,
+  };
+  const code = ts.transpileModule(fs.readFileSync(path.join(__dirname, '../components/billing/DraftCountdown.tsx'), 'utf8'), { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS } }).outputText;
+  vm.runInNewContext(code, { module, exports: module.exports, require: (id) => mocks[id] || require(id), Date: { now: () => clock }, window: events, document: events, setInterval(fn) { scheduled = fn; return 1; }, clearInterval() { scheduled = null; } });
+  let navigations = 0;
+  const render = () => { cursor = 0; return module.exports.DraftCountdown({ onNavigate: () => { navigations++; } }); };
+  assert.equal(render(), null);
+  session.draftReviewAt = clock + 30 * 60 * 1000;
+  render(); cleanup = effect();
+  let tree = render();
+  assert.equal(tree.props.href, '/cart');
+  assert.ok(panelText(tree).includes('30:00'));
+  assert.ok(panelText(tree).includes('Tự xóa sau'));
+  assert.ok(panelText(tree).includes('Bản nháp'));
+  assert.equal(tree.props['data-urgent'], false);
+  assert.ok(panelNodes(tree).some((node) => node.props.className === 'nav-draft-time' && panelText(node) === '30:00'));
+  tree.props.onClick(); assert.equal(navigations, 1);
+  clock += 5000; scheduled();
+  assert.ok(panelText(render()).includes('29:55'));
+  clock = session.draftReviewAt - 5 * 60 * 1000; scheduled();
+  tree = render();
+  assert.equal(tree.props['data-urgent'], true);
+  assert.equal(tree.props['data-expired'], false);
+  assert.ok(panelText(tree).includes('05:00'));
+  clock = session.draftReviewAt + 60000; listeners.get('visibilitychange')();
+  tree = render();
+  assert.equal(tree.props.href, '/cart');
+  assert.equal(tree.props['data-expired'], true);
+  assert.equal(tree.props['data-urgent'], false);
+  assert.ok(panelText(tree).includes('00:00'));
+  assert.ok(panelText(tree).includes('Đang xóa'));
+  assert.ok(panelNodes(tree).some((node) => node.props.role === 'timer' && node.props['aria-live'] === 'off'));
+  cleanup(); assert.equal(scheduled, null); assert.equal(listeners.size, 0);
+  session.draftReviewAt = clock + 30 * 60 * 1000;
+  render(); cleanup = effect();
+  assert.ok(panelText(render()).includes('30:00'), 'A successful save supplies a fresh deadline');
+  cleanup();
+  session.draftReviewAt = null;
+  assert.equal(render(), null, 'Signing out clears the countdown');
+});
+
+test('embedded courses sections do not reserve a full viewport below the hero, including loading', () => {
+  const css = fs.readFileSync(path.join(__dirname, '../app/globals.css'), 'utf8');
+  const embeddedRule = css.match(/\.billing-shell\.courses-billing-shell\s*\{([^}]+)\}/);
+  assert.ok(embeddedRule, 'Embedded billing needs its own layout override');
+  assert.match(embeddedRule[1], /min-height:\s*auto\s*;/);
+  assert.match(embeddedRule[1], /padding-block:\s*32px\s*;/);
+  const source = fs.readFileSync(path.join(__dirname, '../components/billing/StudentBilling.tsx'), 'utf8');
+  const loadingReturn = source.match(/if \(!isLoaded \|\| !loaded\) return ([^\n]+)/);
+  assert.ok(loadingReturn);
+  assert.match(loadingReturn[1], /embedded \? ' courses-billing-shell' : ''/);
+});
+
+test('course discovery shows schedule, details and cart recovery without bypassing placement gates', () => {
+  const module = { exports: {} };
+  let step = 'start';
+  const course = { title: 'Foundation', description: 'Speaking foundation', image: '/course.jpg', duration: '10 buổi', classSize: '6 học viên', schedule: '2 buổi/tuần' };
+  const mocks = {
+    'next/link': { default: 'a' }, 'next/image': { default: 'img' },
+    './PlacementJourney': { PlacementJourney: 'section' },
+    './PlacementSession': { usePlacementSession: () => ({ guidanceStep: step, startGuidance() {}, continueGuidance() {} }) },
+    '@/lib/billing/guidance': { courseGuidanceCopy: { start: 'Start', courses: 'Choose', cart: 'Cart' } },
+    '@/lib/courseData': { courseData: { foundation: course } },
+    '@/lib/billing/payment-state': {}, '@/lib/billing/types': { money: (value) => `${value} VND` },
+    '@/components/ui/button': { Button: 'button' }, '@/components/ui/card': { Card: 'section' },
+    '@/components/ui/tabs': { Tabs: 'div', TabsContent: 'div', TabsList: 'div', TabsTrigger: 'button' },
+    './StudentTuitionPanels': {}, './PaymentResultNotice': {},
+  };
+  const source = fs.readFileSync(path.join(__dirname, '../components/billing/StudentBillingView.tsx'), 'utf8');
+  const code = ts.transpileModule(source, { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS } }).outputText;
+  vm.runInNewContext(code, { module, exports: module.exports, require: (id) => mocks[id] || require(id) });
+  let additions = 0;
+  const props = { embedded: true, placementDeclaration: { completed: false }, placementReady: false, data: { prices: [{ id: 'foundation', enabled: true, amount: 1000000 }], fees: [], orders: [], paymentAvailable: true, environment: 'production' }, cart: [], busy: false, error: '', notice: '', tab: 'courses', setTab() {}, selectedOrder: '', total: 0, checkedAt: 0, refresh() {}, add() { additions++; }, changeCart() {}, resolve() {}, pay() {} };
+  const render = (overrides = {}) => module.exports.default({ ...props, ...overrides });
+  const locked = render();
+  assert.ok(panelText(locked).includes(course.schedule));
+  assert.ok(panelNodes(locked).some((node) => node.props['aria-label'] === 'Xem chi tiết Foundation' && node.props.href === '/courses/foundation'));
+  assert.equal(panelNodes(locked).find((node) => node.type === 'button' && panelText(node) === 'Thêm vào giỏ').props.disabled, true);
+  assert.ok(!panelText(locked).includes('1000000 VND'));
+  step = 'courses';
+  const unlocked = render({ placementReady: true });
+  const add = panelNodes(unlocked).find((node) => node.type === 'button' && panelText(node) === 'Thêm vào giỏ');
+  assert.equal(add.props.disabled, false);
+  add.props.onClick();
+  assert.equal(additions, 1);
+  assert.ok(panelText(unlocked).includes('1000000 VND'));
+  step = 'cart';
+  const selected = render({ placementReady: true, cart: [{ kind: 'course', id: 'foundation' }] });
+  assert.ok(panelNodes(selected).some((node) => node.type === 'article' && node.props['data-selected'] === true));
+  assert.equal(panelNodes(selected).find((node) => node.type === 'button' && panelText(node) === 'Đã thêm vào giỏ').props.disabled, true);
+  assert.ok(panelNodes(selected).some((node) => node.props.href === '/cart' && panelText(node).includes('Xem giỏ hàng')));
 });
 
 test('checkout guides review, contact, payment and recovery without bypassing gates', () => {

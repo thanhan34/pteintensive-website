@@ -1,0 +1,267 @@
+{
+  "skills": [
+    {
+      "name": "codex-seo",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-agentic",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-ahrefs",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-audit",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-backlinks",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-bing",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-cluster",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-competitor-pages",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-content",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-content-brief",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-dataforseo",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-drift",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-ecommerce",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-firecrawl",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-flow",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-geo",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-google",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-hreflang",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-image-gen",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-images",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-local",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-maps",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-matomo",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-page",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-plan",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-profound",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-programmatic",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-schema",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-seranking",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-sitemap",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-sxo",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-technical",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    },
+    {
+      "name": "codex-seo-unlighthouse",
+      "valid": true,
+      "reason": "Skill is valid!",
+      "upstream_copy": true
+    }
+  ],
+  "smokes": [
+    {
+      "script": "fetch_page.py",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "script": "parse_html.py",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "script": "sitemap_discovery.py",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "script": "schema_generate.py",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "script": "render_page.py",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "script": "content_quality.py",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "script": "content_verify.py",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "script": "pagespeed_check.py",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "script": "preload_check.py",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "script": "lcp_subparts.py",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "script": "metadata_template.py",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "script": "schema_ecommerce_validate.py",
+      "exit": 0,
+      "stderr": ""
+    }
+  ],
+  "submission_blocked": true,
+  "host_discovery": "NOT_TESTED_IN_FRESH_CODEX_HOST",
+  "paid_integrations": "NOT_CONFIGURED"
+}

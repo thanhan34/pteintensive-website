@@ -1,0 +1,32 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /studio/
+Disallow: /setup-admin/
+Disallow: /debug-auth/
+Disallow: /_next/
+Disallow: /private/
+
+User-Agent: GPTBot
+Allow: /
+Disallow: /admin/
+Disallow: /setup-admin/
+Disallow: /debug-auth/
+Disallow: /api/
+
+User-Agent: OAI-SearchBot
+Allow: /
+Disallow: /admin/
+Disallow: /setup-admin/
+Disallow: /debug-auth/
+Disallow: /api/
+
+User-Agent: Googlebot
+Allow: /
+
+User-Agent: Bingbot
+Allow: /
+
+Host: https://www.pteintensive.com
+Sitemap: https://www.pteintensive.com/sitemap.xml

@@ -1,0 +1,1718 @@
+[
+  {
+    "id": "openai-bots",
+    "url": "https://developers.openai.com/api/docs/bots",
+    "status": 200,
+    "headers": {
+      "cache-control": "public, max-age=0, must-revalidate",
+      "content-encoding": "gzip",
+      "content-type": "text/html; charset=utf-8"
+    },
+    "bytes_decoded": 364611,
+    "sha256": "7fbac100257590159cdfb416a6b4ece00bd26f482a9efd282da08fd80b0dc183",
+    "redirects": [],
+    "title": "\n  Overview of OpenAI Crawlers\n",
+    "passages": {
+      "OAI-SearchBot": "f OpenAI Crawlers Copy Page OpenAI uses web crawlers (“robots”) and user agents to perform actions for its products, either automatically or triggered by user request. OpenAI uses OAI-SearchBot and GPTBot robots.txt tags to enable webmasters to manage how their sites and content work with AI. Each setting is independent of the others – for example, a webmaster can allow OAI-SearchBot in order to appear in search results while disallowing GPTBot to indicate that crawled content should not be used for training OpenAI’s generative AI foundation models. If your site has allowed both bots, we may use the results from just one crawl for both use cases to avoid duplicative crawling. For search results, please note it can take ~24 hours from a site’s robots.txt update for our systems to adjust. User agent Description & details OAI-SearchBot OAI-SearchBot is for search. OAI-SearchBot is used to surface websites in search results in ChatGPT’s search features. Sites that are opted out of OAI-SearchBot will not be shown in ChatGPT search answers, though can still appear as navigational links. To help ensure your site appears in search results, we recommend allowing OAI-SearchBot in your site’s robots.txt file and allowing requests from our published IP ranges below. Examp",
+      "ChatGPT-User": "to help site owners distinguish those requests from requests for other resources, especially when logs do not include paths. Published IP addresses: https://openai.com/gptbot.json ChatGPT-User OpenAI also uses ChatGPT-User for certain user actions in ChatGPT and Custom GPTs . When users ask ChatGPT or a CustomGPT a question, it may visit a web page with a ChatGPT-User agent. ChatGPT users may also interact with external applications via GPT Actions . ChatGPT-User is not used for crawling the web in an automatic fashion. Because these actions are initiated by a user, robots.txt rules may not apply. ChatGPT-User is not used to determine whether content may appear in Search. Please use OAI-SearchBot in robots.txt for managing Search opt outs and automatic crawl. Full user-agent string: Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; ChatGPT-User/1.0; +https://openai.com/bot Published IP addresses: https://openai.com/chatgpt-user.json Subscribe to the RSS feed for updates\n          to this page. Ask AI Docs agent Loading docs agent...",
+      "GPTBot": "Copy Page OpenAI uses web crawlers (“robots”) and user agents to perform actions for its products, either automatically or triggered by user request. OpenAI uses OAI-SearchBot and GPTBot robots.txt tags to enable webmasters to manage how their sites and content work with AI. Each setting is independent of the others – for example, a webmaster can allow OAI-SearchBot in order to appear in search results while disallowing GPTBot to indicate that crawled content should not be used for training OpenAI’s generative AI foundation models. If your site has allowed both bots, we may use the results from just one crawl for both use cases to avoid duplicative crawling. For search results, please note it can take ~24 hours from a site’s robots.txt update for our systems to adjust. User agent Description & details OAI-SearchBot OAI-SearchBot is for search. OAI-SearchBot is used to surface websites in search results in ChatGPT’s search features. Sites that are opted out of OAI-SearchBot will not be shown in ChatGPT search answers, though can still appear as navigational links. To help ensure your site appears in search results, we recommend allowing OAI-SearchBot in your site’s robots.txt file and allowing requests from our published IP ranges below. Example user-agent stri",
+      "robots.txt": "ge OpenAI uses web crawlers (“robots”) and user agents to perform actions for its products, either automatically or triggered by user request. OpenAI uses OAI-SearchBot and GPTBot robots.txt tags to enable webmasters to manage how their sites and content work with AI. Each setting is independent of the others – for example, a webmaster can allow OAI-SearchBot in order to appear in search results while disallowing GPTBot to indicate that crawled content should not be used for training OpenAI’s generative AI foundation models. If your site has allowed both bots, we may use the results from just one crawl for both use cases to avoid duplicative crawling. For search results, please note it can take ~24 hours from a site’s robots.txt update for our systems to adjust. User agent Description & details OAI-SearchBot OAI-SearchBot is for search. OAI-SearchBot is used to surface websites in search results in ChatGPT’s search features. Sites that are opted out of OAI-SearchBot will not be shown in ChatGPT search answers, though can still appear as navigational links. To help ensure your site appears in search results, we recommend allowing OAI-SearchBot in your site’s robots.txt file and allowing requests from our published IP ranges below. Example user-agent string (the",
+      "llms.txt": "Overview of OpenAI Crawlers For the complete documentation index, see llms.txt . Markdown versions of documentation pages are available by appending .md to the page URL. ChatGPT Start searching API Dashboard Try ChatGPT Search the API docs Search docs Suggested responses create reasoning_effort realtime prompt caching Primary navigation Search docs Suggested responses create reasoning_effort realtime prompt caching Overview Models Agents Tools Audio & voice Production API reference Docs Overview Home Get started Quickstart Using GPT-6 Key concepts API credits for ChatGPT subscribers Core concepts Responses API Decisions API Conversation state Background mode Streaming WebSocket mode Mid-turn steering Multi-agent Webhooks File inputs Compaction Counting tokens SDKs and CLI OpenAI SDK OpenAI CLI Resources Changelog Deprecations Supported countries OpenAI Crawlers Terms and policies Legacy APIs Agent Builder Overview Migration guide Node reference Safety in building agents Evals Getting started Working with evals Prompt optimizer External models Graders Fine-tuning Optimization cycle Supervised fine-tuning Vision fine-tuning Direct preference optimization"
+    },
+    "text_characters": 15378
+  },
+  {
+    "id": "openai-skills",
+    "url": "https://learn.chatgpt.com/docs/build-skills",
+    "status": 200,
+    "headers": {
+      "cache-control": "public, max-age=0, must-revalidate",
+      "content-encoding": "gzip",
+      "content-type": "text/html; charset=utf-8"
+    },
+    "bytes_decoded": 418508,
+    "sha256": "9972c42b0c5b63142190963ca3a9ee7643deec7b63478324dd2cd16f97240853",
+    "redirects": [
+      {
+        "url": "https://developers.openai.com/codex/skills",
+        "status": 308
+      }
+    ],
+    "title": "\n  Build skills | ChatGPT Learn\n",
+    "passages": {
+      "llms.txt": "Build skills | ChatGPT Learn For the complete documentation index, see llms.txt . Markdown versions of documentation pages are available by appending .md to the page URL. ChatGPT Start searching API Dashboard Try ChatGPT Search the docs Search docs Suggested responses create reasoning_effort realtime prompt caching Primary navigation Search docs Suggested responses create reasoning_effort realtime prompt caching Overview Models Agents Tools Audio & voice Production API reference Docs Overview Home Get started Quickstart Using GPT-6 Key concepts API credits for ChatGPT subscribers Core concepts Responses API Decisions API Conversation state Background mode Streaming WebSocket mode Mid-turn steering Multi-agent Webhooks File inputs Compaction Counting tokens SDKs and CLI OpenAI SDK OpenAI CLI Resources Changelog Deprecations Supported countries OpenAI Crawlers Terms and policies Legacy APIs Agent Builder Overview Migration guide Node reference Safety in building agents Evals Getting started Working with evals Prompt optimizer External models Graders Fine-tuning Optimization cycle Supervised fine-tuning Vision fine-tuning Direct preference optimization Rei"
+    },
+    "text_characters": 19769
+  },
+  {
+    "id": "anthropic-bots",
+    "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+    "status": 200,
+    "headers": {
+      "content-type": "text/html; charset=utf-8",
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip"
+    },
+    "bytes_decoded": 205222,
+    "sha256": "527bee16bc351f748b95596248a896bdae3fb7af9c6f3b14dcd19f7a7b094864",
+    "redirects": [],
+    "title": "Does Anthropic crawl data from the web, and how can site owners block the crawler? | Claude Help Center",
+    "passages": {
+      "Claude-SearchBot": "abling Claude-User on your site prevents our system from retrieving your content in response to a user query, which may reduce your site's visibility for user-directed web search. Claude-SearchBot Claude-SearchBot navigates the web to improve search result quality for users. It analyzes online content specifically to enhance the relevance and accuracy of search responses. Disabling Claude-SearchBot on your site prevents our system from indexing your content for search optimization, which may reduce your site's visibility and accuracy in user search results. As part of our mission to build safe and reliable frontier systems and advance the field of responsible AI development, we’re sharing the principles by which we collect data as well as instructions on how to opt out of our crawling going forward: Our collection of data should be transparent . Anthropic uses the Bots described above to access web content. Our crawling should not be intrusive or disruptive . We aim for minimal disruption by being thoughtful about how quickly we crawl the same domains and respecting Crawl-delay where appropriate. Anthropic’s Bots respect “do not crawl” signals by honoring industry standard directives in robots.txt. Anthropic’s Bots respect anti-circumvention technologies (e.g.",
+      "Claude-User": "tentially contribute to their training. When a site restricts ClaudeBot access, it signals that the site's future materials should be excluded from our AI model training datasets. Claude-User Claude-User supports Claude AI users. When individuals ask questions to Claude, it may access websites using a Claude-User agent. Claude-User allows site owners to control which sites can be accessed through these user-initiated requests. Disabling Claude-User on your site prevents our system from retrieving your content in response to a user query, which may reduce your site's visibility for user-directed web search. Claude-SearchBot Claude-SearchBot navigates the web to improve search result quality for users. It analyzes online content specifically to enhance the relevance and accuracy of search responses. Disabling Claude-SearchBot on your site prevents our system from indexing your content for search optimization, which may reduce your site's visibility and accuracy in user search results. As part of our mission to build safe and reliable frontier systems and advance the field of responsible AI development, we’re sharing the principles by which we collect data as well as instructions on how to opt out of our crawling going forward: Our collection of data should be tr",
+      "ClaudeBot": "robots that Anthropic uses and how to set your site preferences to enable those you want to access your content and limit those you don’t. Bot Use What happens when you disable it ClaudeBot ClaudeBot helps enhance the utility and safety of our generative AI models by collecting web content that could potentially contribute to their training. When a site restricts ClaudeBot access, it signals that the site's future materials should be excluded from our AI model training datasets. Claude-User Claude-User supports Claude AI users. When individuals ask questions to Claude, it may access websites using a Claude-User agent. Claude-User allows site owners to control which sites can be accessed through these user-initiated requests. Disabling Claude-User on your site prevents our system from retrieving your content in response to a user query, which may reduce your site's visibility for user-directed web search. Claude-SearchBot Claude-SearchBot navigates the web to improve search result quality for users. It analyzes online content specifically to enhance the relevance and accuracy of search responses. Disabling Claude-SearchBot on your site prevents our system from indexing your content for search optimization, which may reduce your site's visibility and accuracy in",
+      "robots.txt": "out how quickly we crawl the same domains and respecting Crawl-delay where appropriate. Anthropic’s Bots respect “do not crawl” signals by honoring industry standard directives in robots.txt. Anthropic’s Bots respect anti-circumvention technologies (e.g., we will not attempt to bypass CAPTCHAs for the sites we crawl.) To limit crawling activity, we support the non-standard Crawl-delay extension to robots.txt. An example of this might be: User-agent: ClaudeBot Crawl-delay: 1 To block a Bot from your entire website, add this to the robots.txt file in your top-level directory. Please do this for every subdomain that you wish to opt out from. An example of this is: User-agent: ClaudeBot Disallow: / Opting out of being crawled by Anthropic Bots requires modifying the robots.txt file in the manner above. Alternate methods like blocking IP address(es) from which Anthropic Bots operates may not work correctly or persistently guarantee an opt-out, as doing so impedes our ability to read your robots.txt file. If a crawler has a source IP address on this list , it indicates that the crawler is coming from Anthropic. You can learn more about our data handling practices and commitments at our Help Center . If you have further questions, or believe that our Bots may be malf"
+    },
+    "text_characters": 4481
+  },
+  {
+    "id": "google-ai",
+    "url": "https://developers.google.com/search/docs/appearance/ai-features",
+    "status": 200,
+    "headers": {
+      "content-type": "text/html; charset=utf-8",
+      "cache-control": "no-cache, must-revalidate",
+      "content-encoding": "gzip"
+    },
+    "bytes_decoded": 179973,
+    "sha256": "c469f851c919ed095e4f5119764c61d16cace98fcedddbd21f207490e61bac38",
+    "redirects": [],
+    "title": "AI Features and Your Website | Google Search Central  |  Documentation  |  Google for Developers",
+    "passages": {
+      "Google-Extended": "rom your pages in Search, use nosnippet , data-nosnippet , max-snippet , or noindex controls. To limit AI training and grounding in some of Google's other systems, read more about Google-Extended . Troubleshooting preview controls If you implemented preview controls and\n  you're still seeing your content appear in AI features on Search, try the following steps: Make sure that the preview control is correct and visible to Googlebot. To test if your implementation is\n    correct, use the URL\n      Inspection tool to see the HTML that Googlebot received while crawling the page. Allow time for Google to recrawl and process the change in preview controls.\n    Remember that crawling can take anywhere from several days to several months, depending on\n    how often our systems determine a page needs to be refreshed. If you've made changes, you can request\n      that Google recrawl your pages . If you tried the troubleshooting steps and still find issues, post in the Google Search Central Help Community . Send feedback Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered ",
+      "robots.txt": "ile specific optimization isn't required for AI Overviews and AI Mode, all existing SEO fundamentals continue to be\n  worthwhile, for example: Ensuring that crawling is allowed in robots.txt, and by any CDN or hosting infrastructure Making your content easily findable through internal links on your website Providing a great page experience for\n    users Making sure that important content is available in textual form Supporting your textual content with high-quality images and videos , when applicable Making sure your structured data matches the visible text on the page Checking that your Merchant Center and Business Profile information is up-to-date You don't need to create new machine readable files, AI text files, or markup to\n  appear in these features. There's also no special schema.org structured data that you need to add. To discover and diagnose potential technical issues quickly, verify your site\n  in Search Console . Measuring the performance of your site Just like the rest of the search results page, sites appearing in AI features (such as AI Overviews\n  and AI Mode) are included in the overall search traffic in Search Console .\n  In particular, they're reported on in the Performance report ,\n  within the \"Web\" search type .\n  Learn more about how AI"
+    },
+    "text_characters": 7058
+  },
+  {
+    "id": "google-crawlers",
+    "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers",
+    "status": 200,
+    "headers": {
+      "content-type": "text/html; charset=utf-8",
+      "cache-control": "no-cache, must-revalidate",
+      "content-encoding": "gzip"
+    },
+    "bytes_decoded": 74642,
+    "sha256": "281f6afbe3db62fdf9e1c3291add78763f84d11b9ce3151f8cf1bf0518159a13",
+    "redirects": [
+      {
+        "url": "https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers",
+        "status": 301
+      }
+    ],
+    "title": "Google Crawler (User Agent) Overview | Google Crawling Infrastructure  |  Crawling infrastructure  |  Google for Developers",
+    "passages": {
+      "robots.txt": " latest updates to this page? See our updates to our documentation . Common crawlers The common crawlers used for Google's products (such as Googlebot ). They\n      always respect robots.txt rules for automatic crawls. Special-case crawlers Special-case crawlers are similar to common crawlers, however are used by specific products\n      where there's an agreement between the crawled site and the Google product about the crawl\n      process. For example, AdsBot ignores the global robots.txt user agent\n      ( * ) with the ad publisher's permission. User-triggered fetchers User-triggered fetchers are part of tools and product functions where the end user triggers a\n      fetch. For example, Google Site Verifier acts on the request of a user. Technical properties of Google's crawlers and fetchers Google's crawlers and fetchers are designed to be run simultaneously by thousands of machines to\n  improve performance and scale as the web grows. To optimize bandwidth usage, these clients are\n  distributed across many datacenters across the world so they're located near the sites that they\n  might access. Therefore, your logs may show visits from several IP addresses.\n  Google egresses primarily from IP addresses in the United States. In case Google detects that a\n  si"
+    },
+    "text_characters": 7524
+  },
+  {
+    "id": "perplexity-bots",
+    "url": "https://docs.perplexity.ai/docs/resources/perplexity-crawlers",
+    "status": 200,
+    "headers": {
+      "cache-control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
+      "content-encoding": "gzip",
+      "content-type": "text/html; charset=utf-8"
+    },
+    "bytes_decoded": 271182,
+    "sha256": "150fc16172e5994e340b039de86b1c9f5f41e4d1d97556b5de577416872e03d0",
+    "redirects": [
+      {
+        "url": "https://docs.perplexity.ai/guides/bots",
+        "status": 308
+      }
+    ],
+    "title": "Perplexity Crawlers - Perplexity",
+    "passages": {
+      "PerplexityBot": "d content interact with Perplexity. Each setting works independently, and it may take up to 24 hours for our systems to reflect changes. Copy page Copy page User Agent Description PerplexityBot PerplexityBot is designed to surface and link websites in search results on Perplexity. It is not used to crawl content for AI foundation models. To ensure your site appears in search results, we recommend allowing PerplexityBot in your site’s robots.txt file and permitting requests from our published IP ranges listed below. Example user-agent string (the version number may change): Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot) Published IP addresses: https://www.perplexity.ai/perplexitybot.json Perplexity‑User Perplexity-User supports user actions within Perplexity. When users ask Perplexity a question, it might visit a web page to help provide an accurate answer and include a link to the page in its response. Perplexity-User controls which sites these user requests can access. It is not used for web crawling or to collect content for training AI foundation models. Example user-agent string (the version number may change): Mozilla/5.0 (compatible; Perplexity-User/1.0; +https://perplexity.ai/perplexity-user) Published IP addresses: ht",
+      "Perplexity-User": "may change): Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot) Published IP addresses: https://www.perplexity.ai/perplexitybot.json Perplexity‑User Perplexity-User supports user actions within Perplexity. When users ask Perplexity a question, it might visit a web page to help provide an accurate answer and include a link to the page in its response. Perplexity-User controls which sites these user requests can access. It is not used for web crawling or to collect content for training AI foundation models. Example user-agent string (the version number may change): Mozilla/5.0 (compatible; Perplexity-User/1.0; +https://perplexity.ai/perplexity-user) Published IP addresses: https://www.perplexity.ai/perplexity-user.json Since a user requested the fetch, this fetcher generally ignores robots.txt rules. ​ WAF Configuration If you’re using a Web Application Firewall (WAF) to protect your site, you may need to explicitly allow Perplexity’s bots to ensure they can access your content. Below are configuration guidelines for popular WAF providers. ​ Cloudflare WAF To configure Cloudflare WAF to allow Perplexity bots: 1 Navigate to security rules In your Cloudflare dashboard, go to Security → Security rules . 2 Create a new rule Select Crea",
+      "robots.txt": "rs (“robots”) and user agents that gather and index information from the internet, operating either automatically or in response to user requests. Webmasters can use the following robots.txt tags to manage how their sites and content interact with Perplexity. Each setting works independently, and it may take up to 24 hours for our systems to reflect changes. Copy page Copy page User Agent Description PerplexityBot PerplexityBot is designed to surface and link websites in search results on Perplexity. It is not used to crawl content for AI foundation models. To ensure your site appears in search results, we recommend allowing PerplexityBot in your site’s robots.txt file and permitting requests from our published IP ranges listed below. Example user-agent string (the version number may change): Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot) Published IP addresses: https://www.perplexity.ai/perplexitybot.json Perplexity‑User Perplexity-User supports user actions within Perplexity. When users ask Perplexity a question, it might visit a web page to help provide an accurate answer and include a link to the page in its response. Perplexity-User controls which sites these user requests can access. It is not used for web crawling or t",
+      "llms.txt": "Perplexity Crawlers - Perplexity Documentation Index Fetch the complete documentation index at: /llms.txt Use this file to discover all available pages before exploring further. Skip to main content Assistant Responses are generated using AI and may contain mistakes. Suggestions What is the Agent API? Which Agent API model should I use? How do I create an API key? For AI agents: see the complete llms.txt documentation index. Perplexity home page Docs Cookbook API Reference Search... Navigation Resources Perplexity Crawlers Resources Perplexity Crawlers Copy page Copy page We strive to improve our service every day by delivering the best search experience possible. To achieve this, we collect data using web crawlers (“robots”) and user agents that gather and index information from the internet, operating either automatically or in response to user requests. Webmasters can use the following robots.txt tags to manage how their sites and content interact with Perplexity. Each setting works independently, and it may take up to 24 hours for our systems to reflect changes. Copy page Copy page User Agent Description PerplexityBot PerplexityBot is designed to surface and link websites in"
+    },
+    "text_characters": 5801
+  },
+  {
+    "id": "vercel-bots",
+    "url": "https://vercel.com/docs/bot-management",
+    "status": 200,
+    "headers": {
+      "cache-control": "public, max-age=0, must-revalidate",
+      "content-encoding": "gzip",
+      "content-type": "text/html; charset=utf-8"
+    },
+    "bytes_decoded": 1058542,
+    "sha256": "fa0b50aa853367ae9209cf423a29b4387da52d5e955b7401b2bc365eae8545b8",
+    "redirects": [],
+    "title": "Bot Management",
+    "passages": {
+      "OAI-SearchBot": "obal locations View oai-adsbot advertising Validates the safety of web pages submitted as ads on ChatGPT; data collected is not used to train generative AI foundation models. View oai-searchbot ai_assistant Indexes websites for inclusion in ChatGPT's search results; does not crawl content for AI model training. View ohdearbot monitor OhDearBot is a monitoring bot operated by Oh Dear that performs uptime checks, broken link detection, and mixed content scanning. The bot follows standard crawling practices and throttles requests to minimize server impact. View ora-bot verification Measures how well websites work for AI agents by fetching public pages and agent-facing files on demand when someone requests a score for a domain. View paypal webhook PayPal delivers real-time event notifications for payments, subscriptions, and account updates. View perplexity-user ai_assistant Handles user-initiated requests in Perplexity, accessing external content to provide real-time information; not used for automated crawling or AI training. View perplexitybot ai_assistant Indexes websites for inclusion in Perplexity's search results; does not crawl content for AI model training. View petalbot search_engine_crawler PetalBot is a web crawler operated by Huawei's Petal Search eng",
+      "ChatGPT-User": "websites. View chatgpt-operator ai_assistant Handles user-initiated requests from ChatGPT operator accessing external content; not used for automated crawling or AI training. View chatgpt-user ai_assistant Handles user-initiated requests in ChatGPT, accessing external content to provide real-time information; not used for automated crawling or AI training. View checkly monitor Checkly is a platform for monitoring and alerting on your applications. View chrome-lighthouse analytics PageSpeed Insights (PSI) reports on the user experience of a page on both mobile and desktop devices, and provides suggestions on how that page may be improved. View chrome-privacy-preserving-prefetch-proxy preview Chrome's Privacy Preserving Prefetch Proxy service that fetches /.well-known/traffic-advice to enable privacy-preserving prefetch hints. View claude-searchbot ai_assistant Claude-SearchBot navigates the web to improve search result quality for users. It analyzes online content specifically to enhance the relevance and accuracy of search responses. View claude-user ai_assistant Claude-User supports Claude AI users. When individuals ask questions to Claude, it may access websites using a Claude-User agent. View claudebot ai_crawler ClaudeBot helps enhance the utility and safe",
+      "GPTBot": "rieve real-time information from the web in response to user-initiated requests; allows access to up-to-date content without being used for automated crawling or AI training. View gptbot ai_crawler Crawls web content to improve OpenAI's generative AI models and ChatGPT; respects 'robots.txt' directives to exclude sites from training data. View gtmetrix monitor GTmetrix provides metrics and insights for your site's loading speed and performance. View hetrixtools-uptime-monitoring-bot monitor HetrixTools Uptime Monitoring Bot is used by HetrixTools's monitoring services to perform various checks on websites, including uptime and performance monitoring. View hookdeck webhook A reliable Event Gateway for event-driven applications View hydrozen monitor Hydrozen is a tool for monitoring availability of your websites, Cronjobs, APIs, Domains, SSL etc. View iframely preview Fetches your page metadata to generate rich link previews when users share your links across apps, blogs, and news sites, enhancing content visibility and engagement. View imagesiftbot ai_crawler ImageSiftBot is a web crawler that scrapes the internet for publicly available images to support Hive's suite of web intelligence products. View impactcindagent verification Crawls partner and brand sites ",
+      "Claude-SearchBot": "acy-preserving-prefetch-proxy preview Chrome's Privacy Preserving Prefetch Proxy service that fetches /.well-known/traffic-advice to enable privacy-preserving prefetch hints. View claude-searchbot ai_assistant Claude-SearchBot navigates the web to improve search result quality for users. It analyzes online content specifically to enhance the relevance and accuracy of search responses. View claude-user ai_assistant Claude-User supports Claude AI users. When individuals ask questions to Claude, it may access websites using a Claude-User agent. View claudebot ai_crawler ClaudeBot helps enhance the utility and safety of our generative AI models by collecting web content that could potentially contribute to their training. View cloudflare-customer-slo-prober monitor Automated probes that monitor the availability and latency of enrolled customer endpoints. View cookiebot monitor Cookiebot automates compliance with cookie laws and helps you manage your cookie consent preferences. View cookieyesbot monitor Scans websites to verify cookie consent banner implementation and compliance with privacy regulations for CookieYes customers. View criteobot advertising CriteoBot is a crawler operated by Criteo that analyzes web content to serve relevant contextual ads. The bot re",
+      "Claude-User": "ude-SearchBot navigates the web to improve search result quality for users. It analyzes online content specifically to enhance the relevance and accuracy of search responses. View claude-user ai_assistant Claude-User supports Claude AI users. When individuals ask questions to Claude, it may access websites using a Claude-User agent. View claudebot ai_crawler ClaudeBot helps enhance the utility and safety of our generative AI models by collecting web content that could potentially contribute to their training. View cloudflare-customer-slo-prober monitor Automated probes that monitor the availability and latency of enrolled customer endpoints. View cookiebot monitor Cookiebot automates compliance with cookie laws and helps you manage your cookie consent preferences. View cookieyesbot monitor Scans websites to verify cookie consent banner implementation and compliance with privacy regulations for CookieYes customers. View criteobot advertising CriteoBot is a crawler operated by Criteo that analyzes web content to serve relevant contextual ads. The bot respects robots.txt directives and crawl delays, and only accesses publicly available content. View cursor-agent-webhook webhook Cursor-Agent-Webhook delivers Cloud Agent lifecycle notifications from Cursor to endpo",
+      "ClaudeBot": "rch responses. View claude-user ai_assistant Claude-User supports Claude AI users. When individuals ask questions to Claude, it may access websites using a Claude-User agent. View claudebot ai_crawler ClaudeBot helps enhance the utility and safety of our generative AI models by collecting web content that could potentially contribute to their training. View cloudflare-customer-slo-prober monitor Automated probes that monitor the availability and latency of enrolled customer endpoints. View cookiebot monitor Cookiebot automates compliance with cookie laws and helps you manage your cookie consent preferences. View cookieyesbot monitor Scans websites to verify cookie consent banner implementation and compliance with privacy regulations for CookieYes customers. View criteobot advertising CriteoBot is a crawler operated by Criteo that analyzes web content to serve relevant contextual ads. The bot respects robots.txt directives and crawl delays, and only accesses publicly available content. View cursor-agent-webhook webhook Cursor-Agent-Webhook delivers Cloud Agent lifecycle notifications from Cursor to endpoints a customer has explicitly configured, such as an agent starting or finishing work. View cursor-origin-webhook webhook Cursor-Origin-Webhook delivers event ",
+      "Google-Extended": " advertising Verifies site eligibility during the AdSense approval process. View google-docs preview Fetches images and page content when users insert links into Google Docs. View google-extended ai_crawler Google-Extended is a standalone product token that web publishers can use to manage whether their sites help improve Gemini Apps and Vertex AI generative APIs, including future generations of models that power those products. Grounding with Google Search on Vertex AI does not use web pages for grounding that have disallowed Google-Extended. Google-Extended does not impact a site's inclusion or ranking in Google Search. View google-feedfetcher feed_fetcher Feedfetcher is used for crawling RSS or Atom feeds for Google News and PubSubHubbub. View google-image-proxy preview Google's image caching proxy service used by Gmail and other Google services to cache and serve images. View google-inspectiontool monitor Crawling preferences addressed to the Google-InspectionTool user agent affect Search testing tools such as the Rich Result Test and URL inspection in Search Console. It has no effect on Google Search or other products. View google-pagerenderer preview Upon user request, Google Page Renderer fetches and renders web pages. View google-publisher-center feed_",
+      "PerplexityBot": "-user ai_assistant Handles user-initiated requests in Perplexity, accessing external content to provide real-time information; not used for automated crawling or AI training. View perplexitybot ai_assistant Indexes websites for inclusion in Perplexity's search results; does not crawl content for AI model training. View petalbot search_engine_crawler PetalBot is a web crawler operated by Huawei's Petal Search engine. It crawls both PC and mobile websites to build an index database for Petal search engine and to provide content recommendations for Huawei Assistant and AI Search services. View pingdom-bot monitor Pingdom Bot is used by Pingdom's monitoring services to perform various checks on websites, including uptime and performance monitoring. View pinterest-bot search_engine_crawler Pinterest's web crawler that indexes content for their platform. It crawls websites to collect metadata for Pins, including images, titles, descriptions, and prices. The crawler also helps maintain Pin data accuracy and detect broken links. View polar-webhooks webhook Polar's webhook service delivers real-time event notifications for payment processing, including purchases, subscriptions, cancellations, and refunds. View pulsepoint-crawler advertising A web crawler used by PulseP",
+      "Perplexity-User": "iles on demand when someone requests a score for a domain. View paypal webhook PayPal delivers real-time event notifications for payments, subscriptions, and account updates. View perplexity-user ai_assistant Handles user-initiated requests in Perplexity, accessing external content to provide real-time information; not used for automated crawling or AI training. View perplexitybot ai_assistant Indexes websites for inclusion in Perplexity's search results; does not crawl content for AI model training. View petalbot search_engine_crawler PetalBot is a web crawler operated by Huawei's Petal Search engine. It crawls both PC and mobile websites to build an index database for Petal search engine and to provide content recommendations for Huawei Assistant and AI Search services. View pingdom-bot monitor Pingdom Bot is used by Pingdom's monitoring services to perform various checks on websites, including uptime and performance monitoring. View pinterest-bot search_engine_crawler Pinterest's web crawler that indexes content for their platform. It crawls websites to collect metadata for Pins, including images, titles, descriptions, and prices. The crawler also helps maintain Pin data accuracy and detect broken links. View polar-webhooks webhook Polar's webhook service d",
+      "robots.txt": "tion messages by Google APIs. View apple-podcasts feed_fetcher Apple Podcasts crawler that only accesses URLs associated with registered content on Apple Podcasts. Does not follow robots.txt. View applebot ai_crawler Applebot powers search features in Apple's ecosystem (Spotlight, Siri, Safari) and may be used to train Apple's foundation models for generative AI features. View artemis-web-crawler feed_fetcher Artemis is a calm web reader with which you can follow websites and blogs. View atlassian-jira-webhooks webhook Delivers webhook notifications from Jira Cloud when issues, projects, or other resources change. View rovo ai_crawler Crawls and indexes web content for Atlassian Rovo's AI-powered search, chat, and agents. View baiduspider search_engine_crawler Baiduspider is Baidu’s web crawler that indexes websites for inclusion in its Chinese-market search results. View barkrowler search_engine_optimization Barkrowler is Babbar's web crawler that fuels and updates their graph representation of the web, providing SEO tools for the marketing community. View better-stack monitor Better Stack is a platform for monitoring and alerting on your applications. View bingbot search_engine_crawler Bingbot is Microsoft's web crawler used for indexing websites for Bing Se",
+      "AI bots": "Log In On this page How bot management works Methods of bot management and protection Bot protection managed ruleset Enable the ruleset Bot protection ruleset with reverse proxies AI bots managed ruleset Enable the ruleset Verified bots Bot verification methods Verified bots directory Copy page Copy page Bot Management Copy page Copy page Bots generate nearly half of all internet traffic. While many bots serve legitimate purposes like search engine crawling and content aggregation, others originate from malicious sources. Bot management encompasses both observing and controlling all bot traffic. A key component of this is bot protection, which focuses specifically on mitigating risks from automated threats that scrape content, attempt unauthorized logins, or overload servers. How bot management works Bot management systems analyze incoming traffic to identify and classify requests based on their source and intent. This includes: Verifying and allowing legitimate bots that correctly identify themselves Monitoring bot traffic patterns and resource consumption Detecting and challenging suspicious traffic that behaves abnormally Enforcing browser-like behavior by verifying navigation patterns and cache usage Methods of bot management and protection To effectively ",
+      "verified bots": "s Methods of bot management and protection Bot protection managed ruleset Enable the ruleset Bot protection ruleset with reverse proxies AI bots managed ruleset Enable the ruleset Verified bots Bot verification methods Verified bots directory Copy page Copy page Bot Management Copy page Copy page Bots generate nearly half of all internet traffic. While many bots serve legitimate purposes like search engine crawling and content aggregation, others originate from malicious sources. Bot management encompasses both observing and controlling all bot traffic. A key component of this is bot protection, which focuses specifically on mitigating risks from automated threats that scrape content, attempt unauthorized logins, or overload servers. How bot management works Bot management systems analyze incoming traffic to identify and classify requests based on their source and intent. This includes: Verifying and allowing legitimate bots that correctly identify themselves Monitoring bot traffic patterns and resource consumption Detecting and challenging suspicious traffic that behaves abnormally Enforcing browser-like behavior by verifying navigation patterns and cache usage Methods of bot management and protection To effectively manage bot traffic and protect against harm"
+    },
+    "text_characters": 35872
+  },
+  {
+    "id": "next-jsonld",
+    "url": "https://nextjs.org/docs/app/guides/json-ld",
+    "status": 200,
+    "headers": {
+      "cache-control": "public, max-age=0, must-revalidate",
+      "content-encoding": "gzip",
+      "content-type": "text/html; charset=utf-8"
+    },
+    "bytes_decoded": 492742,
+    "sha256": "76967b90c0368062b71e73f9a5f0c1b92b3bfa6bdae327cc9e9a2bd8693b63c5",
+    "redirects": [],
+    "title": "How to implement JSON-LD in your Next.js application",
+    "passages": {},
+    "text_characters": 2543
+  },
+  {
+    "id": "next-metadata",
+    "url": "https://nextjs.org/docs/app/api-reference/functions/generate-metadata",
+    "status": 200,
+    "headers": {
+      "cache-control": "public, max-age=0, must-revalidate",
+      "content-encoding": "gzip",
+      "content-type": "text/html; charset=utf-8"
+    },
+    "bytes_decoded": 2478038,
+    "sha256": "960c9bf8c79a997331745440e76fe6ada2dcc67bf1e1a3abf3224de1e54ee05d",
+    "redirects": [],
+    "title": "generateMetadata",
+    "passages": {},
+    "text_characters": 37216
+  },
+  {
+    "id": "pearson-updates",
+    "url": "https://www.pearsonpte.com/pte-updates-2025/",
+    "status": 200,
+    "headers": {
+      "content-type": "text/html",
+      "cache-control": "max-age=900, public",
+      "content-encoding": "gzip"
+    },
+    "bytes_decoded": 156413,
+    "sha256": "e265c226dc5c813cb86bdf1aed4b652791af1b11e09cc58634733a71ca12674a",
+    "redirects": [
+      {
+        "url": "https://www.pearsonpte.com/pte-updates-2025",
+        "status": 302
+      }
+    ],
+    "title": "PTE Academic updates 2025 | Pearson PTE",
+    "passages": {
+      "Pearson": "PTE Academic updates 2025 | Pearson PTE PTE Tests PTE Academic test Scoring Preparation Test format PTE Core test Scoring Preparation Test format PTE Academic UKVI test Scoring Preparation Test format UK SELT test guide PTE Home tests PTE Home A1 PTE Home A2 PTE Home B1 Preparation Scoring UK SELT test guide Preparation PTE Academic preparation Scored Practice Tests Official PTE AI Practice Official Guide PTE Expert PTE Core preparation Scored Practice Test Official PTE AI Practice Official Guide Preparation Course PTE Academic UKVI preparation Scored Practice Tests Official PTE AI Practice Official Guide PTE Expert PTE Home preparation Free preparation resources About PTE Guides PTE scoring How to book PTE What to expect on test day Destinations Which PTE test is right for me? Guide to UK SELT tests Useful information Test centers & fees Who accepts PTE? Accommodations & comfort aids About PTE News & advice Articles & inspiration News center Help & policies Help center Policy center Test taker handbooks Partners & Research Institutions Verify PTE scores Security Scoring guide Why trust PTE Teachers Resources C"
+    },
+    "text_characters": 8953
+  },
+  {
+    "id": "homeaffairs-english",
+    "url": "https://immi.homeaffairs.gov.au/help-support/meeting-our-requirements/english-language",
+    "status": 200,
+    "headers": {
+      "content-type": "text/html; charset=utf-8",
+      "content-encoding": "gzip",
+      "cache-control": "private, max-age=179"
+    },
+    "bytes_decoded": 1306427,
+    "sha256": "71619779dab7f6ecb722d7a43586d3521cbaac03c9d66b48498a9c03ca3a229b",
+    "redirects": [],
+    "title": "\r\n\t\n            English language visa requirements\n          \r\n",
+    "passages": {
+      "Pearson": " Skill Retake ( OSR ) LANGUAGECERT Academic Test ( LANGUAGECERT Academic ) Michigan English Test ( MET ), including Single Section Retake ( SSR ) Occupational English Test ( OET ) Pearson Test of English Academic ( PTE Academic ) Test of English as a Foreign Language internet-Based Test ( TOEFL iBT ) - To ensure your TOEFL iBT result is valid for Australian visa purposes, you must select 'Taking TOEFL for Australia' when registering for your test. Results not registered under this pathway may not be accepted for Australian visa purposes. ​ ​For tests taken on or before 6 August 2025* The department still accepts test scores from the following tests, up until certain timeframes, that were undertaken at a secure test centre: Cambridge English ( CAE ) (also known as C1 Advanced ) International English Language Testing System ( IELTS ), including One Skill Retake ( OSR ) Pearson Test of English Academic ( PTE Academic ) Occupational English Test ( OET ) Test of English as a Foreign Language internet-Based Test ( TOEFL iBT )​ *Test results from a test taken on or before 6 August 2025 may be used as evidence of English proficiency for visa​ purposes until 6 August 2028, inclusive . This will depend on the visa. You must check what level of English you need and what "
+    },
+    "text_characters": 4693
+  },
+  {
+    "id": "competitor-magic",
+    "url": "https://ptemagic.com.vn/",
+    "status": 200,
+    "headers": {
+      "content-type": "text/html; charset=UTF-8",
+      "cache-control": "max-age=0",
+      "content-encoding": "gzip"
+    },
+    "bytes_decoded": 549342,
+    "sha256": "95866947630048d38bedf1f3e52133c81ab2f6b023d866c853ca56f9df486caa",
+    "redirects": [],
+    "title": "PTE Magic: Trung Tâm Luyện Thi PTE Academic Uy Tín Việt Nam",
+    "passages": {
+      "PTE Intensive": "iên nắm chắc cấu trúc bài thi PTE, luyện các dạng bài trọng tâm và xây nền tảng phát âm, ngữ pháp, từ vựng, note-taking để tự tin bước vào phòng thi sau khóa học. Tư Vấn Ngay Khóa PTE Intensive (Target 65 – 79+) Giúp học viên nắm vững cấu trúc 22 dạng bài PTE, hiểu rõ tiêu chí chấm điểm, áp dụng chiến lược phù hợp với từng target và được phân tích lỗi sai sau từng bài tập để tối ưu điểm số trước kỳ thi thật. Tư Vấn Ngay Career English tiếng anh giao tiếp người đi làm Thiết kế chuyên biệt để giúp bạn tư tin khi đi phỏng vấn và trao đổi trong môi trường làm việc. Khóa học được thiết kế cho 5 lĩnh vực xu hướng tại Úc. Tư Vấn Ngay Khóa học phù hợp với bạn Nhận lộ trình học ngay Khóa PTE Cho Visa 462 Khóa học này được thiết kế dành riêng cho những bạn chưa từng thi PTE, đang chạy đua với thời gian để kịp thời hạn hoàn thành hồ sơ visa 462. Lộ trình học ngắn gọn, dễ hiểu, tập trung đúng kỹ năng giúp bạn đạt mốc 30 nhanh nhất có thể. Tư Vấn Ngay Khóa PTE cho visa 482 Khóa học Khóa PTE cho visa 482 được thiết kế riêng cho những ai đang mắc kẹt ở mức điểm PTE, cần một lối đi đúng đắn và hiệu quả. Với phương pháp luyện tập chuyên sâu & cá nhân hóa theo điểm yếu, bạn sẽ bứt phá đạt được số điểm mục tiêu, tiến đến visa 482 một cách vững vàng. Tư Vấn Ngay Khóa PTE Cho Visa",
+      "Pearson": " khoản sử dụng Chính sách thanh toán Cập nhật điểm chứng chỉ PTE cho tất các dòng Visa mới nhất PTE Magic: Trung Tâm Luyện Thi PTE Cấp Tốc #1 Cho Người Việt ĐỐI TÁC CHÍNH THỨC CỦA PEARSON PTE TẠI VIỆT NAM Phương pháp T.E.S.T độc quyền: Tái định hình năng lực tiếng Anh cốt lõi, biến kiến thức thành kỹ năng sống. Platform luyện thi PTE tự chủ: Chấm điểm tức thì với độ chuẩn xác chạm ngưỡng hoàn hảo; kho đề và tài liệu luôn cập nhật liên tục. Đội ngũ trainer chuẩn 3C: Sự kết hợp của ba chuẩn mực danh giá – PTE, Magic và Pearson – bảo chứng cho chuyên môn vượt trội. Cam kết đầu ra bằng dữ liệu: Mọi tiến bộ đều được ghi nhận và chứng minh bằng con số trong suốt quá trình học. Hệ thống PTE Magic Toàn cầu: Trung tâm luyện thi PTE uy tín với 13 cơ sở trải dài trên toàn cầu từ Việt Nam, Úc, Philippines đến Thái Lan Transform your life through the power of language Là triết lý giáo dục mà PTE MAGIC luôn theo đuổi. Với chúng tôi, ngôn ngữ không chỉ là công cụ giao tiếp, mà là chìa khóa để mở ra cơ hội, thay đổi số phận và giữ vững những giấc mơ lớn. Mỗi bài học, mỗi phương pháp giảng dạy đều được thiết kế để giúp học viên không chỉ thi đậu, mà đủ sức bước ra đời thật, vững vàng và tự chủ hơn bao giờ hết. TRẢI NGHIỆM PTE MIỄN PHÍ – AI CHẤM ĐIỂM TỨC THÌ Nền tảng luyện thi ",
+      "cam kết": "g hoàn hảo; kho đề và tài liệu luôn cập nhật liên tục. Đội ngũ trainer chuẩn 3C: Sự kết hợp của ba chuẩn mực danh giá – PTE, Magic và Pearson – bảo chứng cho chuyên môn vượt trội. Cam kết đầu ra bằng dữ liệu: Mọi tiến bộ đều được ghi nhận và chứng minh bằng con số trong suốt quá trình học. Hệ thống PTE Magic Toàn cầu: Trung tâm luyện thi PTE uy tín với 13 cơ sở trải dài trên toàn cầu từ Việt Nam, Úc, Philippines đến Thái Lan Transform your life through the power of language Là triết lý giáo dục mà PTE MAGIC luôn theo đuổi. Với chúng tôi, ngôn ngữ không chỉ là công cụ giao tiếp, mà là chìa khóa để mở ra cơ hội, thay đổi số phận và giữ vững những giấc mơ lớn. Mỗi bài học, mỗi phương pháp giảng dạy đều được thiết kế để giúp học viên không chỉ thi đậu, mà đủ sức bước ra đời thật, vững vàng và tự chủ hơn bao giờ hết. TRẢI NGHIỆM PTE MIỄN PHÍ – AI CHẤM ĐIỂM TỨC THÌ Nền tảng luyện thi PTE sử dụng AI đầu tiên và duy nhất cho người Việt Chấm đủ 4 kĩ năng – Sát với điểm thi thật AI chấm điểm tức thì – Nhận xét chi tiết Ngân hàng đề thi cập nhật hàng ngày Thi Thử Ngay Thi Thử Ngay QUY ĐỔI ĐIỂM TIẾNG ANH PTE Chứng chỉ quy đổi IELTS KNLNN Việt Nam TOEIC TOEFL iBT Cambridge English EF SET CEFR Level Kết quả quy đổi Đổi Điểm PTE: KHÓA HỌC TIẾNG ANH PTE DÀNH RIÊNG CHO MỌI TRÌ",
+      "giảng viên": "Tâm Luyện Thi PTE Academic Uy Tín Việt Nam Bỏ qua nội dung Menu TRUNG TÂM LUYỆN THI PTE CHẤT LƯỢNG CHO NGƯỜI VIỆT Tìm kiếm: Tìm kiếm: Giới Thiệu Lịch sử thành lập Triết lý đào tạo Giảng viên Các quốc gia nhận chứng chỉ PTE Quý đối tác Cảm nghĩ của học viên Thi Thử PTE Khóa học PTE Foundation 3.0 Booster Pronunciation Super Course 2.0 Intensive Career English DET Intensive (DET 140+) Foundation (DET 90+) Góc kiến thức Thông tin về bài thi PTE PTE Listening PTE Reading PTE Speaking PTE Writing Kinh Nghiệm Thi PTE Kinh nghiệm luyện thi PTE50 – PTE65 Kinh nghiệm luyện thi PTE65 -PTE79 Tin tức mới Sự Kiện Tuyển Dụng Liên Hệ Đăng ký khóa Hợp tác Chính sách Quy định về học viên và khoá học Chính sách bảo mật Điều khoản sử dụng Chính sách thanh toán Cập nhật điểm chứng chỉ PTE cho tất các dòng Visa mới nhất PTE Magic: Trung Tâm Luyện Thi PTE Cấp Tốc #1 Cho Người Việt ĐỐI TÁC CHÍNH THỨC CỦA PEARSON PTE TẠI VIỆT NAM Phương pháp T.E.S.T độc quyền: Tái định hình năng lực tiếng Anh cốt lõi, biến kiến thức thành kỹ năng sống. Platform luyện thi PTE tự chủ: Chấm điểm tức thì với độ chuẩn xác chạm ngưỡng hoàn hảo; kho đề và tài liệu luôn cập nhật liên tục. Đội ngũ trainer chuẩn 3C: Sự kết hợp của ba chuẩn mực danh giá – PTE, Magic và Pearson – bảo chứng cho chuyên môn vượt tr"
+    },
+    "text_characters": 27435,
+    "html_analysis": {
+      "title": "PTE Magic: Trung Tâm Luyện Thi PTE Academic Uy Tín Việt Nam",
+      "description": "PTE Magic hệ thống trung tâm luyện thi chứng chỉ PTE Việt Nam với hơn 60.000 học viên. Tự hào là đối tác chiến lược tin cậy của Pearson",
+      "canonical": "https://ptemagic.com.vn/",
+      "robots": {
+        "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      },
+      "og": {
+        "og:locale": "vi_VN",
+        "og:type": "website",
+        "og:title": "PTE Magic: Trung Tâm Luyện Thi PTE Academic Uy Tín Việt Nam",
+        "og:description": "PTE Magic hệ thống trung tâm luyện thi chứng chỉ PTE Việt Nam với hơn 60.000 học viên. Tự hào là đối tác chiến lược tin cậy của Pearson",
+        "og:url": "https://ptemagic.com.vn/",
+        "og:site_name": "PTE Magic",
+        "og:image": "https://ptemagic.com.vn/wp-content/uploads/2025/01/xl_he-thong-luyen-thi.webp",
+        "og:image:width": "600",
+        "og:image:height": "314",
+        "og:image:type": "image/webp"
+      },
+      "h1": [
+        "PTE Magic: Trung Tâm Luyện Thi PTE Cấp Tốc #1 Cho Người Việt"
+      ],
+      "schemas": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://ptemagic.com.vn/",
+              "url": "https://ptemagic.com.vn/",
+              "name": "PTE Magic: Trung Tâm Luyện Thi PTE Academic Uy Tín Việt Nam",
+              "isPartOf": {
+                "@id": "https://ptemagic.com.vn/#website"
+              },
+              "about": {
+                "@id": "https://ptemagic.com.vn/#organization"
+              },
+              "primaryImageOfPage": {
+                "@id": "https://ptemagic.com.vn/#primaryimage"
+              },
+              "image": {
+                "@id": "https://ptemagic.com.vn/#primaryimage"
+              },
+              "thumbnailUrl": "https://ptemagic.com.vn/wp-content/uploads/2025/01/xl_he-thong-luyen-thi.webp",
+              "datePublished": "2024-12-10T04:26:14+00:00",
+              "dateModified": "2026-06-09T08:09:54+00:00",
+              "description": "PTE Magic hệ thống trung tâm luyện thi chứng chỉ PTE Việt Nam với hơn 60.000 học viên. Tự hào là đối tác chiến lược tin cậy của Pearson",
+              "breadcrumb": {
+                "@id": "https://ptemagic.com.vn/#breadcrumb"
+              },
+              "inLanguage": "vi",
+              "potentialAction": [
+                {
+                  "@type": "ReadAction",
+                  "target": [
+                    "https://ptemagic.com.vn/"
+                  ]
+                }
+              ]
+            },
+            {
+              "@type": "ImageObject",
+              "inLanguage": "vi",
+              "@id": "https://ptemagic.com.vn/#primaryimage",
+              "url": "https://ptemagic.com.vn/wp-content/uploads/2025/01/xl_he-thong-luyen-thi.webp",
+              "contentUrl": "https://ptemagic.com.vn/wp-content/uploads/2025/01/xl_he-thong-luyen-thi.webp",
+              "width": 600,
+              "height": 314,
+              "caption": "xl_he-thong-luyen-thi"
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://ptemagic.com.vn/#breadcrumb",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Trang chủ"
+                }
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://ptemagic.com.vn/#website",
+              "url": "https://ptemagic.com.vn/",
+              "name": "PTE Magic Việt Nam",
+              "description": "Trung Tâm Luyện Thi PTE Cho Người Việt Hơn 60.000 Học Viên Tin Tưởng",
+              "publisher": {
+                "@id": "https://ptemagic.com.vn/#organization"
+              },
+              "alternateName": "PTE Magic Pearson PTE Official Partner",
+              "potentialAction": [
+                {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://ptemagic.com.vn/?s={search_term_string}"
+                  },
+                  "query-input": {
+                    "@type": "PropertyValueSpecification",
+                    "valueRequired": true,
+                    "valueName": "search_term_string"
+                  }
+                }
+              ],
+              "inLanguage": "vi"
+            },
+            {
+              "@type": "Organization",
+              "@id": "https://ptemagic.com.vn/#organization",
+              "name": "Trung Tâm Luyện Thi PTE MAGIC",
+              "alternateName": "PTE MAGIC - Pearson PTE Official Partner",
+              "url": "https://ptemagic.com.vn/",
+              "logo": {
+                "@type": "ImageObject",
+                "inLanguage": "vi",
+                "@id": "https://ptemagic.com.vn/#/schema/logo/image/",
+                "url": "https://ptemagic.com.vn/wp-content/uploads/2023/10/logo-co-nen-pte-magic.webp",
+                "contentUrl": "https://ptemagic.com.vn/wp-content/uploads/2023/10/logo-co-nen-pte-magic.webp",
+                "width": 700,
+                "height": 467,
+                "caption": "Trung Tâm Luyện Thi PTE MAGIC"
+              },
+              "image": {
+                "@id": "https://ptemagic.com.vn/#/schema/logo/image/"
+              },
+              "sameAs": [
+                "https://www.facebook.com/hocluyenthiPTE",
+                "https://www.youtube.com/@ptemagic.official",
+                "https://www.tiktok.com/@ptemagicvn"
+              ]
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          "name": "PTE Magic Việt Nam",
+          "alternateName": "Trung tâm luyện thi PTE Magic",
+          "url": "https://ptemagic.com.vn/",
+          "logo": "https://ptemagic.com.vn/wp-content/uploads/2023/10/logo-pte-magic.webp",
+          "image": "https://ptemagic.com.vn/wp-content/uploads/2025/08/PTE-90-ALL-BANDS-02.webp",
+          "description": "PTE Magic hệ thống đào tạo luyện thi chứng chỉ PTE số 1 Việt Nam cho hơn 60.000 học viên. Tự hào là đối tác chiến lược tin cậy của Pearson.",
+          "telephone": "+84888879090",
+          "address": [
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "299 Tân Sơn",
+              "addressLocality": "Gò Vấp",
+              "addressRegion": "TP. Hồ Chí Minh",
+              "postalCode": "700000",
+              "addressCountry": "VN"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "Lầu 5, tòa nhà TSA, 159 Nguyễn Du",
+              "addressLocality": "Quận 1",
+              "addressRegion": "TP. Hồ Chí Minh",
+              "postalCode": "700000",
+              "addressCountry": "VN"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "Số 19, Ngách 3, Ngõ 99 Nguyễn Chí Thanh",
+              "addressLocality": "Đống Đa",
+              "addressRegion": "Hà Nội",
+              "postalCode": "100000",
+              "addressCountry": "VN"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "Số 8, ngõ 18 Nguyễn Khuyến",
+              "addressLocality": "Hà Đông",
+              "addressRegion": "Hà Nội",
+              "postalCode": "100000",
+              "addressCountry": "VN"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "Toà Hoà Xá, 360 Nguyễn Lương Bằng",
+              "addressLocality": "Hải An",
+              "addressRegion": "Hải Phòng",
+              "postalCode": "180000",
+              "addressCountry": "VN"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "26M Nguyễn Thái Học",
+              "addressLocality": "Thành Vinh",
+              "addressRegion": "Nghệ An",
+              "postalCode": "46100",
+              "addressCountry": "VN"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "53/6 Lê Lai",
+              "addressLocality": "Tân An",
+              "addressRegion": "Cần Thơ",
+              "postalCode": "94000",
+              "addressCountry": "VN"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "Số 79 Lê Lợi",
+              "addressLocality": "Hải Châu",
+              "addressRegion": "Đà Nẵng",
+              "postalCode": "550000",
+              "addressCountry": "VN"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "301/370 Pitt street",
+              "addressLocality": "Sydney CBD",
+              "addressRegion": "NSW",
+              "postalCode": "2000",
+              "addressCountry": "AU"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "114/86 Murray Street",
+              "addressLocality": "Hobart CBD",
+              "addressRegion": "TAS",
+              "postalCode": "7000",
+              "addressCountry": "AU"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "Room 208-209 95 Currie Street",
+              "addressLocality": "Adelaide",
+              "addressRegion": "SA",
+              "postalCode": "5000",
+              "addressCountry": "AU"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "Level 2, 226 Albert Street",
+              "addressLocality": "Brisbane",
+              "addressRegion": "QLD",
+              "postalCode": "4000",
+              "addressCountry": "AU"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "Suite 18 level 2, 358 Lonsdale St",
+              "addressLocality": "Melbourne",
+              "addressRegion": "VIC",
+              "postalCode": "3000",
+              "addressCountry": "AU"
+            }
+          ],
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "telephone": "+84888879090",
+              "contactType": "customer service",
+              "areaServed": "VN",
+              "availableLanguage": [
+                "Vietnamese",
+                "English"
+              ]
+            },
+            {
+              "@type": "ContactPoint",
+              "telephone": "+61466253357",
+              "contactType": "customer service",
+              "areaServed": "AU",
+              "availableLanguage": [
+                "English",
+                "Vietnamese"
+              ]
+            }
+          ],
+          "sameAs": [
+            "https://www.facebook.com/HocluyenthiPTE",
+            "https://www.youtube.com/@ptemagic.official",
+            "https://www.tiktok.com/@ptemagic.official",
+            "https://www.instagram.com/ptemagic.official/"
+          ]
+        }
+      ],
+      "schema_errors": [
+        "Invalid control character at: line 19 column 156 (char 741)"
+      ],
+      "images": 409,
+      "missing_alt": 1,
+      "links": [
+        "/",
+        "/cdn-cgi/l/email-protection"
+      ],
+      "main_excerpt": "Cập nhật điểm chứng chỉ PTE cho tất các dòng Visa mới nhất PTE Magic: Trung Tâm Luyện Thi PTE Cấp Tốc #1 Cho Người Việt ĐỐI TÁC CHÍNH THỨC CỦA PEARSON PTE TẠI VIỆT NAM Phương pháp T.E.S.T độc quyền: Tái định hình năng lực tiếng Anh cốt lõi, biến kiến thức thành kỹ năng sống. Platform luyện thi PTE tự chủ: Chấm điểm tức thì với độ chuẩn xác chạm ngưỡng hoàn hảo; kho đề và tài liệu luôn cập nhật liên tục. Đội ngũ trainer chuẩn 3C: Sự kết hợp của ba chuẩn mực danh giá – PTE, Magic và Pearson – bảo chứng cho chuyên môn vượt trội. Cam kết đầu ra bằng dữ liệu: Mọi tiến bộ đều được ghi nhận và chứng minh bằng con số trong suốt quá trình học. Hệ thống PTE Magic Toàn cầu: Trung tâm luyện thi PTE uy tín với 13 cơ sở trải dài trên toàn cầu từ Việt Nam, Úc, Philippines đến Thái Lan Transform your life through the power of language Là triết lý giáo dục mà PTE MAGIC luôn theo đuổi. Với chúng tôi, ngôn ngữ không chỉ là công cụ giao tiếp, mà là chìa khóa để mở ra cơ hội, thay đổi số phận và giữ vững những giấc mơ lớn. Mỗi bài học, mỗi phương pháp giảng dạy đều được thiết kế để giúp học viên không chỉ thi đậu, mà đủ sức bước ra đời thật, vững vàng và tự chủ hơn bao giờ hết. TRẢI NGHIỆM PTE MIỄN PHÍ – AI CHẤM ĐIỂM TỨC THÌ Nền tảng luyện thi PTE sử dụng AI đầu tiên và duy nhất cho người Việt Chấm đủ 4 kĩ năng – Sát với điểm thi thật AI chấm điểm tức thì – Nhận xét chi tiết Ngân hàng đề thi cập nh"
+    }
+  },
+  {
+    "id": "competitor-life",
+    "url": "https://ptelife.com.vn/",
+    "status": 200,
+    "headers": {
+      "content-type": "text/html; charset=UTF-8",
+      "content-encoding": "gzip"
+    },
+    "bytes_decoded": 391490,
+    "sha256": "f249d97cf8c07f23bccf8e5056f16aeec04a075100838221c826258b8591c12a",
+    "redirects": [],
+    "title": "Trung Tâm Luyện Thi PTE Uy Tín tại Việt Nam – PTE Life",
+    "passages": {
+      "cam kết": " lộ trình 👉 Năng lực tiếng Anh yếu. 👉 Cần thi chứng chỉ tiếng Anh để lao động, làm việc tại Úc – New Zealand. 👉 Thi đậu chứng chỉ PTE 24 – 36 trong thời gian ngắn nhất. Học PTE có CAM KẾT – Không lo TRƯỢT Cam kết đầu ra rõ ràng, giảm rủi ro cho người mới bắt đầu! ⛔ Cam kết đầu ra 24-36 bằng văn bản. ⛔ Không đỗ, được hỗ trợ học lại MIỄN PHÍ tối đa 2 lần. ⛔ Lộ trình cá nhân hóa cho người mất gốc hoặc nền yếu. ⛔ Kèm sát từng buổi, sửa Speaking & Writing chi tiết. ⛔ Tối ưu tiến độ để kịp hồ sơ Visa. ☑️ Số buổi : 14 buổi ☑️ Hình thức : Online & Offline PTE 24-36: Hoàn phí theo quy định Năng lực tiếng Anh yếu. Cần thi chứng chỉ tiếng Anh để lao động, làm việc tại Úc – New Zealand. Thường đã quá gấp, cần sự cam kết ở mức độ cao nhất từ phía trung tâm. Thi đậu chứng chỉ PTE 24 – 36 một cách đảm bảo nhất trong thời gian ngắn nhất. Học PTE CAM KẾT có lộ trình cá nhân hoá theo mục tiêu Cam kết HOÀN PHÍ theo quy định, giảm rủi ro cho người học! Hợp đồng cam kết hoàn phí bằng văn bản. Học viên thi 2 lần KHÔNG ĐỖ sẽ được hoàn trả học phí 100%. Xây dựng lộ trình cá nhân hóa theo trình độ của từng học viên. Kèm sát từng buổi, sửa Speaking & Writing chi tiết. Tối ưu tiến độ để kịp hồ sơ Visa. Yêu cầu học viên phải trải qua review kỹ với giáo viên trước khi đăng ký thi, không t",
+      "giảng viên": "I PHÍ MINH BẠCH ( KHÔNG PHÁT SINH ) Khóa ôn tập thời gian ngắn. Học viên chỉ nộp lệ phí ôn một lần duy nhất, không phát sinh thêm bất cứ chi phí nào. 8. ĐỒNG HÀNH TỪ A - Z Đội ngũ giảng viên, trợ giảng hỗ trợ 1-1 sau mỗi buổi học, giải đáp – luyện đề – chữa đề. Hỗ trợ book lịch thi miễn phí. ẢNH CƠ SỞ VẬT CHẤT LỚP HỌC Trung tâm luyện thi PTE Life được trang bị cơ sở vật chất hiện đại, không gian học tập rộng rãi và tiện nghi Feedback học viên - Niềm tự hào của chúng tôi Vinh danh những câu chuyện thành công đầy cảm hứng Play Play Play Play Play Play Play Play Với mục tiêu 42+ cho visa 482, tôi kỹ tính chọn lớp PTE 36-42 của cô Trang Aus và thật may mắn! Cô rất tận tâm, theo sát từng học viên. Cô kiên nhẫn sửa phát âm cho tôi mỗi ngày, hỏi han tiến độ liên tục. Trung tâm còn tặng tài khoản Apeuni \"xịn sò\". Lớp học online ít người nên hiệu quả bất ngờ. Kết quả, tôi đạt điểm cao, cùng người bạn được tôi giới thiệu cũng đậu. Chúng tôi sắp bay sang Úc tháng tới! Anh Nguyễn  Thanh Nam Vĩnh Bảo - Hải Phòng Hành trình chinh phục PTE của tôi bắt đầu với một quyết định khó khăn: học trực tiếp hay online? Với lịch trình công việc dày đặc, tôi đành ngậm ngùi từ bỏ ý định học tại trung tâm và lựa chọn lớp học online qua Zoom của PTELIFE.Và thật may mắn, đây là quyết định đ"
+    },
+    "text_characters": 16228,
+    "html_analysis": {
+      "title": "Trung Tâm Luyện Thi PTE Uy Tín tại Việt Nam – PTE Life",
+      "description": "Luyện thi PTE tại PTE Life: uy tín, lộ trình rõ ràng, giảng viên xuất sắc. Đạt điểm PTE 30 - 79, hiện thực hóa giấc mơ du học và định cư.",
+      "canonical": "https://ptelife.com.vn",
+      "robots": {
+        "robots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      "og": {
+        "og:locale": "vi_VN",
+        "og:type": "website",
+        "og:title": "Trung Tâm Luyện Thi PTE Uy Tín tại Việt Nam – PTE Life",
+        "og:description": "Luyện thi PTE tại PTE Life: uy tín, lộ trình rõ ràng, giảng viên xuất sắc. Đạt điểm PTE 30 - 79, hiện thực hóa giấc mơ du học và định cư.",
+        "og:url": "https://ptelife.com.vn",
+        "og:site_name": "PTE Life",
+        "og:updated_time": "2026-10-09T19:43:09+07:00",
+        "og:image": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg",
+        "og:image:secure_url": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg",
+        "og:image:width": "1200",
+        "og:image:height": "675",
+        "og:image:alt": "luyện thi pte ptelife",
+        "og:image:type": "image/jpeg",
+        "og:video": "https://www.youtube.com/embed/mWwzGl2XxFs"
+      },
+      "h1": [
+        "PTE LIFE: Trung tâm luyện thi PTE"
+      ],
+      "schemas": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://ptelife.com.vn/#organization",
+              "name": "Công ty cổ phần PTE-LIFE",
+              "sameAs": [
+                "facebook.com/ptelifevn",
+                "pinterest.com/ptelifevn",
+                "tumblr.com/ptelifevn",
+                "linktr.ee/ptelifevn",
+                "sites.google.com/view/trungtamptelife/home",
+                "x.com/ptelifevn",
+                "youtube.com/@PTELife",
+                "flickr.com/people/ptelifevn"
+              ],
+              "logo": {
+                "@type": "ImageObject",
+                "@id": "https://ptelife.com.vn/#logo",
+                "url": "https://ptelife.com.vn/wp-content/uploads/2023/10/logo-pte-life-500.png",
+                "contentUrl": "https://ptelife.com.vn/wp-content/uploads/2023/10/logo-pte-life-500.png",
+                "caption": "PTE Life",
+                "inLanguage": "vi",
+                "width": "500",
+                "height": "164"
+              }
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://ptelife.com.vn/#website",
+              "url": "https://ptelife.com.vn",
+              "name": "PTE Life",
+              "alternateName": "PTE Life",
+              "publisher": {
+                "@id": "https://ptelife.com.vn/#organization"
+              },
+              "inLanguage": "vi",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://ptelife.com.vn/?s={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "ImageObject",
+              "@id": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg",
+              "url": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg",
+              "width": "1200",
+              "height": "675",
+              "caption": "luyện thi pte ptelife",
+              "inLanguage": "vi"
+            },
+            {
+              "@type": "WebPage",
+              "@id": "https://ptelife.com.vn#webpage",
+              "url": "https://ptelife.com.vn",
+              "name": "Trung Tâm Luyện Thi PTE Uy Tín tại Việt Nam – PTE Life",
+              "datePublished": "2024-05-30T09:35:42+07:00",
+              "dateModified": "2026-10-09T19:43:09+07:00",
+              "about": {
+                "@id": "https://ptelife.com.vn/#organization"
+              },
+              "isPartOf": {
+                "@id": "https://ptelife.com.vn/#website"
+              },
+              "primaryImageOfPage": {
+                "@id": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg"
+              },
+              "inLanguage": "vi"
+            },
+            {
+              "@type": "Person",
+              "@id": "https://ptelife.com.vn/author/doanthaopte",
+              "name": "Đoàn Thảo PTE",
+              "description": "Mình là Đoàn Thảo Pte, tác giả viết bài cho trang web PTE Life (ptelife.com.vn). Tôi tốt nghiệp loại Giỏi khoa Tiếng Anh trường Đại học Ngoại ngữ....",
+              "url": "https://ptelife.com.vn/author/doanthaopte",
+              "image": {
+                "@type": "ImageObject",
+                "@id": "https://secure.gravatar.com/avatar/06210fb26285c3600c2906e07a890ab99884ebe4d7d0d8a027e7a74fd127cf0a?s=96&amp;d=wavatar&amp;r=g",
+                "url": "https://secure.gravatar.com/avatar/06210fb26285c3600c2906e07a890ab99884ebe4d7d0d8a027e7a74fd127cf0a?s=96&amp;d=wavatar&amp;r=g",
+                "caption": "Đoàn Thảo PTE",
+                "inLanguage": "vi"
+              },
+              "sameAs": [
+                "http://sites.google.com/view/doanthaoptelife",
+                "http://x.com/doanthaoptelife,",
+                "http://instagram.com/doanthaoptelife",
+                "http://youtube.com/@doanthaoptelife",
+                "http://behance.net/doanthaoptelife",
+                "http://tumblr.com/doanthaoptelife",
+                "http://tiktok.com/@doanthaoptelife",
+                "http://linktr.ee/doanthaopte",
+                "http://threads.net/@doanthaoptelife"
+              ],
+              "worksFor": {
+                "@id": "https://ptelife.com.vn/#organization"
+              }
+            },
+            {
+              "headline": "Trung Tâm Luyện Thi PTE Uy Tín tại Việt Nam – PTE Life",
+              "description": "Luyện thi PTE tại PTE Life: uy tín, lộ trình rõ ràng, giảng viên xuất sắc. Đạt điểm PTE 30 - 79, hiện thực hóa giấc mơ du học và định cư.",
+              "datePublished": "2024-05-30T09:35:42+07:00",
+              "dateModified": "2026-10-09T19:43:09+07:00",
+              "image": {
+                "@id": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg"
+              },
+              "author": {
+                "@id": "https://ptelife.com.vn/author/doanthaopte",
+                "name": "Đoàn Thảo PTE"
+              },
+              "@type": "Article",
+              "name": "Trung Tâm Luyện Thi PTE Uy Tín tại Việt Nam – PTE Life",
+              "@id": "https://ptelife.com.vn#schema-13647",
+              "isPartOf": {
+                "@id": "https://ptelife.com.vn#webpage"
+              },
+              "publisher": {
+                "@id": "https://ptelife.com.vn/#organization"
+              },
+              "inLanguage": "vi",
+              "mainEntityOfPage": {
+                "@id": "https://ptelife.com.vn#webpage"
+              }
+            },
+            {
+              "@type": "VideoObject",
+              "name": "Feedback: Thợ sửa ô tô đạt điểm PTE 49 trong 6 tuần tại PTE Life",
+              "description": "PTELIFE - TRUNG TÂM LUYỆN THI CHỨNG CHỈ PTE DU HỌC ĐỊNH CƯ Ôn nhanh - Pass đậm - Tỷ lệ đậu 94.06% • CS1: Số 15, Ngõ 167 Tây Sơn, Kim Liên, Hà Nội• CS2: 72 Ng...",
+              "uploadDate": "2024-09-22T19:04:50-07:00",
+              "thumbnailUrl": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg",
+              "embedUrl": "https://www.youtube.com/embed/ZwAn6-mcpJk",
+              "duration": "PT1M30S",
+              "width": "1280",
+              "height": "720",
+              "isFamilyFriendly": "1",
+              "@id": "https://ptelife.com.vn#schema-364820",
+              "isPartOf": {
+                "@id": "https://ptelife.com.vn#webpage"
+              },
+              "publisher": {
+                "@id": "https://ptelife.com.vn/#organization"
+              },
+              "inLanguage": "vi"
+            },
+            {
+              "@type": "VideoObject",
+              "name": "Feedback: Từ mất gốc tiếng Anh đạt PTE 46 điểm Đinh Quang Tiến - PTE Life",
+              "description": "PTELIFE - TRUNG TÂM LUYỆN THI CHỨNG CHỈ PTE DU HỌC ĐỊNH CƯ Ôn nhanh - Pass đậm - Tỷ lệ đậu 94.06% • CS1: Số 15, Ngõ 167 Tây Sơn, Kim Liên, Hà Nội• CS2: 72 Ng...",
+              "uploadDate": "2024-09-22T19:11:13-07:00",
+              "thumbnailUrl": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg",
+              "embedUrl": "https://www.youtube.com/embed/yAaHJ9CrpaE",
+              "duration": "PT2M41S",
+              "width": "1280",
+              "height": "720",
+              "isFamilyFriendly": "1",
+              "@id": "https://ptelife.com.vn#schema-364821",
+              "isPartOf": {
+                "@id": "https://ptelife.com.vn#webpage"
+              },
+              "publisher": {
+                "@id": "https://ptelife.com.vn/#organization"
+              },
+              "inLanguage": "vi"
+            },
+            {
+              "@type": "VideoObject",
+              "name": "Feedback: Học viên đạt PTE 53 điểm sau 3 tuần tại PTE Life",
+              "description": "PTELIFE - TRUNG TÂM LUYỆN THI CHỨNG CHỈ PTE DU HỌC ĐỊNH CƯ Ôn nhanh - Pass đậm - Tỷ lệ đậu 94.06% • CS1: Số 15, Ngõ 167 Tây Sơn, Kim Liên, Hà Nội• CS2: 72 Ng...",
+              "uploadDate": "2024-09-22T19:18:18-07:00",
+              "thumbnailUrl": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg",
+              "embedUrl": "https://www.youtube.com/embed/Le-WeLuvDaA",
+              "duration": "PT3M11S",
+              "width": "960",
+              "height": "720",
+              "isFamilyFriendly": "1",
+              "@id": "https://ptelife.com.vn#schema-364822",
+              "isPartOf": {
+                "@id": "https://ptelife.com.vn#webpage"
+              },
+              "publisher": {
+                "@id": "https://ptelife.com.vn/#organization"
+              },
+              "inLanguage": "vi"
+            },
+            {
+              "@type": "VideoObject",
+              "name": "FEEDBACK: BẠN PHƯƠNG NHI 22 TUỔI ĐẠT PTE 42 SAU 4 TUẦN",
+              "description": "Bạn có tin rằng chỉ sau 4 tuần luyện thi PTE, một người mất gốc tiếng Anh vẫn có thể đạt PTE 42 điểm? Trong video này, bạn Phương Nhi (22 tuổi) sẽ chia sẻ fe...",
+              "uploadDate": "2025-07-25T07:35:00-07:00",
+              "thumbnailUrl": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg",
+              "embedUrl": "https://www.youtube.com/embed/sPT47fpGM40",
+              "duration": "PT1M35S",
+              "width": "1280",
+              "height": "720",
+              "isFamilyFriendly": "1",
+              "@id": "https://ptelife.com.vn#schema-364823",
+              "isPartOf": {
+                "@id": "https://ptelife.com.vn#webpage"
+              },
+              "publisher": {
+                "@id": "https://ptelife.com.vn/#organization"
+              },
+              "inLanguage": "vi"
+            },
+            {
+              "@type": "VideoObject",
+              "name": "VƯỢT MỤC TIÊU PTE Chỉ Với 4 Tuần Học Cùng PTE LIFE",
+              "description": "Đi Úc với diện visa 482, chị Thanh thi trượt đến lần trước khi đi đến PTE Life. Với sự tận tâm, nhiệt tình của thầy cô tại trung tâm, chị đã đi thi vượt mục ...",
+              "uploadDate": "2024-10-09T04:04:34-07:00",
+              "thumbnailUrl": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg",
+              "embedUrl": "https://www.youtube.com/embed/MDwGLtIa2eY",
+              "duration": "PT1M26S",
+              "width": "1280",
+              "height": "720",
+              "isFamilyFriendly": "1",
+              "@id": "https://ptelife.com.vn#schema-364824",
+              "isPartOf": {
+                "@id": "https://ptelife.com.vn#webpage"
+              },
+              "publisher": {
+                "@id": "https://ptelife.com.vn/#organization"
+              },
+              "inLanguage": "vi"
+            },
+            {
+              "@type": "VideoObject",
+              "name": "😱 Cứ tưởng &#039;Buông xuôi giấc mơ ÚC&#039; chỉ vì 2 lần thi trượt Ielts, bất ngờ tìm được phao cứu sinh PTE",
+              "description": "😱 Cứ tưởng &quot;&quot;Buông xuôi giấc mơ ÚC&quot;&quot; chỉ vì 2 lần thi trượt Ielts, bất ngờ tìm được phao cứu sinh PTE. Đôi bạn cùng tiến thành công pass PTE 42+ trong 1 thá...",
+              "uploadDate": "2024-03-14T21:13:35-07:00",
+              "thumbnailUrl": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg",
+              "embedUrl": "https://www.youtube.com/embed/VG1y3rT9F5k",
+              "duration": "PT1M57S",
+              "width": "1280",
+              "height": "720",
+              "isFamilyFriendly": "1",
+              "@id": "https://ptelife.com.vn#schema-364825",
+              "isPartOf": {
+                "@id": "https://ptelife.com.vn#webpage"
+              },
+              "publisher": {
+                "@id": "https://ptelife.com.vn/#organization"
+              },
+              "inLanguage": "vi"
+            },
+            {
+              "@type": "VideoObject",
+              "name": "Từ mất gốc đến thi đạt PTE 45 chỉ với 2 tháng học tại nhà! Xin ngay visa 482 đi Úc",
+              "description": "Bạn đang mong muốn đi du học, làm việc, định cư nhưng lại không giỏi tiếng Anh, lâu không sử dụng hay &quot;MẤT GỐC&quot;✅Để Pte Life giải quyết tất cả nỗi lo của bạn ...",
+              "uploadDate": "2023-10-05T02:10:49-07:00",
+              "thumbnailUrl": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg",
+              "embedUrl": "https://www.youtube.com/embed/71_OxI33tY4",
+              "duration": "PT1M49S",
+              "width": "1280",
+              "height": "720",
+              "isFamilyFriendly": "1",
+              "@id": "https://ptelife.com.vn#schema-364826",
+              "isPartOf": {
+                "@id": "https://ptelife.com.vn#webpage"
+              },
+              "publisher": {
+                "@id": "https://ptelife.com.vn/#organization"
+              },
+              "inLanguage": "vi"
+            },
+            {
+              "@type": "VideoObject",
+              "name": "THI ĐỖ PTE  39+  CHỈ SAU 1 THÁNG HỌC | ĐỦ ĐIỀU KIỆN XIN VISA DU HỌC NGHỀ TẠI ÚC",
+              "description": "💪 Với ước mơ từ nhỏ được đi du học Úc, Phương Linh rất háo hức và mong chờ nhưng điều kiện Visa yêu cầu chứng chỉ tiếng Anh PTE tối thiểu 30 điểm. Đứng trướ...",
+              "uploadDate": "2023-10-04T01:08:48-07:00",
+              "thumbnailUrl": "https://ptelife.com.vn/wp-content/uploads/2024/11/luyen-thi-pte-ptelife.jpg",
+              "embedUrl": "https://www.youtube.com/embed/mWwzGl2XxFs",
+              "duration": "PT1M44S",
+              "width": "1280",
+              "height": "720",
+              "isFamilyFriendly": "1",
+              "@id": "https://ptelife.com.vn#schema-364827",
+              "isPartOf": {
+                "@id": "https://ptelife.com.vn#webpage"
+              },
+              "publisher": {
+                "@id": "https://ptelife.com.vn/#organization"
+              },
+              "inLanguage": "vi"
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org/",
+          "@type": "Person",
+          "name": "Nguyễn Trung Tín",
+          "url": "https://ptelife.com.vn/doi-ngu-nhan-su-cua-ptelife/mr-trung-tin",
+          "image": "https://ptelife.com.vn/wp-content/uploads/2025/04/giang-vien-nguyen-trung-tien-ptelife.jpg",
+          "sameAs": [
+            "https://x.com/trungtinptelife",
+            "https://www.pinterest.com/trungtinptelife/",
+            "https://www.youtube.com/channel/UC4hlzOyqMEWQfC5wrx1aLng/about",
+            "https://www.twitch.tv/trungtinptelife/about",
+            "https://gravatar.com/mrtrungtinptelife",
+            "https://trungtinptelife.tumblr.com/",
+            "https://www.behance.net/trungtinptelife",
+            "https://about.me/trungtinptelife/"
+          ],
+          "jobTitle": "Giảng viên tiếng Anh",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "PTE Life"
+          }
+        },
+        {
+          "@context": "schema.org",
+          "@type": "Organization",
+          "name": "Công ty cổ phần PTE-LIFE",
+          "alternateName": "PTE-LIFE",
+          "url": "https://ptelife.com.vn/",
+          "logo": "https://ptelife.com.vn/wp-content/uploads/2023/10/logo-pte-life-500.png",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "0762116448",
+            "contactType": "sales",
+            "contactOption": "TollFree",
+            "areaServed": "VN",
+            "availableLanguage": "Vietnamese"
+          },
+          "sameAs": [
+            "https://www.pinterest.com/ptelifevn/",
+            "https://www.facebook.com/ptelifevn",
+            "https://www.flickr.com/people/ptelifevn/",
+            "https://linktr.ee/ptelifevn",
+            "https://www.tumblr.com/ptelifevn",
+            "https://www.behance.net/ptelifevn",
+            "https://www.youtube.com/@PTELife",
+            "https://x.com/ptelifevn",
+            "https://www.reddit.com/user/trungtamptelife/",
+            "https://gravatar.com/trungtamptelife",
+            "https://sites.google.com/view/trungtamptelife/home",
+            "https://www.blogger.com/profile/13564408032601434526"
+          ]
+        },
+        {
+          "@context": "schema.org",
+          "@type": "LocalBusiness",
+          "name": "Công ty cổ phần PTE-LIFE",
+          "image": "https://ptelife.com.vn/wp-content/uploads/2023/10/logo-pte-life-500.png",
+          "hasMap": "https://maps.app.goo.gl/wxhx8wUPScuq5CYL8",
+          "url": "https://ptelife.com.vn",
+          "telephone": "0762116448",
+          "priceRange": "100000",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Số 15, Ngõ 167 Tây Sơn, Quang Trung, Đống Đa",
+            "addressLocality": "Hà Nội",
+            "postalCode": "11500",
+            "addressCountry": "VN"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 21.0103082,
+            "longitude": 105.8259496
+          },
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Monday",
+              "opens": "08:00",
+              "closes": "17:30"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Tuesday",
+              "opens": "08:00",
+              "closes": "17:30"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Wednesday",
+              "opens": "08:00",
+              "closes": "17:30"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Thursday",
+              "opens": "08:00",
+              "closes": "17:30"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Friday",
+              "opens": "08:00",
+              "closes": "17:30"
+            }
+          ],
+          "sameAs": [
+            "pinterest.com/ptelifevn",
+            "facebook.com/ptelifevn",
+            "flickr.com/people/ptelifevn",
+            "linktr.ee/ptelifevn",
+            "tumblr.com/ptelifevn",
+            "behance.net/ptelifevn",
+            "youtube.com/@PTELife",
+            "x.com/ptelifevn",
+            "reddit.com/user/trungtamptelife",
+            "sites.google.com/view/trungtamptelife/home"
+          ]
+        }
+      ],
+      "schema_errors": [],
+      "images": 95,
+      "missing_alt": 0,
+      "links": [
+        "/hoc-phi"
+      ],
+      "main_excerpt": "Trung Tâm Luyện Thi PTE Uy Tín tại Việt Nam – PTE Life Chuyển đến nội dung 0762.116.448 lienhe@ptelife.com.vn Đóng học phí Trung tâm luyện thi PTE-LIFE Trung tâm luyện thi PTE-LIFE là đơn vị chuyên cung cấp các khóa luyện thi chứng chỉ tiếng Anh PTE . Là chứng chỉ anh ngữ phổ biến cho những ai có mong muốn đi du học, định cư và làm việc ở các nước nói tiếng Anh, đặc biệt Úc, Canada và New Zealand, Anh, Mỹ… Mỗi năm, PTELife tiếp nhận nhiều học viên đăng ký lớp học và có phản hồi rất tốt về chất lượng giảng dạy. Từng bước vững chắc dành được sự tin tưởng của học viên. CÁC KHÓA LUYỆN THI CHỨNG CHỈ PTE TẠI PTE-LIFE Giúp hàng ngàn học viên thi đạt chứng chỉ PTE đủ điều kiện xét tuyển visa du học – làm việc – định cư Cho người mất gốc Khóa phát âm PTE Chống liệt Speaking Khóa luyện đề PTE 24-36: Cá nhân hoá lộ trình PTE 24-36: Hoàn phí theo quy định PTE 36-42: Cá nhân hoá lộ trình Khóa PTE 50+ Khóa VIP 1 kèm 1 Cho người mất gốc Dành cho học viên mất gốc hoặc chưa từng học tiếng Anh, cần xây dựng lại nền tảng căn bản trước khi bước vào các khóa luyện thi PTE. 👉 Cung cấp kiến thức ngữ pháp cốt lõi, bám sát nội dung bài thi PTE. 👉 Được học 9 chủ đề từ vựng phổ biến và luyện các dạng bài theo đúng format PTE. 👉 Làm quen cấu trúc đề, tích lũy từ vựng và xây nền tảng vững chắc trước. ☑️ Số buổi : 15 buổi ☑️ Hình thức : Online và Offline Khóa phát âm PTE Phù hợp với học viên mất gốc, hạn ch"
+    }
+  },
+  {
+    "id": "competitor-helper",
+    "url": "https://ptehelper.com.au/",
+    "status": 200,
+    "headers": {
+      "content-type": "text/html; charset=UTF-8",
+      "content-encoding": "gzip"
+    },
+    "bytes_decoded": 877147,
+    "sha256": "48ca183c3a12915368d8d73f908ffbe1548bed1d40b9cd4b02856952f8169773",
+    "redirects": [],
+    "title": "Trung Tâm Luyện Thi PTE Tốt Nhất Việt Nam - PTE Helper",
+    "passages": {
+      "Pearson": "PTE Helper +61 450 383 579 +84 345 93 95 66 Search Search PTE Helper: Trung Tâm Luyện Thi PTE Tốt Nhất #1 Việt Nam 9 NĂM DẪN ĐẦU PTE TẠI VIỆT NAM - ĐỐI TÁC ELITE 4⭐ CHÍNH THỨC CỦA PEARSON 9 + Năm hoạt động 100 + Nhân sự cống hiến 40000 + Học viên cán đích 500 + Đối tác đồng hành 6 + Cơ sở trên thế giới 1000 + Bài giảng miễn phí đến cộng đồng Lộ trình luyện thi PTE từ A - Z Mọi thứ bạn cần để thi PTE 24-79 (IELTS 4.5 – 8.0) ngay cả khi bạn mất gốc đều có ở đây Nhận lộ trình luyện PTE Miễn phí Chia sẻ lộ trình chi tiết, tài liệu học và các yêu cầu cần đạt được cho mỗi target. Giúp bạn có định hướng học tập tốt từ ban đầu từ đó nhẹ nhàng chinh phục điểm số trong thời gian ngắn nhất! Học thử online Tài liệu miễn phí Kinh nghiệm thi PTE 24-42 Kinh nghiệm thi PTE 50-58 Kinh nghiệm thi PTE 65-79 Các bài viết kiến thức hàng đầu PTE Express Là Gì? Giải Mã Chứng Chỉ Du Học Mỹ Cấp Tốc Bạn đang tìm kiếm một chứng chỉ tiếng Anh... PTE Core Là Gì? So Sánh PTE Core Với PTE Academic – Mới Nhất PTE Core là gì? Làm thế nào PTE Core... Hướng Dẫn Lộ Trình Luyện Thi PTE Dành Cho Người Mới Bắt Đầu Học PTE không đơn giản cho các bạn mới... 3 quyển tài liệu, sách luyện thi PTE hay nhất không thể bỏ qua Nhắc đến tài liệu và sách luyện thi PTE,... Cấu trúc đề thi PTE 2026 mới nhất & cá",
+      "cam kết": "áp thắc mắc ngay trên lớp. Ngoài giờ học PTE Online , Tổng Đài Học Thuật sẽ theo dõi tiến độ sát sao, giải đáp 1 kèm 1 để đảm bảo mọi học viên hiểu bài và nắm thông tin cần thiết. CAM KẾT ĐẦU RA BẰNG VĂN BẢN PHÁP LÝ PTE HELPER cam kết đầu ra bằng văn bản theo lộ trình học phù hợp từ 3 đến 12 tháng. Đội ngũ học thuật sẽ không ngừng theo dõi và đánh giá tiến trình học hàng tuần để đảm bảo học viên đạt kết quả sau khóa học. Bên cạnh đó, PTE HELPER là trung tâm đăng ký thi PTE chính thức được ủy quyền bởi Pearson vì vậy học viên sẽ được hỗ trợ đăng ký thi PTE dễ dàng, nhanh chóng và hoàn toàn miễn phí. Dàn giáo viên chuyên môn cao 100% Giáo viên đạt chứng chỉ PTE Academic Trainer từ Pearson. Ms. AMY ĐOÀN HEAD TRAINER | PTE 90 10 năm kinh nghiệm giảng dạy tiếng anh. Cựu giám thị chính của Kỳ thi PTE, Pearson. Cử nhân Ngôn ngữ học tại Đại học Hoa Sen, TP.HCM Ms. LIÊN NGUYỄN PTE TRAINER | PTE 90 5 năm kinh nghiệm giảng dạy tiếng Anh cho các đối tượng đa dạng lứa tuổi. Chứng chỉ TESOL của viện AIT, Úc. Mr. NAM NGUYỄN PTE TRAINER | PTE 90 3 năm kinh nghiệm luyện thi chứng chỉ tiếng Anh. Giải 3 Chung kết năm Đường lên đỉnh Olympia 2013. Giáo viên sở hữu chứng chỉ PTE 90. Ms. TRANG VŨ PTE TRAINER | PTE 90 7 năm kinh nghiệm giảng dạy tiếng Anh cho nhiều đối tượng. 3 năm k",
+      "giảng viên": "i có được học thử không? Có. Anh/Chị có thể học thử cùng lớp đang học thật từ 1-2 buổi vào thứ 2,4,6 hàng tuần để trải nghiệm phương pháp giảng dạy tối ưu được dẫn dắt bởi đội ngũ giảng viên giàu kinh nghiệm tại PTE HELPER. Luyện thi PTE mọi lúc mọi nơi cùng PTE HELPER Tham gia Hệ sinh thái của trung tâm PTE HELPER để cùng giao lưu và nhận các kinh nghiệm, phương pháp luyện PTE để đi du học; làm việc hay định cư nhé! Website PTE HELPER Uy tín nhất Việt Nam ptehelper.com.au Youtube PTE HELPER Kỹ năng chuyên sâu Truy cập Youtube Fanpage PTE HELPER Chất lượng hàng đầu FB: PTE Helper Cộng đồng PTE​ Hỗ trợ học tập Free Truy ập Cộng Đồng PTE Tiktok PTE HELPER Vui học mỗi ngày Truy cập TikTok Tư vấn miễn phí lộ trình học và luyện thi giúp bạn lấy điểm PTE nhanh chóng và tiết kiệm nhất. ÚC - AUSTRALIA +61 450 383 579 VIỆT NAM +0345 939 566 +0888 763 488 +0888 768 488 info@ptehelper.com.au MST: 0316398725 HỒ CHÍ MINH 440 Điện Biên Phủ, Phường Vườn Lài, HCM. (Ngay góc Điện Biên Phủ và Cao Thắng) HÀ NỘI Tầng 6, Số 10, Ngõ 27 Huỳnh Thúc Kháng, Phường Láng, Hà Nội BRISBANE 128 Station Road, Indooroopilly, Queensland 4068, Australia. MELBOURNE Suite 417, 480 Collins Street, Melbourne 3000, Victoria Australia. PERTH 188 Adelaide Tce, East Perth, Western Australia 6004. ADELA"
+    },
+    "text_characters": 24978,
+    "html_analysis": {
+      "title": "Trung Tâm Luyện Thi PTE Tốt Nhất Việt Nam - PTE Helper",
+      "description": "Với đội ngũ giảng dạy và nguồn tài liệu 100% từ đề thi thật. Hàng ngàn học viên đã đạt điểm cao từ 30 đến 90 thành công tại luyện thi PTE Helper",
+      "canonical": "https://ptehelper.com.au/",
+      "robots": {
+        "robots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
+      },
+      "og": {
+        "og:locale": "vi_VN",
+        "og:type": "website",
+        "og:title": "Trung Tâm Luyện Thi PTE Tốt Nhất Việt Nam - PTE Helper",
+        "og:description": "Với đội ngũ giảng dạy và nguồn tài liệu 100% từ đề thi thật. Hàng ngàn học viên đã đạt điểm cao từ 30 đến 90 thành công tại luyện thi PTE Helper",
+        "og:url": "https://ptehelper.com.au/",
+        "og:updated_time": "2026-08-03T19:21:49+07:00",
+        "og:image": "https://ptehelper.com.au/wp-content/uploads/2026/03/trung-tam-luyen-thi-pte.jpg",
+        "og:image:secure_url": "https://ptehelper.com.au/wp-content/uploads/2026/03/trung-tam-luyen-thi-pte.jpg",
+        "og:image:width": "960",
+        "og:image:height": "540",
+        "og:image:alt": "luyện thi pte",
+        "og:image:type": "image/jpeg",
+        "og:video": "https://www.youtube.com/embed/dnTgiNlZPYI"
+      },
+      "h1": [
+        "PTE Helper: Trung Tâm Luyện Thi PTE Tốt Nhất #1 Việt Nam"
+      ],
+      "schemas": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://ptehelper.com.au/#organization",
+              "name": "PTEHELPER.COM.AU",
+              "url": "https://ptehelper.com.au"
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://ptehelper.com.au/#website",
+              "url": "https://ptehelper.com.au",
+              "publisher": {
+                "@id": "https://ptehelper.com.au/#organization"
+              },
+              "inLanguage": "vi",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://ptehelper.com.au/?s={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "ImageObject",
+              "@id": "https://ptehelper.com.au/wp-content/uploads/2026/03/trung-tam-luyen-thi-pte.jpg",
+              "url": "https://ptehelper.com.au/wp-content/uploads/2026/03/trung-tam-luyen-thi-pte.jpg",
+              "width": "960",
+              "height": "540",
+              "inLanguage": "vi"
+            },
+            {
+              "@type": "WebPage",
+              "@id": "https://ptehelper.com.au/#webpage",
+              "url": "https://ptehelper.com.au/",
+              "name": "Trung Tâm Luyện Thi PTE Tốt Nhất Việt Nam - PTE Helper",
+              "datePublished": "2023-07-29T08:15:32+07:00",
+              "dateModified": "2026-08-03T19:21:49+07:00",
+              "about": {
+                "@id": "https://ptehelper.com.au/#organization"
+              },
+              "isPartOf": {
+                "@id": "https://ptehelper.com.au/#website"
+              },
+              "primaryImageOfPage": {
+                "@id": "https://ptehelper.com.au/wp-content/uploads/2026/03/trung-tam-luyen-thi-pte.jpg"
+              },
+              "inLanguage": "vi"
+            },
+            {
+              "@type": "Person",
+              "@id": "https://ptehelper.com.au/#author",
+              "name": "MR. HUY LÝ",
+              "image": {
+                "@type": "ImageObject",
+                "@id": "https://secure.gravatar.com/avatar/4dfe617fb8a15a89536d814eec284e57?s=96&amp;r=g",
+                "url": "https://secure.gravatar.com/avatar/4dfe617fb8a15a89536d814eec284e57?s=96&amp;r=g",
+                "caption": "MR. HUY LÝ",
+                "inLanguage": "vi"
+              },
+              "sameAs": [
+                "https://ptehelper.com.au/mr-huy-ly-pte-helper/"
+              ],
+              "worksFor": {
+                "@id": "https://ptehelper.com.au/#organization"
+              }
+            },
+            {
+              "headline": "Trung Tâm Luyện Thi PTE Tốt Nhất Việt Nam - PTE Helper",
+              "description": "Với đội ngũ giảng dạy và nguồn tài liệu 100% từ đề thi thật. Hàng ngàn học viên đã đạt điểm cao từ 30 đến 90 thành công tại luyện thi PTE Helper",
+              "datePublished": "2023-07-29T08:15:32+07:00",
+              "dateModified": "2026-08-03T19:21:49+07:00",
+              "keywords": "luyện thi pte",
+              "image": {
+                "@id": "https://ptehelper.com.au/wp-content/uploads/2026/03/trung-tam-luyen-thi-pte.jpg"
+              },
+              "author": {
+                "@id": "https://ptehelper.com.au/#author",
+                "name": "MR. HUY LÝ"
+              },
+              "@type": "Article",
+              "name": "Trung Tâm Luyện Thi PTE Tốt Nhất Việt Nam - PTE Helper",
+              "@id": "https://ptehelper.com.au/#schema-449181",
+              "isPartOf": {
+                "@id": "https://ptehelper.com.au/#webpage"
+              },
+              "publisher": {
+                "@id": "https://ptehelper.com.au/#organization"
+              },
+              "inLanguage": "vi",
+              "mainEntityOfPage": {
+                "@id": "https://ptehelper.com.au/#webpage"
+              }
+            },
+            {
+              "@type": "VideoObject",
+              "name": "PTE 90 Tips | Mẹo &quot;ẵm trọn&quot; PTE 90 Với Speaking &amp; Listening Tuyệt Đối",
+              "description": "PTE 90 Tips | Mẹo &quot;ẵm trọn&quot; PTE 90 Với Speaking &amp; Listening Tuyệt Đối------------------🆓 THAM GIA TRẢI NGHIỆM LỚP HỌC PTE MIỄN PHÍGiúp bạn hiểu rõ về bài th...",
+              "uploadDate": "2024-05-23T05:10:57-07:00",
+              "thumbnailUrl": "https://ptehelper.com.au/wp-content/uploads/2026/03/pte-90-tips-meo-am-tron-pte-90-v.jpg",
+              "embedUrl": "https://www.youtube.com/embed/dnTgiNlZPYI",
+              "duration": "PT10M46S",
+              "width": "1280",
+              "height": "720",
+              "isFamilyFriendly": "True",
+              "@id": "https://ptehelper.com.au/#schema-503600",
+              "isPartOf": {
+                "@id": "https://ptehelper.com.au/#webpage"
+              },
+              "publisher": {
+                "@id": "https://ptehelper.com.au/#organization"
+              },
+              "inLanguage": "vi"
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org/",
+          "@type": "organization",
+          "@id": "#organization",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://ptehelper.com.au/wp-content/uploads/2020/03/pte_home.png"
+          },
+          "url": "https://ptehelper.com.au/",
+          "name": "PTEHelper",
+          "description": "TRUNG TÂM LUYỆN THI PTE CHẤT LƯỢNG SỐ 1 VIỆT NAM"
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          "image": "https://ptehelper.com.au/wp-content/uploads/2020/03/1.png",
+          "founder": {
+            "@type": "Person",
+            "name": "Trịnh Ngọc Vy",
+            "URL": "https://ptehelper.com.au/ms-vy-trinh-pte-helper/",
+            "Address": "440 Điện Biên Phủ, Phường 11, Quận 10, TP. Hồ Chí Minh"
+          },
+          "additionalType": [
+            "https://en.wikipedia.org/wiki/Pearson_Language_Tests",
+            "https://en.wikipedia.org/wiki/Test_of_English_as_a_Foreign_Language",
+            "https://www.google.com/search?q=luyen-thi-pte-tp-hcm"
+          ],
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "8:00:00",
+              "closes": "17:00:00"
+            }
+          ],
+          "sameAs": [
+            "https://www.google.com/search?qPearson%20Language%20Tests&kponly&kgmid=/m/03yffss",
+            "https://www.facebook.com/khoahocluyenthipte/",
+            "https://g.page/luyen-thi-pte-tp-hcm?share",
+            "https://goo.gl/maps/xur69tGUogLM9ARQ8",
+            "https://twitter.com/HelperPte",
+            "https://medium.com/@social.ptehelper",
+            "https://www.instagram.com/ptehelper/",
+            "https://www.pinterest.com/ptehelper/_saved/",
+            "https://www.youtube.com/channel/UC_zGCVwss79S2tFSGLHTlKw",
+            "https://pearsonpte.com/"
+          ],
+          "url": "https://ptehelper.com.au/",
+          "@id": "kg:/g/11h2d847pk",
+          "potentialAction": {
+            "result": {
+              "@type": "Reservation",
+              "name": "Liên hệ"
+            },
+            "@type": "ReserveAction",
+            "target": {
+              "@type": "EntryPoint",
+              "inLanguage": "vn",
+              "actionPlatform": [
+                " http://schema.org/DesktopWebPlatform",
+                "http://schema.org/IOSPlatform",
+                "http://schema.org/AndroidPlatform"
+              ],
+              "urlTemplate": "https://ptehelper.com.au/lien-he/"
+            }
+          },
+          "name": "Trung Tâm Luyện Thi PTE Tốt Nhất Việt Nam",
+          "alternatename": "Luyện thi PTE HÀNG ĐẦU - CAM KẾT ĐẦU RA TRONG THỜI GIAN NGẮN",
+          "description": "Với đội ngũ giảng dạy và nguồn tài liệu 100% từ đề thi thật. Hàng ngàn học viên đã đạt điểm cao từ 30 đến 90 thành công tại luyện thi PTE Helper",
+          "disambiguatingdescription": "Hơn 9000 thành viên hoạt động sôi nổi cùng học hỏi kinh nghiệm luyện thi PTE, mẹo và chiến thuật làm bài hiệu quả từ hàng nghìn học viên đã đạt điểm cao và thành công với PTE HELPER.",
+          "logo": {
+            "type": "ImageObject",
+            "@id": "https://ptehelper.com.au/wp-content/uploads/2020/03/1.png",
+            "url": "https://ptehelper.com.au/wp-content/uploads/2020/03/1.png"
+          },
+          "hasMap": "https://www.google.com/maps?cid=3595493490588674903",
+          "mainEntityOfPage": "https://ptehelper.com.au/ve-pte-helper/",
+          "email": [
+            "vy.ptehelper@gmail.com"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": [
+              "+84971486388"
+            ],
+            "contactType": "Customer support",
+            "email": "vy.ptehelper@gmail.com"
+          },
+          "telephone": "+84971486388",
+          "address": [
+            {
+              "@type": "PostalAddress",
+              "addressCountry": "Việt Nam",
+              "addressLocality": "Quận 10",
+              "addressRegion": "Hồ Chí Minh",
+              "streetAddress": "440 Điện Biên Phủ, Phường 11",
+              "postalCode": "700000"
+            },
+            {
+              "@type": "PostalAddress",
+              "addressCountry": "Việt Nam",
+              "addressLocality": "Đống Đa",
+              "addressRegion": "Hà Nội",
+              "streetAddress": "3 Ngõ 18 Huỳnh Thúc Kháng, Thành Công, Đống Đa, Hà Nội",
+              "postalCode": "100000"
+            }
+          ],
+          "foundingLocation": {
+            "@type": "Place",
+            "name": "Hồ Chí Minh",
+            "url": " https://en.wikipedia.org/wiki/Ho_Chi_Minh_City",
+            "address": "Việt Nam"
+          },
+          "geo": [
+            {
+              "@type": "GeoCoordinates",
+              "latitude": "10.773936",
+              "longitude": "106.679327"
+            },
+            {
+              "@type": "GeoCoordinates",
+              "latitude": "21.01986",
+              "longitude": "105.8074373"
+            }
+          ],
+          "legalName": "Luyện Thi PTE Helper",
+          "foundingDate": "2015",
+          "numberOfEmployees": "150",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "name": "Luyện thi PTE miễn phí",
+                "itemOffered": "Service",
+                "url": "https://ptehelper.com.au/luyen-thi-pte-mien-phi/"
+              },
+              {
+                "@type": "Offer",
+                "name": "PTE 30 VISA 462",
+                "itemOffered": "Service",
+                "url": "https://ptehelper.com.au/luyen-thi-pte-30-visa-462/"
+              },
+              {
+                "@type": "Offer",
+                "name": "PTE CAM KẾT ĐẦU RA",
+                "itemOffered": "Service",
+                "url": "https://ptehelper.com.au/luyen-thi-pte-cap-toc"
+              },
+              {
+                "@type": "Offer",
+                "name": "PTE 1 KÈM 1",
+                "itemOffered": "Service",
+                "url": "https://ptehelper.com.au/luyen-thi-pte-mot-kem-mot/"
+              }
+            ],
+            "name": ""
+          },
+          "areaServed": {
+            "@type": "Country",
+            "url": "https://www.wikidata.org/wiki/Q881",
+            "name": "Việt Nam"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "CÔNG TY TNHH PTE HELPER",
+          "legalName": "PTE HELPER CO., LTD",
+          "foundingDate": "2020-07-21",
+          "founder": "Trịnh Ngọc Vy",
+          "description": "PTE Helper là trung tâm luyện thi PTE hàng đầu tại Việt Nam và quốc tế, chuyên đào tạo tiếng Anh cho du học – việc làm – định cư.",
+          "url": "https://ptehelper.com.au",
+          "logo": "https://ptehelper.com.au/wp-content/uploads/2023/08/Logo_ngang_xanh.png",
+          "image": "https://ptehelper.com.au/wp-content/uploads/2023/08/Logo_ngang_xanh.png",
+          "email": "info@ptehelper.com.au",
+          "telephone": "+84-345-939-566",
+          "taxID": "0316398725",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "440 Điện Biên Phủ, Phường Vườn Lài",
+            "addressLocality": "Quận 10",
+            "addressRegion": "TP.HCM",
+            "postalCode": "700000",
+            "addressCountry": "VN"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 10.772029,
+            "longitude": 106.679854
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "08:45",
+            "closes": "17:30"
+          },
+          "numberOfEmployees": 100,
+          "priceRange": "$$",
+          "sameAs": [
+            "https://www.facebook.com/khoahocluyenthipte",
+            "https://www.facebook.com/groups/750494655130961",
+            "https://www.tiktok.com/@ptehelper",
+            "https://www.youtube.com/@ptehelper_official"
+          ],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": 587,
+            "bestRating": 5
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          "name": "PTE 90 Tips | Mẹo \"ẵm trọn\" PTE 90 Với Speaking & Listening Tuyệt Đối",
+          "description": "PTE Helper chia sẻ mẹo luyện thi Speaking & Listening để đạt điểm tuyệt đối PTE. Video dành cho học viên ôn luyện PTE cấp tốc.",
+          "thumbnailUrl": "https://img.youtube.com/vi/dnTgiNlZPYI/hqdefault.jpg",
+          "uploadDate": "2024-01-15",
+          "duration": "PT10M45S",
+          "contentUrl": "https://www.youtube.com/watch?v=dnTgiNlZPYI",
+          "embedUrl": "https://www.youtube.com/embed/dnTgiNlZPYI",
+          "publisher": {
+            "@type": "Organization",
+            "name": "PTE Helper",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://ptehelper.com.au/wp-content/uploads/2023/08/Logo_ngang_xanh.png"
+            }
+          },
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": {
+              "@type": "WatchAction"
+            },
+            "userInteractionCount": 1000
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Course",
+          "name": "Khoá học luyện thi PTE tại PTE Helper",
+          "description": "Khoá học PTE chất lượng cao từ PTE Helper, cam kết điểm đầu ra, hơn 30.000 học viên đã hoàn thành.",
+          "provider": {
+            "@type": "Organization",
+            "name": "PTE Helper",
+            "sameAs": "https://ptehelper.com.au"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": 587,
+            "bestRating": 5
+          },
+          "offers": {
+            "@type": "Offer",
+            "url": "https://ptehelper.com.au/khoa-hoc",
+            "price": "3500000",
+            "priceCurrency": "VND",
+            "availability": "https://schema.org/InStock",
+            "validFrom": "2024-01-01",
+            "category": "Luyện thi PTE trực tuyến"
+          },
+          "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "Online",
+            "startDate": "2024-08-01",
+            "endDate": "2024-09-30",
+            "courseWorkload": "PT8H",
+            "instructor": {
+              "@type": "Person",
+              "name": "Quỳnh Nguyễn",
+              "url": "https://ptehelper.com.au/our-team/quynh-nguyen-pte-helper-2/"
+            },
+            "location": {
+              "@type": "VirtualLocation",
+              "url": "https://ptehelper.com.au"
+            }
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Quỳnh Nguyễn",
+          "alternateName": "Queenie",
+          "image": "https://ptehelper.com.au/your‑path/quynh‑nguyen.jpg",
+          "jobTitle": "PTE Trainer & Academic Manager",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "PTE Helper",
+            "url": "https://ptehelper.com.au"
+          },
+          "email": "nguyenhongocquynh@gmail.com",
+          "description": "Ms. Quỳnh Nguyễn (Queenie) – PTE Trainer & Academic Manager, đạt PTE 89 & IELTS 8.5. Thạc sĩ TESOL (Edith Cowan University, Úc), cử nhân Sư phạm Ngoại ngữ (ĐH Sư Phạm HCM). Kinh nghiệm giảng IELTS, TOEIC và giảng tại đại học. Chuyên sâu phát âm PTE, quản lý học vụ tại PTE Helper.",
+          "alumniOf": [
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Edith Cowan University"
+            },
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Ho Chi Minh City University of Education"
+            }
+          ],
+          "knowsAbout": [
+            "PTE",
+            "TESOL",
+            "Pronunciation",
+            "IELTS",
+            "TOEIC",
+            "Educational management"
+          ],
+          "url": "https://ptehelper.com.au/our-team/quynh-nguyen-pte-helper-2/"
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Tuấn Võ",
+          "alternateName": "Mr. Tuấn Võ",
+          "image": [
+            "https://ptehelper.com.au/your-path/tuan-vo-1.jpg",
+            "https://ptehelper.com.au/your-path/tuan-vo-2.jpg"
+          ],
+          "jobTitle": "PTE Trainer",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "PTE Helper",
+            "url": "https://ptehelper.com.au"
+          },
+          "email": "vonamquoctuan@gmail.com",
+          "description": "Mr. Tuấn Võ – PTE Trainer đạt PTE 88 & IELTS 8.0. Thạc sĩ TESOL (Edith Cowan University, Úc), Cử nhân Giảng dạy tiếng Anh (ĐH Sư Phạm HCM). Kinh nghiệm giảng dạy tại ĐH Sư Phạm & Bách Khoa, giảng IELTS/TOEIC tại Bkenglish; nổi tiếng với các template Writing giúp học viên đạt điểm cao ngay lần đầu.",
+          "alumniOf": [
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Edith Cowan University"
+            },
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Ho Chi Minh City University of Education"
+            }
+          ],
+          "knowsAbout": [
+            "PTE",
+            "IELTS",
+            "Writing strategies",
+            "TESOL"
+          ],
+          "url": "https://ptehelper.com.au/our-team/tuan-vo-pte-helper/"
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Kiều Anh",
+          "alternateName": "Ms. Kiều Anh",
+          "image": "https://ptehelper.com.au/your-path/kieu-anh.jpg",
+          "jobTitle": "PTE Trainer",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "PTE Helper",
+            "url": "https://ptehelper.com.au"
+          },
+          "email": "kieuanhdo.ws@gmail.com",
+          "description": "PTE Trainer đạt PTE 88; Thạc sỹ Ngôn ngữ học ứng dụng (ĐH Curtin, Úc, tốt nghiệp xuất sắc); Cử nhân Giảng dạy Tiếng Anh (ĐH Ngoại Ngữ, ĐHQG Hà Nội); chứng chỉ TESOL (SEAMEO, Singapore); kinh nghiệm giảng tại ĐH KHXH&NV, đạo tạo giáo viên tại SEAMEO RETRAC & ĐHQG HCM; giám khảo Speaking Cambridge, PTE, VSTEP.",
+          "alumniOf": [
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Curtin University"
+            },
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Vietnam National University, Hanoi"
+            }
+          ],
+          "knowsAbout": [
+            "PTE",
+            "TESOL",
+            "English teaching",
+            "Exam strategies",
+            "Pronunciation feedback"
+          ],
+          "url": "https://ptehelper.com.au/our-team/kieu-anh-pte-helper/"
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Amy Đoàn",
+          "alternateName": "Ms. Amy Doan",
+          "image": [
+            "https://ptehelper.com.au/your-path/amy-doan-1.jpg",
+            "https://ptehelper.com.au/your-path/amy-doan-2.jpg"
+          ],
+          "jobTitle": "Head Trainer",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "PTE Helper",
+            "url": "https://ptehelper.com.au"
+          },
+          "description": "Head Trainer tại PTE Helper, đạt PTE 90 All Bands. 10 năm giảng tiếng Anh, 5 năm chuyên PTE. Cử nhân Ngôn ngữ học (ĐH Hoa Sen); cựu giám thị chính kỳ thi PTE EMG; dạy ở nhiều cấp độ, nổi tiếng với cách truyền đạt dễ hiểu và mẹo nhớ nhanh.",
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Hoa Sen University"
+          },
+          "knowsAbout": [
+            "PTE",
+            "English teaching",
+            "Exam strategies",
+            "Live training",
+            "Linguistics"
+          ],
+          "url": "https://ptehelper.com.au/our-team/amy-doan/"
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Vũ Huyền Trang",
+          "alternateName": "Ms. Trang Vũ",
+          "image": "https://ptehelper.com.au/your-path/trang-vu.jpg",
+          "jobTitle": "PTE Trainer",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "PTE Helper",
+            "url": "https://ptehelper.com.au"
+          },
+          "description": "Giảng viên PTE đạt PTE 90 All Bands; Cử nhân Đại học Ngoại ngữ – ĐHQG Hà Nội; 7 năm giảng dạy tiếng Anh, 3 năm chuyên sâu PTE; chứng chỉ tiếng Pháp C1; đào tạo giáo viên và quản lý giáo vụ tại PTE Helper.",
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Vietnam National University, Hanoi"
+          },
+          "knowsAbout": [
+            "PTE",
+            "English teaching",
+            "Exam strategies",
+            "French"
+          ],
+          "url": "https://ptehelper.com.au/our_team/ms-trang-vu/"
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "PTE có nghĩa là gì?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "<p data-start=\"157\" data-end=\"407\"><span style=\"font-size: 14pt;\">PTE (Pearson Test of English Academic) là bài thi đánh giá năng lực tiếng Anh trên máy tính, được công nhận toàn cầu và đặc biệt phù hợp với mục đích sử dụng tiếng Anh trong <strong data-start=\"320\" data-end=\"384\">học tập, định cư hoặc làm việc tại </strong>các quốc gia nói tiếng Anh như Úc và New Zealand.</span></p>\n<p data-start=\"409\" data-end=\"621\"><span style=\"font-size: 14pt;\">Bài thi kiểm tra 4 kỹ năng: <strong>Nghe – Nói – Đọc – Viết</strong>, được chấm hoàn toàn bằng máy, đảm bảo khách quan và nhận nhanh chỉ sau 24h – 5 ngày.</span></p>\n<p data-start=\"623\" data-end=\"656\"><span style=\"font-size: 14pt;\">PTE ngày càng được ưa chuộng nhờ:</span></p>\n<ul data-start=\"657\" data-end=\"771\">\n<li data-start=\"657\" data-end=\"686\">\n<p data-start=\"659\" data-end=\"686\"><span style=\"font-size: 14pt;\">Xác suất trúng đề cao</span></p>\n</li>\n<li data-start=\"687\" data-end=\"731\">\n<p data-start=\"689\" data-end=\"731\"><span style=\"font-size: 14pt;\">Dễ đạt điểm mục tiêu hơn IELTS/TOEFL</span></p>\n</li>\n<li data-start=\"732\" data-end=\"771\">\n<p data-start=\"734\" data-end=\"771\"><span style=\"font-size: 14pt;\">Đăng ký thi thuận tiện, linh hoạt</span></p>\n</li>\n<li data-start=\"732\" data-end=\"771\"><span style=\"font-size: 14pt;\">Chỉ cần biết kỹ năng máy tính cơ bản là bạn hoàn toàn có thể học và thi chứng chỉ</span></li>\n</ul>\n"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Học PTE mất bao lâu?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "<p data-start=\"168\" data-end=\"360\"><span style=\"font-size: 14pt;\">Thời gian <strong>học PTE</strong> phụ thuộc vào trình độ tiếng Anh hiện tại, mục tiêu điểm số và mức độ dành thời gian của học viên. Trung bình, thời gian có kết quả của học viên PTE Helper sẽ dao động từ 2-6 tháng, với các bạn mất nền tảng tiếng Anh có thể sẽ mất nhiều thời gian hơn.</span></p>\n"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Sự khác biệt giữa bài thi IELTS và PTE là gì?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "<p data-start=\"275\" data-end=\"473\"><span style=\"font-size: 14pt;\">Cả IELTS và PTE đều là các kỳ thi đánh giá năng lực tiếng Anh quốc tế được công nhận rộng rãi, nhưng hai bài thi này có một số điểm khác biệt rõ rệt về hình thức, cách chấm điểm và mục đích sử dụng.</span></p>\n<p data-start=\"475\" data-end=\"498\"><span style=\"font-size: 14pt;\">1. Hình thức thi:</span></p>\n<ul data-start=\"499\" data-end=\"701\">\n<li data-start=\"499\" data-end=\"572\">\n<p data-start=\"501\" data-end=\"572\"><span style=\"font-size: 14pt;\">IELTS cho phép thí sinh lựa chọn làm bài trên giấy hoặc máy tính.</span></p>\n</li>\n<li data-start=\"573\" data-end=\"701\">\n<p data-start=\"575\" data-end=\"701\"><span style=\"font-size: 14pt;\">PTE được tổ chức hoàn toàn trên máy tính với công nghệ hiện đại, giúp quá trình thi diễn ra nhanh chóng và thuận tiện hơn.</span></p>\n</li>\n</ul>\n<p data-start=\"703\" data-end=\"727\"><span style=\"font-size: 14pt;\">2. Cách chấm điểm:</span></p>\n<ul data-start=\"728\" data-end=\"915\">\n<li data-start=\"728\" data-end=\"819\">\n<p data-start=\"730\" data-end=\"819\"><span style=\"font-size: 14pt;\">IELTS sử dụng hình thức chấm thủ công cho phần Nói và Viết, do giám khảo thực hiện.</span></p>\n</li>\n<li data-start=\"820\" data-end=\"915\">\n<p data-start=\"822\" data-end=\"915\"><span style=\"font-size: 14pt;\">PTE được chấm hoàn toàn bằng trí tuệ nhân tạo (AI), đảm bảo tính khách quan và nhất quán.</span></p>\n</li>\n</ul>\n<p data-start=\"917\" data-end=\"937\"><span style=\"font-size: 14pt;\">3. Thang điểm:</span></p>\n<ul data-start=\"938\" data-end=\"1071\">\n<li data-start=\"938\" data-end=\"1004\">\n<p data-start=\"940\" data-end=\"1004\"><span style=\"font-size: 14pt;\">IELTS sử dụng thang điểm từ 1.0 đến 9.0, làm tròn đến 0.5.</span></p>\n</li>\n<li data-start=\"1005\" data-end=\"1071\">\n<p data-start=\"1007\" data-end=\"1071\"><span style=\"font-size: 14pt;\">PTE áp dụng thang điểm từ 10 đến 90, với 10 điểm mặc định cho sẵn.</span></p>\n</li>\n</ul>\n<p data-start=\"1073\" data-end=\"1103\"><span style=\"font-size: 14pt;\">4. Thời gian có kết quả:</span></p>\n<ul data-start=\"1104\" data-end=\"1228\">\n<li data-start=\"1104\" data-end=\"1154\">\n<p data-start=\"1106\" data-end=\"1154\"><span style=\"font-size: 14pt;\">IELTS: từ 5 đến 13 ngày tùy hình thức thi.</span></p>\n</li>\n<li data-start=\"1155\" data-end=\"1228\">\n<p data-start=\"1157\" data-end=\"1228\"><span style=\"font-size: 14pt;\">PTE: kết quả có thể nhận được trong vòng 48 giờ, nhanh hơn đáng kể.</span></p>\n</li>\n</ul>\n<p data-start=\"1230\" data-end=\"1276\"><span style=\"font-size: 14pt;\">5. Mục đích sử dụng và mức độ công nhận:</span></p>\n<ul data-start=\"1277\" data-end=\"1528\">\n<li data-start=\"1277\" data-end=\"1363\">\n<p data-start=\"1279\" data-end=\"1363\"><span style=\"font-size: 14pt;\">IELTS được công nhận toàn cầu và phù hợp cho du học, định cư, xin việc, visa,…</span></p>\n</li>\n<li data-start=\"1364\" data-end=\"1528\">\n<p data-start=\"1366\" data-end=\"1528\"><span style=\"font-size: 14pt;\">PTE rất phổ biến tại Úc, New Zealand và ngày càng được chấp nhận rộng rãi tại các quốc gia nói tiếng Anh, đặc biệt phù hợp cho người có nhu cầu định cư nhanh.</span></p>\n</li>\n</ul>\n<p data-start=\"1827\" data-end=\"2123\"><span style=\"font-size: 14pt;\">Nếu bạn muốn có kết quả nhanh, không đối mặt trực tiếp với giám khảo và có kỹ năng máy tính tốt, PTE có thể là lựa chọn phù hợp. </span></p>\n"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Chứng chỉ PTE có giá trị trong bao lâu?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "<p><span style=\"font-size: 14pt;\">Giống như kết quả thi IELTS, chứng chỉ PTE cũng có hiệu lực trong 2 năm cho mục đích giáo dục (đăng ký đại học hoặc cao đẳng). Riêng đối mục đích sử dụng xin visa nhập cư và đánh giá kỹ năng nghề nghiệp tại Úc thì thời hạn sử dụng là 3 năm.</span></p>\n"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Cần bao nhiêu điểm PTE để du học Úc?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "<p data-start=\"182\" data-end=\"403\"><span style=\"font-size: 14pt;\">Muốn học tập tại nước ngoài, bạn cần sở hữu chứng chỉ PTE Academic với mức điểm tối thiểu khoảng 42 điểm trở lên, tương đương với thang điểm IELTS 5.5. Tuy nhiên, yêu cầu cụ thể sẽ thay đổi tùy theo chương trình học, bậc đào tạo và trường bạn chọn.</span></p>\n<ul data-start=\"405\" data-end=\"678\">\n<li data-start=\"405\" data-end=\"500\">\n<p data-start=\"407\" data-end=\"500\"><span style=\"font-size: 14pt;\">Với các khóa học tiếng Anh dự bị hoặc hệ cao đẳng, mức điểm yêu cầu thường rơi vào thang điểm PTE 42–49.</span></p>\n</li>\n<li data-start=\"501\" data-end=\"678\">\n<p data-start=\"503\" data-end=\"678\"><span style=\"font-size: 14pt;\">Đối với chương trình đại học hoặc sau đại học, nhiều trường yêu cầu tối thiểu trong thang điểm 50–65 điểm, thậm chí cao hơn đối với ngành học có tính cạnh tranh như Y, Luật, Giáo dục,…</span></p>\n</li>\n</ul>\n<p data-start=\"680\" data-end=\"866\"><span style=\"font-size: 14pt;\">Ngoài điểm tổng, một số trường còn yêu cầu điểm tối thiểu cho từng kỹ năng (Listening, Reading, Speaking, Writing), nên bạn cần kiểm tra kỹ thông tin từ trường mình dự định nộp hồ sơ.</span></p>\n"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Có tất cả bao nhiêu câu hỏi trong bài thi PTE?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "<p>Bài thi PTE bao gồm 3 phần thi chính bao gồm:</p>\n<p>Phần 1: Speaking &amp; Writing</p>\n<p>Phần 2: Reading</p>\n<p>Phần 3: Listening</p>\n<p>Bạn sẽ thi tổng cộng 22 phần thi kéo dài trong 2 tiếng 15 phút.</p>\n"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Tại sao nên lựa chọn trung tâm PTE HELPER?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "<ul>\n<li><span style=\"font-size: 14pt;\">Cam kết đạt kết quả bằng văn bản. </span></li>\n<li><span style=\"font-size: 14pt;\">Tiết kiệm thời gian và chi phí. </span></li>\n<li><span style=\"font-size: 14pt;\">Tỷ lệ đậu cao. Hàng trăm học viên của PTE HELPER đã có thường trú nhân tại Úc thông qua chứng chỉ PTE Academic.</span></li>\n<li><span style=\"font-size: 14pt;\">Đội ngũ giáo viên chuyên môn cao, tận tâm luôn đồng hành cùng học viên. </span></li>\n<li><span style=\"font-size: 14pt;\">Giáo trình chắt lọc cùng thư viện đề thi thật được cập nhật thường xuyên.</span></li>\n<li><span style=\"font-size: 14pt;\">Hệ thống luyện thi sát với giao diện kỳ thi thật giúp học viên làm quen và nâng cao kỹ năng nhanh chóng.</span></li>\n<li><span style=\"font-size: 14pt;\">Mô hình nhận xét Speaking 1-1 giúp học viên nâng cao kỹ năng giao tiếp.</span></li>\n<li><span style=\"font-size: 14pt;\">Hỗ trợ đăng ký thi PTE miễn phí.</span></li>\n<li><span style=\"font-size: 14pt;\">Chất lượng đào tạo đã được kiểm chứng gần 10 năm.</span></li>\n</ul>\n"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Trung tâm có hỗ trợ gì cho học viên trước khi thi không?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "<p><span style=\"font-size: 14pt;\">Có. Hàng tháng PTE HELPER đều tổ chức kỳ thi thử và nhận xét 1 kèm 1 để giúp các học viên sắp thi có được sự chuẩn bị tốt nhất. Ngoài ra, hàng tuần khi học viên gửi bài Speaking về sẽ được Tổng đài học thuật nhận xét chi tiết và hướng dẫn sửa lỗi sai 1 kèm 1 trực tiếp dù là học online.</span></p>\n"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Tôi có được học thử không?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "<p><span style=\"font-size: 14pt;\">Có. Anh/Chị có thể học thử cùng lớp đang học thật từ 1-2 buổi vào thứ 2,4,6 hàng tuần để trải nghiệm phương pháp giảng dạy tối ưu được dẫn dắt bởi đội ngũ giảng viên giàu kinh nghiệm tại PTE HELPER. </span></p>\n"
+              }
+            }
+          ]
+        }
+      ],
+      "schema_errors": [],
+      "images": 84,
+      "missing_alt": 8,
+      "links": [
+        "//www.dmca.com/Protection/Status.aspx?ID=bc856b2b-2abe-4474-93da-00bde2f773a7",
+        "/doi-ngu-giao-vien/",
+        "/doi-ngu-tu-van-vien-pte-helper/",
+        "/du-hoc-uc/",
+        "/khoa-hoc-luyen-thi-pte/",
+        "/khoa-hoc-pte-core/",
+        "/luyen-thi-pte-cap-toc-36-42-50/",
+        "/luyen-thi-pte-cap-toc/",
+        "/luyen-thi-pte-mot-kem-mot/",
+        "/visa-uc/visa-dau-tu-kinh-doanh/",
+        "/visa-uc/visa-du-hoc-du-lich/"
+      ],
+      "main_excerpt": "Trung Tâm Luyện Thi PTE Tốt Nhất Việt Nam - PTE Helper +61 450 383 579 +84 345 93 95 66 Search Search PTE Helper: Trung Tâm Luyện Thi PTE Tốt Nhất #1 Việt Nam 9 NĂM DẪN ĐẦU PTE TẠI VIỆT NAM - ĐỐI TÁC ELITE 4⭐ CHÍNH THỨC CỦA PEARSON 9 + Năm hoạt động 100 + Nhân sự cống hiến 40000 + Học viên cán đích 500 + Đối tác đồng hành 6 + Cơ sở trên thế giới 1000 + Bài giảng miễn phí đến cộng đồng Lộ trình luyện thi PTE từ A - Z Mọi thứ bạn cần để thi PTE 24-79 (IELTS 4.5 – 8.0) ngay cả khi bạn mất gốc đều có ở đây Nhận lộ trình luyện PTE Miễn phí Chia sẻ lộ trình chi tiết, tài liệu học và các yêu cầu cần đạt được cho mỗi target. Giúp bạn có định hướng học tập tốt từ ban đầu từ đó nhẹ nhàng chinh phục điểm số trong thời gian ngắn nhất! Học thử online Tài liệu miễn phí Kinh nghiệm thi PTE 24-42 Kinh nghiệm thi PTE 50-58 Kinh nghiệm thi PTE 65-79 Các bài viết kiến thức hàng đầu PTE Express Là Gì? Giải Mã Chứng Chỉ Du Học Mỹ Cấp Tốc Bạn đang tìm kiếm một chứng chỉ tiếng Anh... PTE Core Là Gì? So Sánh PTE Core Với PTE Academic – Mới Nhất PTE Core là gì? Làm thế nào PTE Core... Hướng Dẫn Lộ Trình Luyện Thi PTE Dành Cho Người Mới Bắt Đầu Học PTE không đơn giản cho các bạn mới... 3 quyển tài liệu, sách luyện thi PTE hay nhất không thể bỏ qua Nhắc đến tài liệu và sách luyện thi PTE,... Cấu trúc đề thi PTE 2026 mới nhất & cách đạt PTE cấp tốc Cấu trúc đề thi PTE Academic gồm 3 phần thi... PTE là gì?"
+    }
+  }
+]

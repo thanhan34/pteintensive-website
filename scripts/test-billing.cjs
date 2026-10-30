@@ -275,7 +275,7 @@ test('uncertain signed IPN validates merchant, order and amount before acknowled
   assert.equal((await billing.processIPN(callback(orderId))).RspCode, '00');
   assert.equal(records.get(`billingOrders/${orderId}`).status, 'paid');
 });
-test('draft API scopes persisted progress to Clerk account and preserves stale drafts for review', async () => {
+test('draft API scopes progress to account, deletes expired personal data and rejects delayed saves', async () => {
   const draftLib = load('lib/billing/draft.ts');
   const route = load('app/api/billing/draft/route.ts', {
     '@/lib/billing/student-auth': { studentIdentity: async () => { if (!studentUid) throw Error('AUTH'); return studentUid; } },
@@ -286,16 +286,55 @@ test('draft API scopes persisted progress to Clerk account and preserves stale d
   draft.cart = [{ kind: 'course', id: 'course1' }];
   draft.contact = { name: 'Student', email: 'test@example.test', phone: '0912345678' };
   const draftRequest = { headers: new Headers({ 'x-billing-account': 'student1' }), json: async () => draft };
-  assert.equal((await route.PUT(draftRequest)).status, 200);
+  const saved = await route.PUT(draftRequest);
+  assert.equal(saved.status, 200);
+  const savedTiming = await saved.json();
+  assert.equal(savedTiming.reviewAt, records.get('billingDrafts/student1').updatedAt + draftLib.DRAFT_REVIEW_MS);
+  assert.ok(savedTiming.serverNow <= savedTiming.reviewAt);
   let result = await (await route.GET()).json();
   assert.equal(result.draft.declaration.feedback, draft.declaration.feedback); assert.equal(result.needsReview, false);
+  assert.equal(result.reviewAt, savedTiming.reviewAt, 'Reading or reloading must not extend the draft window');
   records.get('billingDrafts/student1').updatedAt = Date.now() - draftLib.DRAFT_REVIEW_MS - 1;
   result = await (await route.GET()).json();
-  assert.equal(result.needsReview, true); assert.equal(result.draft.cart.length, 1);
+  assert.equal(result.expired, true);
+  assert.equal(result.reviewAt, null);
+  assert.equal(JSON.stringify(result.draft), JSON.stringify(draftLib.emptyDraft()));
+  assert.equal(records.has('billingDrafts/student1'), false);
+  assert.equal((await route.PUT({ ...draftRequest, headers: new Headers({ 'x-billing-account': 'student1', 'x-billing-draft-deadline': String(Date.now() - 1) }) })).status, 409);
+  assert.equal(records.has('billingDrafts/student1'), false, 'A delayed tab cannot revive deleted data');
+  assert.equal((await route.PUT(draftRequest)).status, 200, 'A fresh draft can start after expiry');
+  records.get('billingDrafts/student1').updatedAt = Date.now() - draftLib.DRAFT_REVIEW_MS;
+  records.set('billingOrders/keep', { status: 'paid' });
+  assert.equal((await route.PUT(draftRequest)).status, 409, 'PUT also enforces expiry without a preceding GET');
+  assert.equal(records.get('billingOrders/keep').status, 'paid');
   studentUid = 'other';
-  assert.equal((await (await route.GET()).json()).draft.cart.length, 0);
+  const other = await (await route.GET()).json();
+  assert.equal(other.draft.cart.length, 0);
+  assert.equal(other.reviewAt, null);
   assert.equal((await route.PUT(draftRequest)).status, 403);
   studentUid = null; assert.equal((await route.GET()).status, 401);
+});
+test('draft countdown uses persisted deadlines, handles clock offsets, exact expiry and empty drafts', () => {
+  const lib = load('lib/billing/draft.ts');
+  const start = 100000;
+  const timing = lib.draftReviewTiming(start, start + 1000);
+  assert.equal(timing.reviewAt, start + lib.DRAFT_REVIEW_MS);
+  const deadline = lib.draftReviewDeadline(timing, 9000000);
+  assert.equal(deadline, 9000000 + lib.DRAFT_REVIEW_MS - 1000);
+  assert.equal(lib.draftCountdown(deadline, 9000000), '29:59');
+  assert.equal(lib.draftCountdown(deadline, deadline - 1), '00:01');
+  assert.equal(lib.draftCountdown(deadline, deadline), '00:00');
+  assert.equal(lib.draftCountdown(deadline, deadline + 60000), '00:00');
+  assert.equal(lib.draftReviewTiming(start, start + lib.DRAFT_REVIEW_MS).needsReview, true);
+  assert.equal(lib.draftReviewTiming(null, start).reviewAt, null);
+  assert.equal(lib.draftReviewDeadline({ reviewAt: null, serverNow: start }, start), null);
+  assert.equal(lib.draftReviewDeadline({ reviewAt: NaN, serverNow: start }, start), null);
+  assert.equal(lib.hasDraftContent(lib.emptyDraft()), false);
+  const draft = lib.emptyDraft();
+  draft.contact.name = '   ';
+  assert.equal(lib.hasDraftContent(draft), false);
+  draft.cart.push({ kind: 'course', id: 'course1' });
+  assert.equal(lib.hasDraftContent(draft), true);
 });
 test('guest checkout rejects wrong fee capability, duplicate items, disabled courses, malformed session', async () => {
   records.get('tuitionFees/fee1').payerUid = 'other';

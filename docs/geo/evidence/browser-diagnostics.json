@@ -1,0 +1,363 @@
+[
+  {
+    "status_code": 200,
+    "error": null,
+    "mode_used": "rendered",
+    "render_engine": "playwright-chromium",
+    "render_ms": 8954.131099992082,
+    "render_diagnostics": [],
+    "structured_data": null,
+    "url": "https://www.pteintensive.com/",
+    "redirect_chain": [
+      {
+        "url": "https://www.pteintensive.com/",
+        "status_code": 307
+      },
+      {
+        "url": "https://intense-sturgeon-2750.clerk.accounts.dev/v1/client/handshake",
+        "status_code": 307
+      },
+      {
+        "url": "https://www.pteintensive.com/",
+        "status_code": 307
+      }
+    ],
+    "raw": {
+      "title": "PTE Intensive - Trung Tâm Luyện Thi PTE Academic Hàng Đầu",
+      "description": "Khóa học PTE Academic chất lượng cao với cam kết đầu ra, giảng viên chuyên nghiệp, và phương pháp học hiệu quả. Đạt điểm PTE mục tiêu nhanh chóng.",
+      "canonical": "https://www.pteintensive.com",
+      "robots": {
+        "robots": "index, follow",
+        "googlebot": "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+      },
+      "og": {
+        "og:title": "PTE Intensive - Luyện Thi PTE Academic",
+        "og:description": "Trung tâm luyện thi PTE Academic hàng đầu tại Việt Nam với đội ngũ giảng viên chuyên nghiệp, khóa học chất lượng và cam kết đầu ra",
+        "og:url": "https://www.pteintensive.com",
+        "og:site_name": "PTE Intensive",
+        "og:locale": "vi_VN",
+        "og:image": "https://www.pteintensive.com/images/logo/pte-intensive-logo.png",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:image:alt": "PTE Intensive Logo",
+        "og:type": "website"
+      },
+      "h1": [
+        "Chinh phục PTE Mở lối tương lai"
+      ],
+      "schemas": [],
+      "schema_errors": [],
+      "images": 35,
+      "missing_alt": 0,
+      "links": [
+        "/",
+        "/about",
+        "/blog",
+        "/cart",
+        "/contact",
+        "/courses",
+        "/courses/pre-pte",
+        "/courses/pte-1-1",
+        "/courses/pte-30-36",
+        "/courses/pte-42-50",
+        "/courses/pte-50",
+        "/guarantee",
+        "/knowledge",
+        "/knowledge/scoring-system",
+        "/migration",
+        "/privacy",
+        "/register",
+        "/reviews",
+        "/study",
+        "/terms"
+      ],
+      "main_excerpt": "PTE Intensive Chinh phục PTE Mở lối tương lai Lộ trình học cá nhân hóa • Chiến lược thực chiến • Đồng hành đến khi đạt mục tiêu Nhận lộ trình miễn phí Xem khóa học PTE 79+ Mục tiêu không xa 1:1 Coaching Cá nhân hóa lộ trình Cam kết đồng hành Đến khi đạt mục tiêu Hành trình chinh phục PTE bắt đầu từ đây Xem tất cả 01 Khóa học PTE Lộ trình tinh gọn, khoa học, hiệu quả vượt trội. 02 Lộ trình cá nhân hóa Đo trình độ · Xây lộ trình · Theo sát tiến độ. 03 Đội ngũ giảng viên Giàu kinh nghiệm, tận tâm, đồng hành sát sao. 04 Du học & Định cư Mở rộng cơ hội, chinh phục ước mơ toàn cầu. 05 Cam kết đầu ra Đồng hành bền bỉ đến khi bạn đạt mục tiêu. Du học & Định cư Mở rộng cơ hội, chinh phục ước mơ toàn cầu. Cam kết đầu ra Đồng hành bền bỉ đến khi bạn đạt mục tiêu. Lợi ích vượt trội của PTE Intensive Cam kết đem đến cho học viên 0 1 Học Nhanh - Lộ Trình Ngắn Tập Trung 20% Nội Dung, Tạo Ra 80% Kết Quả 0 2 Sĩ Số Lớp Nhỏ Chỉ Từ 5 - 10 Học Viên/Lớp | Tối Đa Hiệu Quả Tiếp Thu 0 3 Hỗ Trợ 1 - 1 Sau Mỗi Buổi Học Giải Đáp - Học Tập - Luyện Đề, Chữa Đề. Kỹ Năng Cải Thiện Nhanh Chóng 0 4 Thực hành trên APEuni Luyện Đề Có Độ Chính Xác Đến 99,5%. Tủ Cập Nhật Thường Xuyên 0 5 Lệ Phí Rẻ - Không Phát Sinh Chi Phí Lịch Học Tối Ưu Nhất Sẵn sàng bắt đầu? Đăng ký ngay để trải nghiệm những lợi ích tuyệt vời này Đăng Ký Ngay BẢNG QUY ĐỔI ĐIỂM PTE - IELTS Bảng quy đổi điểm giúp bạn dễ dàng so sánh điểm số giữa ha"
+    },
+    "rendered": {
+      "title": "PTE Intensive - Trung Tâm Luyện Thi PTE Academic Hàng Đầu",
+      "description": "Khóa học PTE Academic chất lượng cao với cam kết đầu ra, giảng viên chuyên nghiệp, và phương pháp học hiệu quả. Đạt điểm PTE mục tiêu nhanh chóng.",
+      "canonical": "https://www.pteintensive.com",
+      "robots": {
+        "robots": "index, follow",
+        "googlebot": "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+      },
+      "og": {
+        "og:title": "PTE Intensive - Luyện Thi PTE Academic",
+        "og:description": "Trung tâm luyện thi PTE Academic hàng đầu tại Việt Nam với đội ngũ giảng viên chuyên nghiệp, khóa học chất lượng và cam kết đầu ra",
+        "og:url": "https://www.pteintensive.com",
+        "og:site_name": "PTE Intensive",
+        "og:locale": "vi_VN",
+        "og:image": "https://www.pteintensive.com/images/logo/pte-intensive-logo.png",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:image:alt": "PTE Intensive Logo",
+        "og:type": "website"
+      },
+      "h1": [
+        "Chinh phục PTE Mở lối tương lai"
+      ],
+      "schemas": [
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "PTE Intensive",
+          "url": "https://www.pteintensive.com",
+          "logo": "https://www.pteintensive.com/images/logo/pte-intensive-logo.png",
+          "sameAs": [
+            "https://facebook.com/pteintensive",
+            "https://youtube.com/pteintensive"
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "PTE Intensive",
+          "url": "https://www.pteintensive.com",
+          "inLanguage": "vi-VN"
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          "name": "PTE Intensive",
+          "description": "Trung tâm luyện thi PTE Academic hàng đầu tại Việt Nam",
+          "url": "https://www.pteintensive.com",
+          "address": [
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "48 Derwent Place",
+              "addressLocality": "Riverhills",
+              "addressRegion": "QLD",
+              "postalCode": "4074",
+              "addressCountry": "AU"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "2C6 Nguyễn Khuyến",
+              "addressLocality": "Phường Bình Đức",
+              "addressRegion": "An Giang",
+              "addressCountry": "VN"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "Số 12 đường 25 KDC Thới Nhựt 1",
+              "addressLocality": "Tân An, Cần Thơ",
+              "addressCountry": "VN"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "T4 0605A Tầng 6 Khu A, Chung cư Golden",
+              "addressLocality": "Long Xuyên",
+              "addressRegion": "An Giang",
+              "addressCountry": "VN"
+            }
+          ],
+          "sameAs": [
+            "https://facebook.com/pteintensive",
+            "https://youtube.com/pteintensive"
+          ],
+          "offers": {
+            "@type": "Offer",
+            "category": "PTE Academic Preparation Courses"
+          }
+        }
+      ],
+      "schema_errors": [],
+      "images": 37,
+      "missing_alt": 0,
+      "links": [
+        "/",
+        "/about",
+        "/blog",
+        "/cart",
+        "/contact",
+        "/courses",
+        "/courses/pre-pte",
+        "/courses/pte-1-1",
+        "/courses/pte-30-36",
+        "/courses/pte-42-50",
+        "/courses/pte-50",
+        "/guarantee",
+        "/knowledge",
+        "/knowledge/scoring-system",
+        "/migration",
+        "/privacy",
+        "/register",
+        "/reviews",
+        "/study",
+        "/terms"
+      ],
+      "main_excerpt": "PTE Intensive Chinh phục PTE Mở lối tương lai Lộ trình học cá nhân hóa • Chiến lược thực chiến • Đồng hành đến khi đạt mục tiêu Nhận lộ trình miễn phí Xem khóa học PTE 79+ Mục tiêu không xa 1:1 Coaching Cá nhân hóa lộ trình Cam kết đồng hành Đến khi đạt mục tiêu Hành trình chinh phục PTE bắt đầu từ đây Xem tất cả 01 Khóa học PTE Lộ trình tinh gọn, khoa học, hiệu quả vượt trội. 02 Lộ trình cá nhân hóa Đo trình độ · Xây lộ trình · Theo sát tiến độ. 03 Đội ngũ giảng viên Giàu kinh nghiệm, tận tâm, đồng hành sát sao. 04 Du học & Định cư Mở rộng cơ hội, chinh phục ước mơ toàn cầu. 05 Cam kết đầu ra Đồng hành bền bỉ đến khi bạn đạt mục tiêu. Du học & Định cư Mở rộng cơ hội, chinh phục ước mơ toàn cầu. Cam kết đầu ra Đồng hành bền bỉ đến khi bạn đạt mục tiêu. Lợi ích vượt trội của PTE Intensive Cam kết đem đến cho học viên 01 Học Nhanh - Lộ Trình Ngắn Tập Trung 20% Nội Dung, Tạo Ra 80% Kết Quả 02 Sĩ Số Lớp Nhỏ Chỉ Từ 5 - 10 Học Viên/Lớp | Tối Đa Hiệu Quả Tiếp Thu 03 Hỗ Trợ 1 - 1 Sau Mỗi Buổi Học Giải Đáp - Học Tập - Luyện Đề, Chữa Đề. Kỹ Năng Cải Thiện Nhanh Chóng 04 Thực hành trên APEuni Luyện Đề Có Độ Chính Xác Đến 99,5%. Tủ Cập Nhật Thường Xuyên 05 Lệ Phí Rẻ - Không Phát Sinh Chi Phí Lịch Học Tối Ưu Nhất Sẵn sàng bắt đầu? Đăng ký ngay để trải nghiệm những lợi ích tuyệt vời này Đăng Ký Ngay BẢNG QUY ĐỔI ĐIỂM PTE - IELTS Bảng quy đổi điểm giúp bạn dễ dàng so sánh điểm số giữa hai hệ "
+    },
+    "publication_date_note": "Automatic extracted dates are not accepted as editorial publication dates."
+  },
+  {
+    "status_code": 200,
+    "error": null,
+    "mode_used": "rendered",
+    "render_engine": "playwright-chromium",
+    "render_ms": 6532.3769000096945,
+    "render_diagnostics": [],
+    "structured_data": null,
+    "url": "https://www.pteintensive.com/courses/pte-50",
+    "redirect_chain": [
+      {
+        "url": "https://www.pteintensive.com/courses/pte-50",
+        "status_code": 307
+      },
+      {
+        "url": "https://intense-sturgeon-2750.clerk.accounts.dev/v1/client/handshake",
+        "status_code": 307
+      },
+      {
+        "url": "https://www.pteintensive.com/courses/pte-50",
+        "status_code": 307
+      }
+    ],
+    "raw": {
+      "title": "Khóa PTE58/60/65/79 | PTE Intensive",
+      "description": "Khóa học nâng cao dành cho học viên muốn đạt điểm số cao trong kỳ thi PTE Academic.",
+      "canonical": "https://www.pteintensive.com/courses/pte-50",
+      "robots": {
+        "robots": "index, follow",
+        "googlebot": "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+      },
+      "og": {
+        "og:title": "Khóa PTE58/60/65/79",
+        "og:description": "Khóa học nâng cao dành cho học viên muốn đạt điểm số cao trong kỳ thi PTE Academic.",
+        "og:url": "https://www.pteintensive.com/courses/pte-50",
+        "og:image": "https://www.pteintensive.com/images/courses/42-50.jpg",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:image:alt": "Khóa PTE58/60/65/79 - PTE Intensive",
+        "og:type": "website"
+      },
+      "h1": [],
+      "schemas": [
+        {
+          "@context": "https://schema.org",
+          "@type": "Course",
+          "name": "Khóa PTE58/60/65/79",
+          "description": "Khóa học nâng cao dành cho học viên muốn đạt điểm số cao trong kỳ thi PTE Academic.",
+          "provider": {
+            "@type": "Organization",
+            "name": "PTE Intensive",
+            "sameAs": "https://www.pteintensive.com"
+          },
+          "educationalLevel": "PTE Academic Preparation",
+          "courseCode": "pte-50",
+          "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "mixed",
+            "duration": "3 tháng (Hỗ trợ lên đến 6 tháng)",
+            "maximumEnrollment": "7-8 học viên/lớp/khóa"
+          }
+        }
+      ],
+      "schema_errors": [],
+      "images": 4,
+      "missing_alt": 0,
+      "links": [
+        "/",
+        "/about",
+        "/blog",
+        "/cart",
+        "/contact",
+        "/courses",
+        "/guarantee",
+        "/knowledge",
+        "/knowledge/scoring-system",
+        "/migration",
+        "/privacy",
+        "/register",
+        "/reviews",
+        "/study",
+        "/terms"
+      ],
+      "main_excerpt": ""
+    },
+    "rendered": {
+      "title": "Khóa PTE58/60/65/79 | PTE Intensive",
+      "description": "Khóa học nâng cao dành cho học viên muốn đạt điểm số cao trong kỳ thi PTE Academic.",
+      "canonical": "https://www.pteintensive.com/courses/pte-50",
+      "robots": {
+        "robots": "index, follow",
+        "googlebot": "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+      },
+      "og": {
+        "og:title": "Khóa PTE58/60/65/79",
+        "og:description": "Khóa học nâng cao dành cho học viên muốn đạt điểm số cao trong kỳ thi PTE Academic.",
+        "og:url": "https://www.pteintensive.com/courses/pte-50",
+        "og:image": "https://www.pteintensive.com/images/courses/42-50.jpg",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:image:alt": "Khóa PTE58/60/65/79 - PTE Intensive",
+        "og:type": "website"
+      },
+      "h1": [
+        "Khóa PTE58/60/65/79"
+      ],
+      "schemas": [
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "PTE Intensive",
+          "url": "https://www.pteintensive.com",
+          "logo": "https://www.pteintensive.com/images/logo/pte-intensive-logo.png",
+          "sameAs": [
+            "https://facebook.com/pteintensive",
+            "https://youtube.com/pteintensive"
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "PTE Intensive",
+          "url": "https://www.pteintensive.com",
+          "inLanguage": "vi-VN"
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Course",
+          "name": "Khóa PTE58/60/65/79",
+          "description": "Khóa học nâng cao dành cho học viên muốn đạt điểm số cao trong kỳ thi PTE Academic.",
+          "provider": {
+            "@type": "Organization",
+            "name": "PTE Intensive",
+            "sameAs": "https://www.pteintensive.com"
+          },
+          "educationalLevel": "PTE Academic Preparation",
+          "courseCode": "pte-50",
+          "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "mixed",
+            "duration": "3 tháng (Hỗ trợ lên đến 6 tháng)",
+            "maximumEnrollment": "7-8 học viên/lớp/khóa"
+          }
+        }
+      ],
+      "schema_errors": [],
+      "images": 8,
+      "missing_alt": 0,
+      "links": [
+        "/",
+        "/about",
+        "/blog",
+        "/cart",
+        "/contact",
+        "/courses",
+        "/courses#placement-declaration",
+        "/guarantee",
+        "/knowledge",
+        "/knowledge/scoring-system",
+        "/migration",
+        "/privacy",
+        "/register",
+        "/reviews",
+        "/study",
+        "/terms"
+      ],
+      "main_excerpt": "Khóa PTE58/60/65/79 Khóa học nâng cao dành cho học viên muốn đạt điểm số cao trong kỳ thi PTE Academic. 3 tháng (Hỗ trợ lên đến 6 tháng) 7-8 học viên/lớp/khóa Cam kết đầu ra Đăng ký khóa & thanh toán học phí Bắt buộc kiểm tra đầu vào và có nhận xét học thuật trước khi thêm khóa vào giỏ. Làm bài kiểm tra đầu vào Đăng Ký Ngay Tư Vấn Miễn Phí Đối tượng học viên Cần đạt chứng chỉ tiếng Anh trong thời gian ngắn nhất để đáp ứng nhu cầu nhập học tại các trường quốc tế, hoặc đi du học, làm việc hay định cư tại Anh, Úc, New Zealand, Canada… Cần đạt chứng chỉ tiếng Anh để hoàn thiện hồ sơ xin visa tay nghề tại Úc như visa 491, 189, 190,… Cần tìm kiếm một giải pháp chinh phục chứng chỉ tiếng Anh một cách nhanh chóng, hiệu quả và tiết kiệm Thông tin khóa học Thời lượng: 3 tháng (Hỗ trợ lên đến 6 tháng) Hình thức: Online thông qua phần mềm Zoom, có ghi âm để hỗ trợ khi học viên bỏ lỡ buổi học Số lượng học viên: 7-8 học viên/lớp/khóa Tài liệu học tập: Cập nhật liên tục và hoàn toàn miễn phí Nội dung khóa học 1 Giai đoạn 1 Đánh giá năng lực_Thiết kế lộ trình học tập 2 Giai đoạn 2 Cấu trúc đề thi PTE_Tips_Templates 3 Giai đoạn 3 Luyện và Giải đề thi Tủ_Thực hành_Ôn tập 4 Giai đoạn 4 Làm bài Mocktest và Nhận đánh giá trực tiếp của Trainer Ưu đãi đặc biệt của khóa học Hỗ trợ trong vòng 6 tháng để bạn vững vàng tự tin chinh phục mục tiêu điểm số PTE Bộ đề thi tủ và tài liệu học tập được cập nhật "
+    },
+    "publication_date_note": "Automatic extracted dates are not accepted as editorial publication dates."
+  }
+]

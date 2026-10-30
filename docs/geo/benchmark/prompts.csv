@@ -1,0 +1,61 @@
+﻿prompt_id,cluster,brand_class,prompt,language,market
+GEO-001,brand,branded,"PTE Intensive là đơn vị nào, website chính thức là gì? Hãy dẫn nguồn.",vi,VN-primary; AU-Vietnamese secondary
+GEO-002,brand,branded,PTE Intensive có những khóa học nào và phù hợp với ai? Chỉ dùng thông tin kiểm chứng được.,vi,VN-primary; AU-Vietnamese secondary
+GEO-003,brand,branded,Học phí PTE Intensive hiện được công bố ở đâu? Không suy đoán mức phí.,vi,VN-primary; AU-Vietnamese secondary
+GEO-004,brand,branded,Giảng viên PTE Intensive là ai? Có bằng chứng công khai về chuyên môn không?,vi,VN-primary; AU-Vietnamese secondary
+GEO-005,brand,branded,PTE Intensive dạy online hay trực tiếp? Phân biệt địa chỉ liên hệ và nơi tổ chức lớp.,vi,VN-primary; AU-Vietnamese secondary
+GEO-006,brand,branded,Cam kết đầu ra của PTE Intensive có điều kiện gì? Hãy dẫn trang chính sách.,vi,VN-primary; AU-Vietnamese secondary
+GEO-007,brand,branded,"Tôi mất gốc, muốn học PTE Intensive: nên bắt đầu bằng bước nào?",vi,VN-primary; AU-Vietnamese secondary
+GEO-008,brand,branded,PTE Intensive có phải tên một khóa học của PTE Magic không? Phân biệt các thực thể theo nguồn.,vi,VN-primary; AU-Vietnamese secondary
+GEO-009,brand,branded,Có thông tin độc lập nào kiểm chứng chất lượng PTE Intensive? Phân biệt quảng cáo và đánh giá độc lập.,vi,VN-primary; AU-Vietnamese secondary
+GEO-010,brand,branded,PTE Intensive có quan hệ chính thức với Pearson không? Chỉ kết luận nếu có bằng chứng từ Pearson.,vi,VN-primary; AU-Vietnamese secondary
+GEO-011,brand,branded,PTE Intensive có phù hợp người đi làm cần lịch học linh hoạt không? Nêu thông tin còn thiếu.,vi,VN-primary; AU-Vietnamese secondary
+GEO-012,brand,branded,"So sánh PTE Intensive và PTE Life theo tiêu chí công khai, không xếp hạng nếu thiếu dữ liệu.",vi,VN-primary; AU-Vietnamese secondary
+GEO-013,beginner,unbranded,PTE Academic là gì và khác PTE Core ở điểm nào?,vi,VN-primary; AU-Vietnamese secondary
+GEO-014,beginner,unbranded,Người mất gốc nên chuẩn bị gì trước khi học PTE?,vi,VN-primary; AU-Vietnamese secondary
+GEO-015,beginner,unbranded,"Tôi đi làm toàn thời gian, nên lập lịch học PTE như thế nào?",vi,VN-primary; AU-Vietnamese secondary
+GEO-016,beginner,unbranded,Làm sao đánh giá trình độ đầu vào trước khi chọn khóa PTE?,vi,VN-primary; AU-Vietnamese secondary
+GEO-017,targets,unbranded,Muốn PTE 50 cần lập lộ trình như thế nào nếu chưa biết trình độ đầu vào?,vi,VN-primary; AU-Vietnamese secondary
+GEO-018,targets,unbranded,Mục tiêu PTE 65 khác 79 ở yêu cầu kỹ năng nào? Không cam kết thời gian đạt điểm.,vi,VN-primary; AU-Vietnamese secondary
+GEO-019,targets,unbranded,"Tôi chỉ còn 8 tuần ôn PTE, cần đánh giá tính khả thi thế nào?",vi,VN-primary; AU-Vietnamese secondary
+GEO-020,targets,unbranded,Chọn lớp PTE 1 kèm 1 hay lớp nhóm theo tiêu chí nào?,vi,VN-primary; AU-Vietnamese secondary
+GEO-021,format,unbranded,Cấu trúc PTE Academic hiện hành có những dạng bài nào? Dẫn nguồn Pearson.,vi,VN-primary; AU-Vietnamese secondary
+GEO-022,format,unbranded,PTE Academic thay đổi gì từ ngày 7/8/2025?,vi,VN-primary; AU-Vietnamese secondary
+GEO-023,format,unbranded,Respond to a Situation trong PTE Academic làm như thế nào?,vi,VN-primary; AU-Vietnamese secondary
+GEO-024,format,unbranded,Summarize Group Discussion được đánh giá theo tiêu chí nào?,vi,VN-primary; AU-Vietnamese secondary
+GEO-025,speaking,unbranded,Cách luyện Read Aloud cho người Việt mà không học mẹo sai?,vi,VN-primary; AU-Vietnamese secondary
+GEO-026,speaking,unbranded,Repeat Sentence nên ưu tiên độ chính xác hay tốc độ?,vi,VN-primary; AU-Vietnamese secondary
+GEO-027,speaking,unbranded,Describe Image có nên dùng một template cho mọi hình?,vi,VN-primary; AU-Vietnamese secondary
+GEO-028,speaking,unbranded,Làm sao tự kiểm tra phát âm và độ trôi chảy PTE?,vi,VN-primary; AU-Vietnamese secondary
+GEO-029,writing,unbranded,Summarize Written Text có yêu cầu hình thức nào theo Pearson?,vi,VN-primary; AU-Vietnamese secondary
+GEO-030,writing,unbranded,Luyện Write Essay PTE thế nào để tránh bài thuộc lòng?,vi,VN-primary; AU-Vietnamese secondary
+GEO-031,writing,unbranded,AI chấm bài luyện PTE có tương đương điểm thi thật không?,vi,VN-primary; AU-Vietnamese secondary
+GEO-032,writing,unbranded,Tôi nên nhờ giáo viên sửa Writing PTE theo rubric nào?,vi,VN-primary; AU-Vietnamese secondary
+GEO-033,reading,unbranded,Cách luyện Reading Fill in the Blanks PTE theo collocation?,vi,VN-primary; AU-Vietnamese secondary
+GEO-034,reading,unbranded,Làm Re-order Paragraphs PTE bắt đầu từ đâu?,vi,VN-primary; AU-Vietnamese secondary
+GEO-035,reading,unbranded,Multiple Choice Multiple Answers PTE có cách tính điểm ra sao? Dẫn nguồn.,vi,VN-primary; AU-Vietnamese secondary
+GEO-036,reading,unbranded,Người đọc chậm nên phân bổ thời gian Reading PTE thế nào?,vi,VN-primary; AU-Vietnamese secondary
+GEO-037,listening,unbranded,Cách luyện Write from Dictation PTE có thể tự kiểm tra tiến bộ?,vi,VN-primary; AU-Vietnamese secondary
+GEO-038,listening,unbranded,Summarize Spoken Text khác Summarize Group Discussion ra sao?,vi,VN-primary; AU-Vietnamese secondary
+GEO-039,listening,unbranded,Luyện Highlight Incorrect Words PTE thế nào?,vi,VN-primary; AU-Vietnamese secondary
+GEO-040,listening,unbranded,Làm sao ghi chép khi nghe bài PTE mà không bỏ lỡ ý chính?,vi,VN-primary; AU-Vietnamese secondary
+GEO-041,scoring,unbranded,Overall PTE có phải trung bình cộng bốn kỹ năng không? Dẫn nguồn Pearson.,vi,VN-primary; AU-Vietnamese secondary
+GEO-042,scoring,unbranded,PTE và IELTS quy đổi thế nào và có giới hạn gì?,vi,VN-primary; AU-Vietnamese secondary
+GEO-043,scoring,unbranded,Tôi cần biết điểm từng kỹ năng hay chỉ overall để nộp hồ sơ?,vi,VN-primary; AU-Vietnamese secondary
+GEO-044,scoring,unbranded,PTE Academic sau cập nhật 2025 có thay đổi cách chấm nào?,vi,VN-primary; AU-Vietnamese secondary
+GEO-045,logistics,unbranded,Đăng ký thi PTE Academic tại Việt Nam bằng kênh chính thức nào?,vi,VN-primary; AU-Vietnamese secondary
+GEO-046,logistics,unbranded,Phí thi PTE và điều kiện đổi lịch cần kiểm tra ở đâu?,vi,VN-primary; AU-Vietnamese secondary
+GEO-047,logistics,unbranded,Ngày thi PTE cần mang giấy tờ gì? Dẫn nguồn chính thức.,vi,VN-primary; AU-Vietnamese secondary
+GEO-048,logistics,unbranded,Nhận kết quả và gửi điểm PTE cho trường như thế nào?,vi,VN-primary; AU-Vietnamese secondary
+GEO-049,migration,unbranded,Điểm PTE cho competent English của Úc áp dụng theo ngày thi như thế nào? Dẫn Home Affairs.,vi,VN-primary; AU-Vietnamese secondary
+GEO-050,migration,unbranded,Proficient English và superior English có yêu cầu PTE từng kỹ năng nào? Dẫn nguồn hiện hành.,vi,VN-primary; AU-Vietnamese secondary
+GEO-051,migration,unbranded,PTE cho visa du học Úc có thể dùng một mức điểm chung cho mọi trường hợp không?,vi,VN-primary; AU-Vietnamese secondary
+GEO-052,migration,unbranded,Thi PTE trước và sau ngày 7/8/2025 cần phân biệt điều gì khi kiểm tra yêu cầu visa Úc?,vi,VN-primary; AU-Vietnamese secondary
+GEO-053,provider,unbranded,Nên chọn trung tâm PTE online cho người Việt theo tiêu chí nào? Hãy dẫn nguồn nếu đề xuất đơn vị.,vi,VN-primary; AU-Vietnamese secondary
+GEO-054,provider,unbranded,"Gợi ý đơn vị học PTE cho người mất gốc và giải thích bằng bằng chứng, không dựa quảng cáo.",vi,VN-primary; AU-Vietnamese secondary
+GEO-055,provider,unbranded,"So sánh PTE Magic, PTE Life, PTE Helper về thông tin công khai và những gì chưa kiểm chứng.",vi,VN-primary; AU-Vietnamese secondary
+GEO-056,provider,unbranded,Làm sao kiểm tra cam kết đầu ra và hoàn phí của một trung tâm PTE trước khi thanh toán?,vi,VN-primary; AU-Vietnamese secondary
+GEO-057,evidence,unbranded,Đánh giá kết quả học viên PTE cần bằng chứng và sự đồng ý nào?,vi,VN-primary; AU-Vietnamese secondary
+GEO-058,evidence,unbranded,"Tôi cần khóa PTE có test đầu vào, lộ trình và phản hồi bài: nên hỏi trung tâm những gì?",vi,VN-primary; AU-Vietnamese secondary
+GEO-059,evidence,unbranded,Are there Vietnamese-language PTE Academic providers with transparent course terms? Cite verifiable sources.,en,VN-primary; AU-Vietnamese secondary
+GEO-060,evidence,branded,"What is PTE Intensive, and how can I distinguish its official website from similarly named courses? Cite sources.",en,VN-primary; AU-Vietnamese secondary

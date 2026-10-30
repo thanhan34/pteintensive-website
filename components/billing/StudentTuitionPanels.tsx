@@ -79,7 +79,7 @@ type CheckoutProps = SelectionProps & {
 };
 
 export function TuitionCheckoutPanel({ placementReady, cart, busy, total, paymentAvailable, setTab, changeCart, resolve, pay }: CheckoutProps) {
-  const { contact, updateContact: setContact } = usePlacementSession();
+  const { contact, resetVersion, updateContact: setContact } = usePlacementSession();
   const [reviewedSelection, setReviewedSelection] = useState('');
   const selection = JSON.stringify(cart.map((item) => [item.kind, item.id, resolve(item)?.title, resolve(item)?.amount, !!resolve(item)]));
   const reviewed = reviewedSelection === selection;
@@ -98,7 +98,7 @@ export function TuitionCheckoutPanel({ placementReady, cart, busy, total, paymen
     <aside><h3>Trước khi thanh toán</h3><ul><li><Check aria-hidden="true" /><span>Kiểm tra đúng khóa học và số tiền.</span></li><li><Check aria-hidden="true" /><span>Chuẩn bị họ tên, email và số điện thoại học viên.</span></li><li><ShieldCheck aria-hidden="true" /><span>Thông tin thẻ chỉ nhập trên cổng VNPAY.</span></li></ul><Link className="billing-link" href="/contact">Cần tư vấn học phí?</Link></aside>
   </Card>;
 
-  return <form onSubmit={submit} onInput={(event) => updateContact(event.currentTarget)} onChange={(event) => updateContact(event.currentTarget)} className="student-checkout-form" data-checkout-step={step}>
+  return <form key={resetVersion} onSubmit={submit} onInput={(event) => updateContact(event.currentTarget)} onChange={(event) => updateContact(event.currentTarget)} className="student-checkout-form" data-checkout-step={step}>
     <div className="student-checkout-intro"><div><h2>Kiểm tra & thanh toán</h2><p>Đối chiếu khoản thu và điền thông tin học viên trước khi tiếp tục.</p></div><span><LockKeyhole aria-hidden="true" />Lưu theo tài khoản</span></div>
     <p id="checkout-guidance" className="course-guidance-note" role="status" aria-atomic="true"><ArrowRight aria-hidden="true" /><span>{checkoutStepCopy[step]}</span></p>
     <div className="student-checkout-grid">

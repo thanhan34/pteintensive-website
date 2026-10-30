@@ -30,7 +30,7 @@ export default function StudentBilling({ embedded = false }: { embedded?: boolea
   };
   const [selectedOrder, setSelectedOrder] = useState('');
   const [checkedAt, setCheckedAt] = useState(0);
-  const { declaration: placementDeclaration, update: setPlacementDeclaration, addedToCart, cart, changeCart, loaded, flush, needsReview, confirmReview, saveMessage } = usePlacementSession();
+  const { declaration: placementDeclaration, update: setPlacementDeclaration, addedToCart, cart, changeCart, loaded, flush, saveMessage } = usePlacementSession();
   const declarationReady = validPlacementDeclaration(placementDeclaration);
   const placementReady = embedded ? declarationReady : cart.length > 0 && cart.every((item) => item.kind === 'fee' ? data?.fees.some((fee) => fee.id === item.id && fee.academicApproved) : declarationReady);
   const refresh = useCallback(async () => {
@@ -83,7 +83,7 @@ export default function StudentBilling({ embedded = false }: { embedded?: boolea
         if (cancelled) return true;
         setData(next); setCheckedAt(Date.now());
         const confirmed = next.orders.find((order) => order.id === selectedOrder);
-        if (confirmed?.status === 'paid') setNotice(confirmed.environment === 'sandbox' ? 'Giao dịch thử nghiệm thành công; đây không phải khoản thu tiền thật.' : 'Máy chủ đã xác nhận giao dịch thành công. Xem chi tiết kết quả thanh toán bên trên.');
+        if (confirmed?.status === 'paid') setNotice('Máy chủ đã xác nhận kết quả giao dịch. Xem chi tiết kết quả thanh toán bên trên.');
         return next.orders.find((order) => order.id === selectedOrder)?.status !== 'pending';
       },
       query: async (signal) => {
@@ -114,7 +114,7 @@ export default function StudentBilling({ embedded = false }: { embedded?: boolea
   const total = cart.reduce((sum, item) => sum + (resolve(item)?.amount || 0), 0);
   async function pay(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!placementReady || needsReview || !isSignedIn) { setError('Vui lòng quay lại trang khóa học để xác nhận kiểm tra đầu vào và nhập nhận xét học thuật.'); return; }
+    if (!placementReady || !isSignedIn) { setError('Vui lòng quay lại trang khóa học để xác nhận kiểm tra đầu vào và nhập nhận xét học thuật.'); return; }
     const fields = new FormData(event.currentTarget);
     setBusy(true); setError('');
     try {
@@ -130,9 +130,8 @@ export default function StudentBilling({ embedded = false }: { embedded?: boolea
       setError(err instanceof Error ? err.message : 'Không thể tạo đơn.'); setBusy(false);
     }
   }
-  if (!isLoaded || !loaded) return <section className="billing-shell"><div className="billing-container"><Card><p role="status">{saveMessage || 'Đang khôi phục tiến trình…'}</p></Card></div></section>;
+  if (!isLoaded || !loaded) return <section className={`billing-shell${embedded ? ' courses-billing-shell' : ''}`}><div className="billing-container"><Card><p role="status">{saveMessage || 'Đang khôi phục tiến trình…'}</p></Card></div></section>;
   return <><section className={`billing-shell${embedded ? ' courses-billing-shell' : ''}`}><div className="billing-container">
-    {!isSignedIn ? <Card><h2 className="text-xl font-bold">Đăng nhập để tiếp tục</h2><p className="my-4">Lưu tiến trình đầu vào, học phí và lịch sử thanh toán vào tài khoản.</p><SignInButton mode="modal"><Button size="lg">Đăng nhập / Tạo tài khoản</Button></SignInButton></Card> : <p className="text-sm text-gray-600" role="status">{saveMessage || 'Tiến trình được lưu theo tài khoản. Bản nháp quá 30 phút cần kiểm tra lại, không cần làm lại bài kiểm tra.'}</p>}
-    {needsReview && <Card className="mt-4"><h2 className="font-bold">Kiểm tra lại bản nháp</h2><p className="my-4">Bạn quay lại sau hơn 30 phút. Thông tin vẫn còn; kiểm tra lại khoản thu và thông tin học viên, không cần làm lại bài kiểm tra.</p><Button onClick={confirmReview}>Tôi sẽ kiểm tra lại thông tin</Button></Card>}
-  </div></section>{(embedded || isSignedIn) && <StudentBillingView embedded={embedded} placementDeclaration={placementDeclaration} onPlacementChange={setPlacementDeclaration} placementReady={placementReady} checkedAt={checkedAt} data={data} cart={cart} busy={busy || !isSignedIn || needsReview} error={error} notice={notice} tab={tab} setTab={setTab} selectedOrder={selectedOrder} total={total} refresh={refresh} add={add} changeCart={changeCart} resolve={resolve} pay={pay} />}</>;
+    {!isSignedIn ? <Card><h2 className="text-xl font-bold">Đăng nhập để tiếp tục</h2><p className="my-4">Lưu tiến trình đầu vào, học phí và lịch sử thanh toán vào tài khoản.</p><SignInButton mode="modal"><Button size="lg">Đăng nhập / Tạo tài khoản</Button></SignInButton></Card> : <p className="text-sm text-gray-600" role="status">{saveMessage || 'Bản nháp tự xóa sau 30 phút không chỉnh sửa: giỏ hàng, thông tin liên hệ và thông tin đầu vào. Đơn thanh toán đã tạo vẫn được giữ nguyên.'}</p>}
+  </div></section>{(embedded || isSignedIn) && <StudentBillingView embedded={embedded} placementDeclaration={placementDeclaration} onPlacementChange={setPlacementDeclaration} placementReady={placementReady} checkedAt={checkedAt} data={data} cart={cart} busy={busy || !isSignedIn} error={error} notice={notice} tab={tab} setTab={setTab} selectedOrder={selectedOrder} total={total} refresh={refresh} add={add} changeCart={changeCart} resolve={resolve} pay={pay} />}</>;
 }

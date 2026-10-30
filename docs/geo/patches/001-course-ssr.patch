@@ -1,0 +1,18 @@
+--- a/app/courses/[slug]/CourseContent.tsx
++++ b/app/courses/[slug]/CourseContent.tsx
+@@ -5,13 +5,8 @@
+ import { motion } from 'framer-motion';
+ import { type Course } from '@/lib/courseData';
+ 
+-// Dynamically import components with SSR disabled to avoid hydration issues
+-const CourseDetailClient = dynamic(() => import('./CourseDetailClient'), { 
+-  ssr: false,
+-  loading: () => (
+-    <div className="animate-pulse bg-[#fedac2]/20 h-96 rounded-xl" />
+-  )
+-});
++// Render the primary course details on the server; defer secondary interactive sections.
++import CourseDetailClient from './CourseDetailClient';
+ 
+ const OldLearningRoadmap = dynamic(() => import('@/components/OldLearningRoadmap'), { 
+   ssr: false,

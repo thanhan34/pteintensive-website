@@ -1,0 +1,482 @@
+[
+  {
+    "prompt_id": "GEO-001",
+    "cluster": "brand",
+    "brand_class": "branded",
+    "prompt": "PTE Intensive là đơn vị nào, website chính thức là gì? Hãy dẫn nguồn.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-002",
+    "cluster": "brand",
+    "brand_class": "branded",
+    "prompt": "PTE Intensive có những khóa học nào và phù hợp với ai? Chỉ dùng thông tin kiểm chứng được.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-003",
+    "cluster": "brand",
+    "brand_class": "branded",
+    "prompt": "Học phí PTE Intensive hiện được công bố ở đâu? Không suy đoán mức phí.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-004",
+    "cluster": "brand",
+    "brand_class": "branded",
+    "prompt": "Giảng viên PTE Intensive là ai? Có bằng chứng công khai về chuyên môn không?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-005",
+    "cluster": "brand",
+    "brand_class": "branded",
+    "prompt": "PTE Intensive dạy online hay trực tiếp? Phân biệt địa chỉ liên hệ và nơi tổ chức lớp.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-006",
+    "cluster": "brand",
+    "brand_class": "branded",
+    "prompt": "Cam kết đầu ra của PTE Intensive có điều kiện gì? Hãy dẫn trang chính sách.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-007",
+    "cluster": "brand",
+    "brand_class": "branded",
+    "prompt": "Tôi mất gốc, muốn học PTE Intensive: nên bắt đầu bằng bước nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-008",
+    "cluster": "brand",
+    "brand_class": "branded",
+    "prompt": "PTE Intensive có phải tên một khóa học của PTE Magic không? Phân biệt các thực thể theo nguồn.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-009",
+    "cluster": "brand",
+    "brand_class": "branded",
+    "prompt": "Có thông tin độc lập nào kiểm chứng chất lượng PTE Intensive? Phân biệt quảng cáo và đánh giá độc lập.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-010",
+    "cluster": "brand",
+    "brand_class": "branded",
+    "prompt": "PTE Intensive có quan hệ chính thức với Pearson không? Chỉ kết luận nếu có bằng chứng từ Pearson.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-011",
+    "cluster": "brand",
+    "brand_class": "branded",
+    "prompt": "PTE Intensive có phù hợp người đi làm cần lịch học linh hoạt không? Nêu thông tin còn thiếu.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-012",
+    "cluster": "brand",
+    "brand_class": "branded",
+    "prompt": "So sánh PTE Intensive và PTE Life theo tiêu chí công khai, không xếp hạng nếu thiếu dữ liệu.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-013",
+    "cluster": "beginner",
+    "brand_class": "unbranded",
+    "prompt": "PTE Academic là gì và khác PTE Core ở điểm nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-014",
+    "cluster": "beginner",
+    "brand_class": "unbranded",
+    "prompt": "Người mất gốc nên chuẩn bị gì trước khi học PTE?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-015",
+    "cluster": "beginner",
+    "brand_class": "unbranded",
+    "prompt": "Tôi đi làm toàn thời gian, nên lập lịch học PTE như thế nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-016",
+    "cluster": "beginner",
+    "brand_class": "unbranded",
+    "prompt": "Làm sao đánh giá trình độ đầu vào trước khi chọn khóa PTE?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-017",
+    "cluster": "targets",
+    "brand_class": "unbranded",
+    "prompt": "Muốn PTE 50 cần lập lộ trình như thế nào nếu chưa biết trình độ đầu vào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-018",
+    "cluster": "targets",
+    "brand_class": "unbranded",
+    "prompt": "Mục tiêu PTE 65 khác 79 ở yêu cầu kỹ năng nào? Không cam kết thời gian đạt điểm.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-019",
+    "cluster": "targets",
+    "brand_class": "unbranded",
+    "prompt": "Tôi chỉ còn 8 tuần ôn PTE, cần đánh giá tính khả thi thế nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-020",
+    "cluster": "targets",
+    "brand_class": "unbranded",
+    "prompt": "Chọn lớp PTE 1 kèm 1 hay lớp nhóm theo tiêu chí nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-021",
+    "cluster": "format",
+    "brand_class": "unbranded",
+    "prompt": "Cấu trúc PTE Academic hiện hành có những dạng bài nào? Dẫn nguồn Pearson.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-022",
+    "cluster": "format",
+    "brand_class": "unbranded",
+    "prompt": "PTE Academic thay đổi gì từ ngày 7/8/2025?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-023",
+    "cluster": "format",
+    "brand_class": "unbranded",
+    "prompt": "Respond to a Situation trong PTE Academic làm như thế nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-024",
+    "cluster": "format",
+    "brand_class": "unbranded",
+    "prompt": "Summarize Group Discussion được đánh giá theo tiêu chí nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-025",
+    "cluster": "speaking",
+    "brand_class": "unbranded",
+    "prompt": "Cách luyện Read Aloud cho người Việt mà không học mẹo sai?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-026",
+    "cluster": "speaking",
+    "brand_class": "unbranded",
+    "prompt": "Repeat Sentence nên ưu tiên độ chính xác hay tốc độ?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-027",
+    "cluster": "speaking",
+    "brand_class": "unbranded",
+    "prompt": "Describe Image có nên dùng một template cho mọi hình?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-028",
+    "cluster": "speaking",
+    "brand_class": "unbranded",
+    "prompt": "Làm sao tự kiểm tra phát âm và độ trôi chảy PTE?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-029",
+    "cluster": "writing",
+    "brand_class": "unbranded",
+    "prompt": "Summarize Written Text có yêu cầu hình thức nào theo Pearson?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-030",
+    "cluster": "writing",
+    "brand_class": "unbranded",
+    "prompt": "Luyện Write Essay PTE thế nào để tránh bài thuộc lòng?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-031",
+    "cluster": "writing",
+    "brand_class": "unbranded",
+    "prompt": "AI chấm bài luyện PTE có tương đương điểm thi thật không?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-032",
+    "cluster": "writing",
+    "brand_class": "unbranded",
+    "prompt": "Tôi nên nhờ giáo viên sửa Writing PTE theo rubric nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-033",
+    "cluster": "reading",
+    "brand_class": "unbranded",
+    "prompt": "Cách luyện Reading Fill in the Blanks PTE theo collocation?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-034",
+    "cluster": "reading",
+    "brand_class": "unbranded",
+    "prompt": "Làm Re-order Paragraphs PTE bắt đầu từ đâu?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-035",
+    "cluster": "reading",
+    "brand_class": "unbranded",
+    "prompt": "Multiple Choice Multiple Answers PTE có cách tính điểm ra sao? Dẫn nguồn.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-036",
+    "cluster": "reading",
+    "brand_class": "unbranded",
+    "prompt": "Người đọc chậm nên phân bổ thời gian Reading PTE thế nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-037",
+    "cluster": "listening",
+    "brand_class": "unbranded",
+    "prompt": "Cách luyện Write from Dictation PTE có thể tự kiểm tra tiến bộ?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-038",
+    "cluster": "listening",
+    "brand_class": "unbranded",
+    "prompt": "Summarize Spoken Text khác Summarize Group Discussion ra sao?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-039",
+    "cluster": "listening",
+    "brand_class": "unbranded",
+    "prompt": "Luyện Highlight Incorrect Words PTE thế nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-040",
+    "cluster": "listening",
+    "brand_class": "unbranded",
+    "prompt": "Làm sao ghi chép khi nghe bài PTE mà không bỏ lỡ ý chính?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-041",
+    "cluster": "scoring",
+    "brand_class": "unbranded",
+    "prompt": "Overall PTE có phải trung bình cộng bốn kỹ năng không? Dẫn nguồn Pearson.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-042",
+    "cluster": "scoring",
+    "brand_class": "unbranded",
+    "prompt": "PTE và IELTS quy đổi thế nào và có giới hạn gì?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-043",
+    "cluster": "scoring",
+    "brand_class": "unbranded",
+    "prompt": "Tôi cần biết điểm từng kỹ năng hay chỉ overall để nộp hồ sơ?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-044",
+    "cluster": "scoring",
+    "brand_class": "unbranded",
+    "prompt": "PTE Academic sau cập nhật 2025 có thay đổi cách chấm nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-045",
+    "cluster": "logistics",
+    "brand_class": "unbranded",
+    "prompt": "Đăng ký thi PTE Academic tại Việt Nam bằng kênh chính thức nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-046",
+    "cluster": "logistics",
+    "brand_class": "unbranded",
+    "prompt": "Phí thi PTE và điều kiện đổi lịch cần kiểm tra ở đâu?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-047",
+    "cluster": "logistics",
+    "brand_class": "unbranded",
+    "prompt": "Ngày thi PTE cần mang giấy tờ gì? Dẫn nguồn chính thức.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-048",
+    "cluster": "logistics",
+    "brand_class": "unbranded",
+    "prompt": "Nhận kết quả và gửi điểm PTE cho trường như thế nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-049",
+    "cluster": "migration",
+    "brand_class": "unbranded",
+    "prompt": "Điểm PTE cho competent English của Úc áp dụng theo ngày thi như thế nào? Dẫn Home Affairs.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-050",
+    "cluster": "migration",
+    "brand_class": "unbranded",
+    "prompt": "Proficient English và superior English có yêu cầu PTE từng kỹ năng nào? Dẫn nguồn hiện hành.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-051",
+    "cluster": "migration",
+    "brand_class": "unbranded",
+    "prompt": "PTE cho visa du học Úc có thể dùng một mức điểm chung cho mọi trường hợp không?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-052",
+    "cluster": "migration",
+    "brand_class": "unbranded",
+    "prompt": "Thi PTE trước và sau ngày 7/8/2025 cần phân biệt điều gì khi kiểm tra yêu cầu visa Úc?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-053",
+    "cluster": "provider",
+    "brand_class": "unbranded",
+    "prompt": "Nên chọn trung tâm PTE online cho người Việt theo tiêu chí nào? Hãy dẫn nguồn nếu đề xuất đơn vị.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-054",
+    "cluster": "provider",
+    "brand_class": "unbranded",
+    "prompt": "Gợi ý đơn vị học PTE cho người mất gốc và giải thích bằng bằng chứng, không dựa quảng cáo.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-055",
+    "cluster": "provider",
+    "brand_class": "unbranded",
+    "prompt": "So sánh PTE Magic, PTE Life, PTE Helper về thông tin công khai và những gì chưa kiểm chứng.",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-056",
+    "cluster": "provider",
+    "brand_class": "unbranded",
+    "prompt": "Làm sao kiểm tra cam kết đầu ra và hoàn phí của một trung tâm PTE trước khi thanh toán?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-057",
+    "cluster": "evidence",
+    "brand_class": "unbranded",
+    "prompt": "Đánh giá kết quả học viên PTE cần bằng chứng và sự đồng ý nào?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-058",
+    "cluster": "evidence",
+    "brand_class": "unbranded",
+    "prompt": "Tôi cần khóa PTE có test đầu vào, lộ trình và phản hồi bài: nên hỏi trung tâm những gì?",
+    "language": "vi",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-059",
+    "cluster": "evidence",
+    "brand_class": "unbranded",
+    "prompt": "Are there Vietnamese-language PTE Academic providers with transparent course terms? Cite verifiable sources.",
+    "language": "en",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  },
+  {
+    "prompt_id": "GEO-060",
+    "cluster": "evidence",
+    "brand_class": "branded",
+    "prompt": "What is PTE Intensive, and how can I distinguish its official website from similarly named courses? Cite sources.",
+    "language": "en",
+    "market": "VN-primary; AU-Vietnamese secondary"
+  }
+]

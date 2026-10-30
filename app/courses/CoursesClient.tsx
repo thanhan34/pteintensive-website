@@ -2,6 +2,7 @@
 
 import Script from 'next/script';
 import Image from 'next/image';
+import Link from 'next/link';
 import heroImage from '@/public/images/courses/hero.webp';
 import { ArrowRight } from 'lucide-react';
 import { courseData } from '@/lib/courseData';
@@ -48,6 +49,7 @@ export default function CoursesClient() {
           <p className="courses-hero-description">Hoàn thành bài kiểm tra đầu vào để xác định trình độ hiện tại và định hướng lộ trình học PTE phù hợp.</p>
           <div className="courses-hero-actions">
             <a className="courses-hero-primary" data-guidance={guidanceStep === 'start'} onClick={startGuidance} href="#placement-declaration">Bắt đầu kiểm tra đầu vào<ArrowRight aria-hidden="true" /></a>
+            <Link className="courses-hero-secondary" href="#student-course-selection">Khám phá các khóa học <ArrowRight aria-hidden="true" /></Link>
           </div>
           <p className="courses-hero-note">Bắt buộc trước khi tham gia khóa học</p>
           <ol className="courses-hero-steps" aria-label="Các bước bắt đầu lộ trình PTE">
